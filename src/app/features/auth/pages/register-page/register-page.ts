@@ -1,8 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-register-page',
-  imports: [],
-  template: `<p>register-page works!</p>`,
+  selector: 'register-page',
+  imports: [RouterLink, FormsModule],
+  templateUrl: './register-page.html',
 })
-export class RegisterPage { }
+export class RegisterPage {
+  name = signal('');
+  email = signal('');
+  password = signal('');
+  confirmPass = signal('');
+  onSubmit() {
+    console.log('Register', this.email());
+  }
+}
