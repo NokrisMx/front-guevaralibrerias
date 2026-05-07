@@ -1,158 +1,219 @@
 <div class="bg-neutral-50 min-h-screen">
 
   <!-- Header -->
-  <div style="background-color:#02332D" class="py-10">
+  <div style="background-color:#02332D" class="py-10 text-start">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="text-xs tracking-widest uppercase mb-1" style="color:#b8975a">Colección</p>
-      <h1 class="text-4xl font-light text-white" style="font-family:'Cormorant Garamond',serif; font-style:italic">
-        Catálogo</h1>
+      <p class="text-xs tracking-widest uppercase mb-1" style="color:#b8975a">
+        Libros
+      </p>
+
+      <h1 class="text-4xl font-light text-white" style="font-family:'Cormorant Garamond',serif;">
+        Catálogo
+      </h1>
     </div>
   </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Search bar -->
+
+    <!-- Search -->
     <div class="relative mb-6">
       <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400"
         fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
-      <input type="text" placeholder="Buscar por título o autor..." [ngModel]="search()"
-        (ngModelChange)="search.set($event)"
-        class="w-full pl-12 pr-4 py-3 border border-neutral-200 bg-white rounded-sm text-sm focus:outline-none focus:border-[#02332D] transition-colors">
+
+      <input type="text" placeholder="Buscar por título..." [ngModel]="search()" (ngModelChange)="search.set($event)"
+        class="w-full pl-12 pr-4 py-3 border border-neutral-200 bg-white rounded-sm text-sm focus:outline-none focus:border-[#02332D] transition-colors" />
     </div>
 
-    <div class="flex flex-col lg:flex-row gap-6">
-      <!-- Filters sidebar -->
-      <aside class="w-full lg:w-64 shrink-0">
-        <div class="bg-white border border-neutral-100 rounded-sm p-4 space-y-3">
+    <!-- Mobile filter button -->
+    <div class="lg:hidden mb-5">
+      <label for="filters-drawer" class="btn btn-outline w-full border-neutral-200">
+        Filtros
+      </label>
+    </div>
 
-          <!-- Categorías -->
-          <div class="collapse collapse-arrow border border-neutral-100 rounded-sm">
-            <input type="checkbox" checked />
+    <!-- Drawer -->
+    <div class="drawer lg:drawer-open">
 
-            <div class="collapse-title text-sm font-medium text-[#02332D]">
-              Categorías
-            </div>
+      <!-- Toggle -->
+      <input id="filters-drawer" type="checkbox" class="drawer-toggle" />
 
-            <div class="collapse-content space-y-1">
+      <!-- MAIN CONTENT -->
+      <div class="drawer-content">
 
-              <button (click)="setCategory(0)" [class.font-medium]="selectedCategory() === 0"
-                [class.text-primary]="selectedCategory() === 0"
-                class="block w-full text-left text-sm py-1.5 text-neutral-500 hover:text-primary transition-colors">
-                Todos
-              </button>
+        <main class="flex-1">
 
-              @for (cat of categoryResource.value() ?? []; track cat.id) {
-              <button (click)="setCategory(cat.id)" [class.font-medium]="selectedCategory() === cat.id"
-                [class.text-primary]="selectedCategory() === cat.id"
-                class="block w-full text-left text-sm py-1.5 text-neutral-500 hover:text-primary transition-colors">
-                {{ cat.name }}
-              </button>
-              }
+          <p class="text-sm text-neutral-400 mb-4">
+            {{pagination()?.totalRecords ?? 0}} resultados
+          </p>
 
-            </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-5">
+
+            @for (book of books(); track book.id) {
+            <card-book-component [book]="book" />
+            }
+
           </div>
 
-          <!-- Autores -->
-          <div class="collapse collapse-arrow border border-neutral-100 rounded-sm">
-            <input type="checkbox" />
+          @if (books().length === 0) {
+          <div class="text-center py-16">
+            <p class="text-neutral-400 text-sm">
+              No se encontraron libros con esos filtros.
+            </p>
+          </div>
+          }
 
-            <div class="collapse-title text-sm font-medium text-[#02332D]">
-              Autores
-            </div>
+          <pagination-component [pages]="pagination()?.totalPages ?? 0" [currentPage]="currentPage()"
+            (pageChange)="currentPage.set($event)" />
 
-            <div class="collapse-content space-y-1">
+        </main>
 
-              <button (click)="setAuthor(0)" [class.font-medium]="selectedAuthor() === 0"
-                [class.text-primary]="selectedAuthor() === 0"
-                class="block w-full text-left text-sm py-1.5 text-neutral-500 hover:text-primary transition-colors">
-                Todos
-              </button>
+      </div>
 
-              @for (auth of authorsResource.value() ?? []; track auth.id) {
-              <button (click)="setAuthor(auth.id)" [class.font-medium]="selectedAuthor() === auth.id"
-                [class.text-primary]="selectedAuthor() === auth.id"
-                class="block w-full text-left text-sm py-1.5 text-neutral-500 hover:text-primary transition-colors">
-                {{ auth.name }}
-              </button>
-              }
+      <!-- SIDEBAR -->
+      <div class="drawer-side z-40">
 
-            </div>
+        <!-- Overlay -->
+        <label for="filters-drawer" class="drawer-overlay"></label>
+
+        <aside class="w-72 min-h-full bg-neutral-50 p-4">
+
+          <!-- Mobile title -->
+          <div class="flex items-center justify-between mb-4 lg:hidden">
+
+            <h2 class="font-medium text-[#02332D]">
+              Filtros
+            </h2>
+
+            <label for="filters-drawer" class="btn btn-sm btn-circle btn-ghost">
+              ✕
+            </label>
+
           </div>
 
-          <!-- Editorial -->
-          <div class="collapse collapse-arrow border border-neutral-100 rounded-sm">
-            <input type="checkbox" />
+          <!-- Filters -->
+          <div class="bg-white border border-neutral-100 rounded-sm p-4 space-y-3">
 
-            <div class="collapse-title text-sm font-medium text-[#02332D]">
-              Editoriales
-            </div>
+            <!-- Categorías -->
+            <div class="collapse collapse-arrow border border-neutral-100 rounded-sm">
+              <input type="checkbox" checked />
 
-            <div class="collapse-content space-y-1">
-
-              <button (click)="setPublisher(0)" [class.font-medium]="selectedPublisher() === 0"
-                [class.text-primary]="selectedPublisher() === 0"
-                class="block w-full text-left text-sm py-1.5 text-neutral-500 hover:text-primary transition-colors">
-                Todos
-              </button>
-
-              @for (pub of publisherResource.value() ?? []; track pub.id) {
-              <button (click)="setPublisher(pub.id)" [class.font-medium]="selectedPublisher() === pub.id"
-                [class.text-primary]="selectedPublisher() === pub.id"
-                class="block w-full text-left text-sm py-1.5 text-neutral-500 hover:text-primary transition-colors">
-                {{ pub.name }}
-              </button>
-              }
-
-            </div>
-          </div>
-
-          <!-- Precio -->
-          <div class="collapse collapse-arrow border border-neutral-100 rounded-sm">
-            <input type="checkbox" checked />
-
-            <div class="collapse-title text-sm font-medium text-[#02332D]">
-              Precio
-            </div>
-
-            <div class="collapse-content">
-
-              <p class="text-xs text-neutral-400 mb-3">
-                Precio máximo: ${{ sliderPrice() }} MXN
-              </p>
-
-              <input type="range" min="100" max="1000" step="50" [value]="sliderPrice()"
-                (input)="sliderPrice.set(+$any($event.target).value)" (change)="setMaxPrice($any($event.target).value)"
-                class="range range-primary range-sm" />
-
-              <div class="flex justify-between text-xs text-neutral-400 mt-2">
-                <span>$100</span>
-                <span>$1000</span>
+              <div class="collapse-title text-sm font-medium text-[#02332D]">
+                Categorías
               </div>
 
+              <div class="collapse-content space-y-1">
+
+                <button (click)="setCategory(0)" [class.font-medium]="selectedCategory() === 0"
+                  [class.text-primary]="selectedCategory() === 0"
+                  class="block w-full text-left text-sm py-1.5 text-neutral-500 hover:text-primary transition-colors">
+                  Todos
+                </button>
+
+                @for (cat of categoryResource.value() ?? []; track cat.id) {
+
+                <button (click)="setCategory(cat.id)" [class.font-medium]="selectedCategory() === cat.id"
+                  [class.text-primary]="selectedCategory() === cat.id"
+                  class="block w-full text-left text-sm py-1.5 text-neutral-500 hover:text-primary transition-colors">
+                  {{ cat.name }}
+                </button>
+
+                }
+
+              </div>
             </div>
+
+            <!-- Autores -->
+            <div class="collapse collapse-arrow border border-neutral-100 rounded-sm">
+              <input type="checkbox" />
+
+              <div class="collapse-title text-sm font-medium text-[#02332D]">
+                Autores
+              </div>
+
+              <div class="collapse-content space-y-1">
+
+                <button (click)="setAuthor(0)" [class.font-medium]="selectedAuthor() === 0"
+                  [class.text-primary]="selectedAuthor() === 0"
+                  class="block w-full text-left text-sm py-1.5 text-neutral-500 hover:text-primary transition-colors">
+                  Todos
+                </button>
+
+                @for (auth of authorsResource.value() ?? []; track auth.id) {
+
+                <button (click)="setAuthor(auth.id)" [class.font-medium]="selectedAuthor() === auth.id"
+                  [class.text-primary]="selectedAuthor() === auth.id"
+                  class="block w-full text-left text-sm py-1.5 text-neutral-500 hover:text-primary transition-colors">
+                  {{ auth.name }}
+                </button>
+
+                }
+
+              </div>
+            </div>
+
+            <!-- Editoriales -->
+            <div class="collapse collapse-arrow border border-neutral-100 rounded-sm">
+              <input type="checkbox" />
+
+              <div class="collapse-title text-sm font-medium text-[#02332D]">
+                Editoriales
+              </div>
+
+              <div class="collapse-content space-y-1">
+
+                <button (click)="setPublisher(0)" [class.font-medium]="selectedPublisher() === 0"
+                  [class.text-primary]="selectedPublisher() === 0"
+                  class="block w-full text-left text-sm py-1.5 text-neutral-500 hover:text-primary transition-colors">
+                  Todos
+                </button>
+
+                @for (pub of publisherResource.value() ?? []; track pub.id) {
+
+                <button (click)="setPublisher(pub.id)" [class.font-medium]="selectedPublisher() === pub.id"
+                  [class.text-primary]="selectedPublisher() === pub.id"
+                  class="block w-full text-left text-sm py-1.5 text-neutral-500 hover:text-primary transition-colors">
+                  {{ pub.name }}
+                </button>
+
+                }
+
+              </div>
+            </div>
+
+            <!-- Precio -->
+            <div class="collapse collapse-arrow border border-neutral-100 rounded-sm">
+              <input type="checkbox" checked />
+
+              <div class="collapse-title text-sm font-medium text-[#02332D]">
+                Precio
+              </div>
+
+              <div class="collapse-content">
+
+                <p class="text-xs text-neutral-400 mb-3">
+                  Precio máximo: ${{ sliderPrice() }} MXN
+                </p>
+
+                <input type="range" min="100" max="1000" step="50" [value]="sliderPrice()"
+                  (input)="sliderPrice.set(+$any($event.target).value)"
+                  (change)="setMaxPrice($any($event.target).value)" class="range range-primary range-sm" />
+
+                <div class="flex justify-between text-xs text-neutral-400 mt-2">
+                  <span>$100</span>
+                  <span>$1000</span>
+                </div>
+
+              </div>
+            </div>
+
           </div>
 
-        </div>
-      </aside>
+        </aside>
+      </div>
 
-      <!-- Book grid -->
-      <main class="flex-1">
-        <p class="text-sm text-neutral-400 mb-4">{{pagination()?.totalRecords??0}} resultados</p>
-        <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-5">
-          @for (book of books(); track book.id) {
-          <card-book-component [book]="book" />
-          }
-        </div>
-        @if (books().length === 0) {
-        <div class="text-center py-16">
-          <p class="text-neutral-400 text-sm">No se encontraron libros con esos filtros.</p>
-        </div>
-        }
-        <pagination-component [pages]="pagination()?.totalPages ?? 0" [currentPage]="currentPage()"
-          (pageChange)="currentPage.set($event)" />
-      </main>
     </div>
   </div>
 </div>

@@ -1,9 +1,8 @@
 import { Component, computed, input, linkedSignal, output } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'pagination-component',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './pagination-component.html',
 })
 export class PaginationComponent {

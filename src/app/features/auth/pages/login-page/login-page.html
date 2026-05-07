@@ -1,4 +1,4 @@
-<div class="min-h-screen flex" style="background-color:#02332D">
+<div class="min-h-screen flex bg-primary">
   <div class="hidden lg:flex lg:w-1/2 items-center justify-center relative overflow-hidden">
     <div class="absolute inset-0 opacity-5"
       style="background-image:repeating-linear-gradient(45deg,#b8975a 0,#b8975a 1px,transparent 0,transparent 30px);background-size:30px 30px">
@@ -12,10 +12,6 @@
   </div>
   <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
     <div class="w-full max-w-md">
-      <div class="lg:hidden mb-8">
-        <h2 class="text-3xl font-light" style="font-family:'Cormorant Garamond',serif;color:#02332D;font-style:italic">
-          GuevaraLibrerías</h2>
-      </div>
       <p class="text-xs tracking-widest uppercase mb-2" style="color:#b8975a">Bienvenido</p>
       <h2 class="text-3xl font-light mb-8" style="font-family:'Cormorant Garamond',serif;color:#02332D">Iniciar Sesión
       </h2>
@@ -41,10 +37,16 @@
         <div class="flex justify-end">
           <a href="#" class="text-xs text-neutral-400 hover:text-[#02332D]">¿Olvidaste tu contraseña?</a>
         </div>
-        <button type="submit"
+
+        @if (errorMsg()) {
+        <div class="text-sm text-red-500 bg-red-50 border border-red-200 px-4 py-2 rounded-sm">
+          {{ errorMsg() }}
+        </div>
+        }
+        <button type="submit" [disabled]="isLoading()"
           class="w-full py-3 text-white text-sm font-medium tracking-wide transition-opacity hover:opacity-90"
           style="background-color:#02332D">
-          Iniciar Sesión
+          {{ isLoading() ? 'Iniciando sesión...' : 'Iniciar Sesión' }}
         </button>
       </form>
       <p class="text-center text-sm text-neutral-400 mt-6">¿No tienes cuenta? <a routerLink="/auth/register"

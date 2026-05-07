@@ -28,18 +28,45 @@
         </div>
       </div>
       <div class="hidden md:flex justify-end gap-4">
+
+        <!-- Columna izquierda -->
         <div class="flex flex-col gap-4 mt-12">
-          <div class="w-36 h-48 shadow-2xl rounded-sm"
-            style="background:linear-gradient(135deg,#04534a,#02332D);border-left:3px solid #b8975a"></div>
-          <div class="w-32 h-44 shadow-2xl rounded-sm ml-6"
-            style="background:linear-gradient(135deg,#011a16,#02332D);border-left:3px solid #b8975a80"></div>
+
+          @if(bookResource.value()?.data?.[0]; as book1){
+          <a [routerLink]="['/books', book1.id]" class="w-36 h-48 shadow-2xl rounded-sm overflow-hidden group">
+            <img [src]="book1.imgUrl || 'assets/images/no-image.jpg'" [alt]="book1.title"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          </a>
+          }
+
+          @if(bookResource.value()?.data?.[1]; as book2){
+          <a [routerLink]="['/books', book2.id]" class="w-32 h-44 shadow-2xl rounded-sm overflow-hidden ml-6 group">
+            <img [src]="book2.imgUrl || 'assets/images/no-image.jpg'" [alt]="book2.title"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          </a>
+          }
+
         </div>
+
+        <!-- Columna derecha -->
         <div class="flex flex-col gap-4">
-          <div class="w-40 h-52 shadow-2xl rounded-sm"
-            style="background:linear-gradient(135deg,#04534a,#011a16);border-left:3px solid #b8975a"></div>
-          <div class="w-36 h-40 shadow-2xl rounded-sm"
-            style="background:linear-gradient(135deg,#02332D,#04534a);border-left:3px solid #b8975a60"></div>
+
+          @if(bookResource.value()?.data?.[2]; as book3){
+          <a [routerLink]="['/books', book3.id]" class="w-40 h-52 shadow-2xl rounded-sm overflow-hidden group">
+            <img [src]="book3.imgUrl || 'assets/images/no-image.jpg'" [alt]="book3.title"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          </a>
+          }
+
+          @if(bookResource.value()?.data?.[3]; as book4){
+          <a [routerLink]="['/books', book4.id]" class="w-36 h-40 shadow-2xl rounded-sm overflow-hidden group">
+            <img [src]="book4.imgUrl || 'assets/images/no-image.jpg'" [alt]="book4.title"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          </a>
+          }
+
         </div>
+
       </div>
     </div>
   </div>

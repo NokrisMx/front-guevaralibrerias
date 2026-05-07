@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../../features/auth/services/auth-service';
 
 @Component({
   selector: 'app-header-component',
@@ -7,6 +8,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './header-component.html',
 })
 export class HeaderComponent {
+  authService = inject(AuthService);
   cartCount = signal(3);
   mobileOpen = signal(false);
   toggleMobile() {

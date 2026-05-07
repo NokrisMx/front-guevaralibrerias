@@ -1,5 +1,10 @@
 import { User } from './user-interface';
 export interface AuthResponse {
-  user: User;
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
   token: string;
 }

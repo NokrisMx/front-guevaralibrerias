@@ -55,7 +55,7 @@ export class BooksPage {
   bookResource = rxResource({
     params: () => ({
       page: this.currentPage(),
-      pageSize: 10,
+      pageSize: 12,
       query: this.debouncedSearch(),
       categoryId: this.selectedCategory(),
       authorId: this.selectedAuthor(),
