@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BooksService } from '../../../../core/services/books-service';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -10,10 +10,12 @@ import { rxResource } from '@angular/core/rxjs-interop';
 })
 export class FeaturedComponent {
   bookService = inject(BooksService);
+  booksFeatured = computed(() => this.bookResource.value()?.data ?? []);
 
-  productResource = rxResource({
-    stream: () => {
-      return this.bookService.getBooks();
+  bookResource = rxResource({
+    params: () => ({ page: 1, pageSize: 4 }),
+    stream: ({ params }) => {
+      return this.bookService.getBooksPagination(params);
     },
   });
 }

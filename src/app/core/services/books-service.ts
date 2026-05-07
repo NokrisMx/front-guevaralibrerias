@@ -20,11 +20,12 @@ export class BooksService {
   getBooksPagination(paramsData: {
     page?: number;
     pageSize?: number;
+    query?: string;
     categoryId?: number;
     authorId?: number;
+    publisherId?: number;
     minPrice?: number;
     maxPrice?: number;
-    publisher?: number;
   }) {
     let params = new HttpParams();
 
@@ -36,12 +37,20 @@ export class BooksService {
       params = params.set('pageSize', paramsData.pageSize);
     }
 
+    if (paramsData.query?.trim()) {
+      params = params.set('query', paramsData.query.trim());
+    }
+
     if (paramsData.categoryId && paramsData.categoryId > 0) {
       params = params.set('categoryId', paramsData.categoryId);
     }
 
     if (paramsData.authorId && paramsData.authorId > 0) {
       params = params.set('authorId', paramsData.authorId);
+    }
+
+    if (paramsData.publisherId && paramsData.publisherId > 0) {
+      params = params.set('publisherId', paramsData.publisherId);
     }
 
     if (paramsData.minPrice !== undefined) {
@@ -52,11 +61,9 @@ export class BooksService {
       params = params.set('maxPrice', paramsData.maxPrice);
     }
 
-    if (paramsData.publisher) {
-      params = params.set('publisher', paramsData.publisher);
-    }
-
-    return this.http.get<BookPagination>(`${baseUrl}/Book/page`, { params });
+    return this.http.get<BookPagination>(`${baseUrl}/Book`, {
+      params,
+    });
   }
 
   getBookById(id: number) {

@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject } from '@angular/core';
+import { Component, signal, computed, inject, effect } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -23,12 +23,14 @@ export class BooksPage {
   private route = inject(ActivatedRoute);
 
   search = signal<string>('');
+  debouncedSearch = signal<string>('');
   currentPage = signal<number>(1);
   selectedCategory = signal<number>(0);
   selectedAuthor = signal<number>(0);
   selectedPublisher = signal<number>(0);
   minPrice = signal<number>(0);
   maxPrice = signal<number>(1000);
+  sliderPrice = signal<number>(1000);
   books = computed(() => this.bookResource.value()?.data ?? []);
   pagination = computed(() => this.bookResource.value());
 
@@ -38,27 +40,32 @@ export class BooksPage {
 
       this.selectedCategory.set(categoryId);
     });
+
+    effect((onCleanup) => {
+      const value = this.search();
+
+      const timeout = setTimeout(() => {
+        this.debouncedSearch.set(value);
+      }, 800);
+
+      onCleanup(() => clearTimeout(timeout));
+    });
   }
 
   bookResource = rxResource({
     params: () => ({
       page: this.currentPage(),
       pageSize: 10,
+      query: this.debouncedSearch(),
       categoryId: this.selectedCategory(),
       authorId: this.selectedAuthor(),
+      publisherId: this.selectedPublisher(),
       minPrice: this.minPrice(),
       maxPrice: this.maxPrice(),
     }),
 
     stream: ({ params }) => {
-      return this.bookService.getBooksPagination({
-        page: params.page,
-        pageSize: params.pageSize,
-        categoryId: params.categoryId,
-        authorId: params.authorId,
-        minPrice: params.minPrice,
-        maxPrice: params.maxPrice,
-      });
+      return this.bookService.getBooksPagination(params);
     },
   });
 
@@ -80,22 +87,9 @@ export class BooksPage {
     },
   });
 
-  filteredBooks = computed(() => {
-    const response = this.bookResource.value();
-
-    if (!response) return [];
-
-    const books = response.data;
-
-    const search = this.search().toLowerCase();
-
-    return books.filter((b) => {
-      return b.title.toLowerCase().includes(search) || b.authorName.toLowerCase().includes(search);
-    });
-  });
-
   setSearch(val: string) {
     this.search.set(val);
+    this.currentPage.set(1);
   }
   setCategory(id: number) {
     this.selectedCategory.set(id);
@@ -111,5 +105,6 @@ export class BooksPage {
   }
   setMaxPrice(val: string) {
     this.maxPrice.set(Number(val));
+    this.currentPage.set(1);
   }
 }
