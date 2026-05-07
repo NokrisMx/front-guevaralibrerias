@@ -13,8 +13,8 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
       @for (book of productResource.value()?.slice(0,4); track book.id) {
       <a [routerLink]="['/books', book.id]" class="group cursor-pointer">
-        <div class="relative overflow-hidden rounded-sm mb-3 aspect-[3/4]" style="background:#f5f0e8">
-          <img [src]="book.imgUrl" [alt]="book.title"
+        <div class="relative overflow-hidden rounded-sm mb-3 aspect-3/4" style="background:#f5f0e8">
+          <img [src]="book.imgUrl || 'assets/images/no-image.jpg'" [alt]="book.title"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
           <div class="absolute inset-0 bg-[#02332D]/0 group-hover:bg-[#02332D]/10 transition-all duration-300"></div>
         </div>

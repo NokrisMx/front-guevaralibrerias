@@ -1,0 +1,15 @@
+<div class="join flex justify-center items-center">
+
+  @for(page of getPagesList(); track page){
+
+  <button class="join-item btn" [class.btn-primary]="page === activePage()" (click)="changePage(page)">
+    {{page}}
+  </button>
+
+  } @empty {
+
+  <button class="join-item btn">1</button>
+
+  }
+
+</div>

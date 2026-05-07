@@ -1,5 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, ActivatedRoute } from '@angular/router';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { BooksService } from '../../../../core/services/books-service';
 
 @Component({
   selector: 'book-detail-page',
@@ -7,25 +9,28 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
   templateUrl: './book-detail-page.html',
 })
 export class BookDetailPage {
+  private route = inject(ActivatedRoute);
+  private bookService = inject(BooksService);
+
   qty = signal(1);
   added = signal(false);
-  book = {
-    id: 1,
-    title: 'Cien Años de Soledad',
-    author: 'Gabriel García Márquez',
-    category: 'Literatura Latinoamericana',
-    price: 320,
-    stock: 12,
-    description:
-      'Una de las obras más importantes de la literatura en lengua española y de la literatura universal. La novela narra la historia de la familia Buendía a lo largo de siete generaciones en el pueblo ficticio de Macondo.',
-    pages: 471,
-    year: 1967,
-    isbn: '978-0-06-088328-7',
-    publisher: 'Editorial Sudamericana',
-  };
+  bookId = computed(() => {
+    return Number(this.route.snapshot.paramMap.get('id'));
+  });
+  book = computed(() => this.bookResource.value());
+
+  bookResource = rxResource({
+    params: () => ({
+      id: this.bookId(),
+    }),
+
+    stream: ({ params }) => {
+      return this.bookService.getBookById(params.id);
+    },
+  });
 
   increment() {
-    if (this.qty() < this.book.stock) this.qty.update((v) => v + 1);
+    if (this.qty() < this.book()!.stock) this.qty.update((v) => v + 1);
   }
   decrement() {
     if (this.qty() > 1) this.qty.update((v) => v - 1);

@@ -7,8 +7,7 @@
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
       @for(cat of productResource.value(); track cat.id){
-      <!--Corregir enlace a libros seleccionando una categoria-->
-      <a [routerLink]="['/books', cat.id]"
+      <a [routerLink]="['/books']" [queryParams]="{categoryId: cat.id}"
         class="bg-white p-5 text-center border border-neutral-100 hover:border-[#02332D]/30 hover:shadow-md transition-all cursor-pointer group rounded-sm">
         <div class="text-3xl mb-2"><i class="pi pi-book"></i></div>
         <p class="font-medium text-sm text-neutral-700 group-hover:text-[#02332D] transition-colors">{{cat.name}}

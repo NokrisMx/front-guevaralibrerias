@@ -4,53 +4,48 @@
     <div class="text-xs text-neutral-400 mb-8 flex gap-2">
       <a routerLink="/" class="hover:text-[#02332D]">Inicio</a>
       <span>/</span>
-      <a routerLink="/books" class="hover:text-[#02332D]">Catálogo</a>
+      <a routerLink="/books" class="hover:text-[#02332D]">Libros</a>
       <span>/</span>
-      <span class="text-neutral-600">{{book.title}}</span>
+      <span class="text-neutral-600">{{book()!.title}}</span>
     </div>
 
     <div class="grid md:grid-cols-2 gap-12 items-start">
       <!-- Book cover -->
       <div class="flex justify-center">
         <div class="relative">
-          <div class="w-60 h-80 shadow-2xl rounded-sm flex items-end justify-center pb-6"
-            style="background:linear-gradient(135deg,#02332D,#011a16); border-left:4px solid #b8975a">
-            <div class="text-center px-4">
-              <p class="text-[#b8975a] text-sm font-light leading-snug"
-                style="font-family:'Cormorant Garamond',serif; font-style:italic">{{book.title}}</p>
-              <p class="text-white/50 text-[10px] mt-2">{{book.author}}</p>
-            </div>
-          </div>
+          <img [src]="book()!.imgUrl || 'assets/images/no-image.jpg'" [alt]="book()!.title"
+            class="w-60 h-80 object-cover rounded-sm shadow-2xl" />
           <div class="absolute -bottom-2 -right-2 w-60 h-80 border border-[#b8975a]/30 rounded-sm -z-10"></div>
         </div>
       </div>
 
       <!-- Book info -->
       <div>
-        <p class="text-xs uppercase tracking-widest mb-2" style="color:#b8975a">{{book.category}}</p>
+        <p class="text-xs uppercase tracking-widest mb-2" style="color:#b8975a">{{book()!.categoryName}}</p>
         <h1 class="text-4xl font-light leading-tight mb-2"
-          style="font-family:'Cormorant Garamond',serif; color:#02332D">{{book.title}}</h1>
-        <p class="text-neutral-500 mb-6">por <span class="text-neutral-700 font-medium">{{book.author}}</span></p>
+          style="font-family:'Cormorant Garamond',serif; color:#02332D">{{book()!.title}}</h1>
+        <p class="text-neutral-500 mb-6">por <span class="text-neutral-700 font-medium">{{book()!.authorName}}</span>
+        </p>
 
-        <p class="text-neutral-600 text-sm leading-relaxed mb-8">{{book.description}}</p>
+        <p class="text-neutral-600 text-sm leading-relaxed mb-8">{{book()!.description}}</p>
 
         <!-- Meta -->
         <div class="grid grid-cols-2 gap-3 mb-8 text-sm">
           <div class="bg-neutral-50 rounded-sm p-3">
             <p class="text-xs text-neutral-400 mb-0.5">Páginas</p>
-            <p class="font-medium text-neutral-700">{{book.pages}}</p>
+            <p class="font-medium text-neutral-700">{{book()!.pages}}</p>
           </div>
           <div class="bg-neutral-50 rounded-sm p-3">
             <p class="text-xs text-neutral-400 mb-0.5">Año</p>
-            <p class="font-medium text-neutral-700">{{book.year}}</p>
+            <p class="font-medium text-neutral-700">{{book()!.yearPublished}}</p>
           </div>
           <div class="bg-neutral-50 rounded-sm p-3">
             <p class="text-xs text-neutral-400 mb-0.5">ISBN</p>
-            <p class="font-medium text-neutral-700 text-xs">{{book.isbn}}</p>
+            <p class="font-medium text-neutral-700 text-xs">{{book()!.isbn}}</p>
           </div>
           <div class="bg-neutral-50 rounded-sm p-3">
             <p class="text-xs text-neutral-400 mb-0.5">Editorial</p>
-            <p class="font-medium text-neutral-700">{{book.publisher}}</p>
+            <p class="font-medium text-neutral-700">{{book()!.publisherName}}</p>
           </div>
         </div>
 
@@ -58,10 +53,10 @@
         <div class="border-t border-neutral-100 pt-6">
           <div class="flex items-baseline gap-2 mb-2">
             <span class="text-3xl font-light"
-              style="font-family:'Cormorant Garamond',serif; color:#02332D">${{book.price}}</span>
+              style="font-family:'Cormorant Garamond',serif; color:#02332D">${{book()!.price}}</span>
             <span class="text-sm text-neutral-400">MXN</span>
           </div>
-          <p class="text-xs text-green-600 mb-4">● {{book.stock}} en existencia</p>
+          <p class="text-xs text-green-600 mb-4">● {{book()!.stock}} en existencia</p>
 
           <div class="flex items-center gap-4">
             <!-- Quantity -->
