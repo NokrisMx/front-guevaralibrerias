@@ -1,12 +1,16 @@
 <div class="bg-white min-h-screen">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    @if (book(); as bookData) {
+
     <!-- Breadcrumb -->
     <div class="text-xs text-neutral-400 mb-8 flex gap-2">
       <a routerLink="/" class="hover:text-[#02332D]">Inicio</a>
       <span>/</span>
       <a routerLink="/books" class="hover:text-[#02332D]">Libros</a>
       <span>/</span>
-      <span class="text-neutral-600">{{book()!.title}}</span>
+      <span class="text-neutral-600">
+        {{ bookData.title }}
+      </span>
     </div>
 
     <div class="grid md:grid-cols-2 gap-12 items-start">
@@ -49,7 +53,7 @@
           </div>
           <div class="bg-neutral-50 rounded-sm p-3">
             <p class="text-xs text-neutral-400 mb-0.5">Año</p>
-            <p class="font-medium text-neutral-700">{{book()!.yearPublished}}</p>
+            <p class="font-medium text-neutral-700">{{book()!.yearPublished| date:'yyyy'}}</p>
           </div>
           <div class="bg-neutral-50 rounded-sm p-3">
             <p class="text-xs text-neutral-400 mb-0.5">ISBN</p>
@@ -64,8 +68,8 @@
         <!-- Price & Add to cart -->
         <div class="border-t border-neutral-100 pt-6">
           <div class="flex items-baseline gap-2 mb-2">
-            <span class="text-3xl font-light"
-              style="font-family:'Cormorant Garamond',serif; color:#02332D">${{book()!.price}}</span>
+            <span class="text-3xl font-light text-primary"
+              style="font-family:'Cormorant Garamond',serif;">${{book()!.price}}</span>
             <span class="text-sm text-neutral-400">MXN</span>
           </div>
           <p class="text-xs text-green-600 mb-4">● {{book()!.stock}} en existencia</p>
@@ -89,5 +93,57 @@
         </div>
       </div>
     </div>
+    }
+    @else {
+
+    <!-- SKELETON -->
+    <div class="grid md:grid-cols-2 gap-12 items-start animate-pulse">
+
+      <!-- Skeleton imagen -->
+      <div class="flex justify-center">
+        <div class="skeleton w-60 h-80 rounded-sm"></div>
+      </div>
+
+      <!-- Skeleton info -->
+      <div>
+
+        <div class="skeleton h-3 w-24 mb-4"></div>
+
+        <div class="skeleton h-10 w-3/4 mb-3"></div>
+
+        <div class="skeleton h-5 w-1/2 mb-6"></div>
+
+        <div class="space-y-2 mb-8">
+          <div class="skeleton h-4 w-full"></div>
+          <div class="skeleton h-4 w-full"></div>
+          <div class="skeleton h-4 w-5/6"></div>
+        </div>
+
+        <!-- Meta -->
+        <div class="grid grid-cols-2 gap-3 mb-8">
+          @for (item of [1,2,3,4]; track item) {
+          <div class="bg-neutral-50 rounded-sm p-3">
+            <div class="skeleton h-3 w-16 mb-2"></div>
+            <div class="skeleton h-4 w-20"></div>
+          </div>
+          }
+        </div>
+
+        <!-- Precio -->
+        <div class="border-t border-neutral-100 pt-6">
+          <div class="skeleton h-10 w-32 mb-4"></div>
+          <div class="skeleton h-4 w-40 mb-6"></div>
+
+          <div class="flex gap-4">
+            <div class="skeleton h-10 w-32"></div>
+            <div class="skeleton h-10 flex-1"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    }
   </div>
 </div>

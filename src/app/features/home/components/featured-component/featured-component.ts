@@ -10,7 +10,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 })
 export class FeaturedComponent {
   bookService = inject(BooksService);
-  booksFeatured = computed(() => this.bookResource.value()?.data ?? []);
+  booksFeatured = computed(() => this.bookResource.value()?.data.data ?? []);
 
   bookResource = rxResource({
     params: () => ({ page: 1, pageSize: 4 }),

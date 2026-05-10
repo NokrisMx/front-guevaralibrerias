@@ -1,4 +1,3 @@
-import { User } from './user-interface';
 export interface AuthResponse {
   id: string;
   name: string;

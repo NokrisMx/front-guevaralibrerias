@@ -11,19 +11,72 @@
         todos →</a>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      @if(bookResource.isLoading()) {
+
+      @for(item of [1,2,3,4]; track item) {
+
+      <div class="animate-pulse">
+
+        <!-- Imagen -->
+        <div class="skeleton rounded-sm mb-3 aspect-[3/4] w-full"></div>
+
+        <!-- Categoría -->
+        <div class="skeleton h-3 w-16 mb-2"></div>
+
+        <!-- Título -->
+        <div class="space-y-2 mb-2">
+          <div class="skeleton h-4 w-full"></div>
+          <div class="skeleton h-4 w-3/4"></div>
+        </div>
+
+        <!-- Autor -->
+        <div class="skeleton h-3 w-24 mb-3"></div>
+
+        <!-- Precio -->
+        <div class="skeleton h-4 w-20"></div>
+
+      </div>
+
+      }
+
+      } @else {
+
       @for (book of booksFeatured(); track book.id) {
+
       <a [routerLink]="['/books', book.id]" class="group cursor-pointer">
+
         <div class="relative overflow-hidden rounded-sm mb-3 aspect-3/4" style="background:#f5f0e8">
+
           <img [src]="book.imgUrl || 'assets/images/no-image.jpg'" [alt]="book.title"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute inset-0 bg-[#02332D]/0 group-hover:bg-[#02332D]/10 transition-all duration-300"></div>
+
+          <div class="absolute inset-0 bg-[#02332D]/0 group-hover:bg-[#02332D]/10 transition-all duration-300">
+          </div>
+
         </div>
-        <p class="text-xs text-neutral-400 mb-1">{{book.categoryName}}</p>
+
+        <p class="text-xs text-neutral-400 mb-1">
+          {{book.categoryName}}
+        </p>
+
         <h3 class="font-medium text-sm text-neutral-800 group-hover:text-[#02332D] transition-colors leading-snug">
-          {{book.title}}</h3>
-        <p class="text-xs text-neutral-500 mt-0.5">{{book.authorName}}</p>
-        <p class="font-medium text-sm mt-2" style="color:#02332D">${{book.price}} MXN</p>
+
+          {{book.title}}
+
+        </h3>
+
+        <p class="text-xs text-neutral-500 mt-0.5">
+          {{book.authorName}}
+        </p>
+
+        <p class="font-medium text-sm mt-2" style="color:#02332D">
+          ${{book.price}} MXN
+        </p>
+
       </a>
+
+      }
+
       }
     </div>
   </div>

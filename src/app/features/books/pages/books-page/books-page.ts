@@ -31,8 +31,8 @@ export class BooksPage {
   minPrice = signal<number>(0);
   maxPrice = signal<number>(1000);
   sliderPrice = signal<number>(1000);
-  books = computed(() => this.bookResource.value()?.data ?? []);
-  pagination = computed(() => this.bookResource.value());
+  books = computed(() => this.bookResource.value()?.data?.data ?? []);
+  pagination = computed(() => this.bookResource.value()?.data);
 
   constructor() {
     this.route.queryParams.subscribe((params) => {

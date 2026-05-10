@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Author } from '../interfaces/author-interface';
+import { ApiResponse } from '../../shared/interfaces/ApiResponse';
 
 const baseUrl = environment.baseUrl;
 
@@ -12,8 +13,8 @@ const baseUrl = environment.baseUrl;
 export class AuthorsService {
   private http = inject(HttpClient);
 
-  getAuthors(): Observable<Author[]> {
-    return this.http.get<Author[]>(`${baseUrl}/Author`);
+  getAuthors(): Observable<ApiResponse<Author[]>> {
+    return this.http.get<ApiResponse<Author[]>>(`${baseUrl}/Author`);
   }
 
   constructor() {}

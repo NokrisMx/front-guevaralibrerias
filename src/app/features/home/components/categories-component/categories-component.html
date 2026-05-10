@@ -3,16 +3,42 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="mb-10">
       <p class="text-xs tracking-widest uppercase mb-2" style="color:#b8975a">Explorar</p>
-      <h2 class="text-3xl font-light" style="font-family:'Cormorant Garamond',serif; color:#02332D">Categorías</h2>
+      <h2 class="text-3xl font-light text-primary" style="font-family:'Cormorant Garamond',serif;">Categorías</h2>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-      @for(cat of productResource.value(); track cat.id){
+      @if(productResource.isLoading()) {
+
+      @for(item of [1,2,3,4,5,6]; track item) {
+      <div class="bg-white p-5 border border-neutral-100 rounded-sm animate-pulse">
+
+        <div class="flex flex-col items-center">
+
+          <div class="skeleton w-10 h-10 rounded-full mb-3"></div>
+
+          <div class="skeleton h-4 w-24"></div>
+
+        </div>
+
+      </div>
+      }
+
+      } @else {
+
+      @for(cat of productResource.value()?.data; track cat.id){
       <a [routerLink]="['/books']" [queryParams]="{categoryId: cat.id}"
         class="bg-white p-5 text-center border border-neutral-100 hover:border-[#02332D]/30 hover:shadow-md transition-all cursor-pointer group rounded-sm">
-        <div class="text-3xl mb-2"><i class="pi pi-book"></i></div>
-        <p class="font-medium text-sm text-neutral-700 group-hover:text-[#02332D] transition-colors">{{cat.name}}
+
+        <div class="text-3xl mb-2">
+          <i class="pi pi-book"></i>
+        </div>
+
+        <p class="font-medium text-sm text-neutral-700 group-hover:text-[#02332D] transition-colors">
+          {{cat.name}}
         </p>
+
       </a>
+      }
+
       }
     </div>
   </div>

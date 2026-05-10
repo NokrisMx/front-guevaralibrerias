@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Book } from '../interfaces/book-interface';
 import { BookPagination } from '../interfaces/book-pagination-interface';
+import { ApiResponse } from '../../shared/interfaces/ApiResponse';
 
 const baseUrl = environment.baseUrl;
 
@@ -13,8 +14,8 @@ const baseUrl = environment.baseUrl;
 export class BooksService {
   private http = inject(HttpClient);
 
-  getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(`${baseUrl}/Book`);
+  getBooks(): Observable<ApiResponse<Book[]>> {
+    return this.http.get<ApiResponse<Book[]>>(`${baseUrl}/Book`);
   }
 
   getBooksPagination(paramsData: {
@@ -61,13 +62,13 @@ export class BooksService {
       params = params.set('maxPrice', paramsData.maxPrice);
     }
 
-    return this.http.get<BookPagination>(`${baseUrl}/Book`, {
+    return this.http.get<ApiResponse<BookPagination>>(`${baseUrl}/Book`, {
       params,
     });
   }
 
   getBookById(id: number) {
-    return this.http.get<Book>(`${baseUrl}/Book/${id}`);
+    return this.http.get<ApiResponse<Book>>(`${baseUrl}/Book/${id}`);
   }
 
   constructor() {}

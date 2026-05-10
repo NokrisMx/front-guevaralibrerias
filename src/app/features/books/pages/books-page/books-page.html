@@ -112,7 +112,7 @@
                   Todos
                 </button>
 
-                @for (cat of categoryResource.value() ?? []; track cat.id) {
+                @for (cat of categoryResource.value()?.data ?? []; track cat.id) {
 
                 <button (click)="setCategory(cat.id)" [class.font-medium]="selectedCategory() === cat.id"
                   [class.text-primary]="selectedCategory() === cat.id"
@@ -141,7 +141,7 @@
                   Todos
                 </button>
 
-                @for (auth of authorsResource.value() ?? []; track auth.id) {
+                @for (auth of authorsResource.value()?.data ?? []; track auth.id) {
 
                 <button (click)="setAuthor(auth.id)" [class.font-medium]="selectedAuthor() === auth.id"
                   [class.text-primary]="selectedAuthor() === auth.id"
@@ -170,7 +170,7 @@
                   Todos
                 </button>
 
-                @for (pub of publisherResource.value() ?? []; track pub.id) {
+                @for (pub of publisherResource.value()?.data ?? []; track pub.id) {
 
                 <button (click)="setPublisher(pub.id)" [class.font-medium]="selectedPublisher() === pub.id"
                   [class.text-primary]="selectedPublisher() === pub.id"

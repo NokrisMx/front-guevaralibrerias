@@ -2,10 +2,11 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { BooksService } from '../../../../core/services/books-service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'book-detail-page',
-  imports: [RouterLink],
+  imports: [RouterLink, DatePipe],
   templateUrl: './book-detail-page.html',
 })
 export class BookDetailPage {
@@ -17,7 +18,7 @@ export class BookDetailPage {
   bookId = computed(() => {
     return Number(this.route.snapshot.paramMap.get('id'));
   });
-  book = computed(() => this.bookResource.value());
+  book = computed(() => this.bookResource.value()?.data);
 
   bookResource = rxResource({
     params: () => ({

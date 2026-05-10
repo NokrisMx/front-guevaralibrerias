@@ -40,6 +40,36 @@
             class="w-full border border-neutral-200 px-4 py-3 text-sm rounded-sm focus:outline-none focus:border-[#02332D] transition-colors"
             placeholder="Repite tu contraseña">
         </div>
+
+        @if (errorMsg()) {
+
+        <div role="alert" class="alert alert-error">
+
+          <i class="pi pi-exclamation-triangle"></i>
+
+          <div>
+
+            <h3 class="font-bold">
+              {{ errorMsg() }}
+            </h3>
+
+            @if (validationErrors().length > 0) {
+
+            <ul class="mt-2 text-sm list-disc ml-4">
+
+              @for(error of validationErrors(); track error) {
+              <li>{{ error }}</li>
+              }
+
+            </ul>
+
+            }
+
+          </div>
+
+        </div>
+
+        }
         <button type="submit"
           class="w-full py-3 text-white text-sm font-medium tracking-wide hover:opacity-90 transition-opacity"
           style="background-color:#02332D">

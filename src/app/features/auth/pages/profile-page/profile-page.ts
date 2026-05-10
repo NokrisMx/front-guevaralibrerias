@@ -1,6 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth-service';
+import { User } from '../../interfaces/user-interface';
 
 @Component({
   selector: 'profile-page',
@@ -8,20 +10,66 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './profile-page.html',
 })
 export class ProfilePage {
-  editing = signal(false);
-  saved = signal(false);
-  user = signal({
-    name: 'Ana García',
-    username: 'anagarcia',
-    email: 'ana@correo.com',
-    phone: '+52 81 9876 5432',
-  });
+  private authService = inject(AuthService);
+
+  editing = signal<boolean>(false);
+  isLoading = signal<boolean>(true);
+  user = signal<User | null>(null);
+  editableUser = signal<User | null>(null);
+  errorMsg = signal<string>('');
+  successMsg = signal<string>('');
+
+  ngOnInit(): void {
+    const id = this.authService.user()?.id;
+    if (!id) return;
+
+    this.authService.getUserById(id).subscribe({
+      next: (data) => {
+        this.user.set(data.data);
+        this.editableUser.set({ ...data.data });
+        this.isLoading.set(false);
+      },
+      error: () => this.isLoading.set(false),
+    });
+  }
+
   toggleEdit() {
     this.editing.update((v) => !v);
   }
+
   save() {
-    this.editing.set(false);
-    this.saved.set(true);
-    setTimeout(() => this.saved.set(false), 2500);
+    const body = this.editableUser()!;
+
+    this.errorMsg.set('');
+    this.successMsg.set('');
+
+    this.authService.updateUser(body).subscribe({
+      next: (updated) => {
+        this.user.set(updated.data);
+        this.editableUser.set({ ...updated.data });
+
+        this.authService.updateStoredUser(updated.data);
+
+        this.editing.set(false);
+
+        this.successMsg.set('Perfil actualizado correctamente');
+
+        setTimeout(() => {
+          this.successMsg.set('');
+        }, 3000);
+      },
+
+      error: (err) => {
+        this.errorMsg.set(err.error?.message ?? 'Error al actualizar el perfil');
+
+        setTimeout(() => {
+          this.errorMsg.set('');
+        }, 4000);
+      },
+    });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
