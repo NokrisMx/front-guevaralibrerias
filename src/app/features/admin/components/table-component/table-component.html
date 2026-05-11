@@ -1,0 +1,144 @@
+<div class="p-6 max-w-7xl mx-auto">
+
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+    <div>
+      <p class="text-xs uppercase tracking-widest mb-1" style="color:#b8975a">{{ subtitle() }}</p>
+      <h1 class="text-3xl font-light text-primary" style="font-family:'Cormorant Garamond',serif;">
+        {{ title() }}
+      </h1>
+    </div>
+    <button (click)="onNew.emit()"
+      class="flex items-center gap-2 px-5 py-2.5 text-white text-sm font-medium hover:opacity-90 transition-opacity self-start sm:self-auto bg-primary">
+      <i class="pi pi-plus text-xs"></i>
+      Nuevo
+    </button>
+  </div>
+
+  <!-- Table card -->
+  <div class="bg-white border border-neutral-100 rounded-sm overflow-hidden">
+
+    @if (isLoading()) {
+    <!-- Skeleton -->
+    <div class="p-6 space-y-3">
+      @for (i of [1,2,3,4,5]; track i) {
+      <div class="flex gap-4">
+        <div class="skeleton h-10 flex-1 rounded-sm"></div>
+      </div>
+      }
+    </div>
+
+    } @else if (data().length === 0) {
+    <!-- Empty state -->
+    <div class="flex flex-col items-center justify-center py-20 text-center">
+      <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4" style="background-color:#f0f4f3">
+        <i class="pi pi-inbox text-2xl text-primary" style="opacity:0.4"></i>
+      </div>
+      <p class="text-neutral-500 text-sm mb-1">No hay registros todavía</p>
+      <p class="text-neutral-400 text-xs mb-6">Crea el primero haciendo clic en "Nuevo"</p>
+      <button (click)="onNew.emit()"
+        class="px-6 py-2.5 text-white text-sm hover:opacity-90 transition-opacity bg-primary">
+        Crear registro
+      </button>
+    </div>
+
+    } @else {
+    <!-- Table -->
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-neutral-100">
+            @for (col of columns(); track col.key) {
+            <th
+              class="text-left px-5 py-3.5 text-xs uppercase tracking-widest text-neutral-400 font-normal whitespace-nowrap">
+              {{ col.label }}
+            </th>
+            }
+            <th class="text-right px-5 py-3.5 text-xs uppercase tracking-widest text-neutral-400 font-normal">
+              Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of data(); track row.id) {
+          <tr class="border-b border-neutral-50 hover:bg-neutral-50 transition-colors">
+
+            @for (col of columns(); track col.key) {
+            <td class="px-5 py-3.5 text-neutral-600">
+
+              @switch (col.type) {
+
+              @case ('badge') {
+              <span class="text-xs px-2.5 py-1 rounded-full font-medium"
+                [class]="col.badgeClass ? col.badgeClass(getValue(row, col.key)) : 'bg-neutral-100 text-neutral-600'">
+                {{ getValue(row, col.key) }}
+              </span>
+              }
+
+              @case('status-order'){
+              <span class="text-xs px-2.5 py-1 rounded-full font-medium"
+                [class]="col.badgeClass ? col.badgeClass(getValue(row, col.key)) : 'bg-neutral-100 text-neutral-600'">
+                {{ getValue(row, col.key) | orderStatus }}
+              </span>
+              }
+
+              @case ('currency') {
+              <span class="font-medium text-primary">
+                {{ getValue(row, col.key) | currency:'MXN':'symbol':'1.2-2' }}
+              </span>
+              }
+
+              @case ('date') {
+              <span class="text-neutral-400">
+                {{ getValue(row, col.key) | date:'dd MMM yyyy' }}
+              </span>
+              }
+
+              @case ('image') {
+              <div class="w-8 h-10 rounded-sm overflow-hidden shrink-0 bg-primary"
+                style="border-left:2px solid #b8975a">
+                @if (getValue(row, col.key)) {
+                <img [src]="getValue(row, col.key)" [alt]="row.title" class="w-full h-full object-cover">
+                }
+              </div>
+              }
+
+              @default {
+              <span class="truncate max-w-xs block">{{ getValue(row, col.key) }}</span>
+              }
+
+              }
+
+            </td>
+            }
+
+            <!-- Acciones -->
+            <td class="px-5 py-3.5 text-right">
+              <div class="flex items-center justify-end gap-2">
+                <button (click)="onEdit.emit(row)"
+                  class="w-8 h-8 flex items-center justify-center border border-neutral-200 text-neutral-400 hover:border-primary hover:text-primary transition-colors rounded-sm">
+                  <i class="pi pi-pencil text-xs"></i>
+                </button>
+                <button (click)="onDelete.emit(row)"
+                  class="w-8 h-8 flex items-center justify-center border border-neutral-200 text-neutral-400 hover:border-red-400 hover:text-red-400 transition-colors rounded-sm">
+                  <i class="pi pi-trash text-xs"></i>
+                </button>
+              </div>
+            </td>
+
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer con conteo -->
+    <div class="px-5 py-3 border-t border-neutral-100 flex items-center justify-between">
+      <p class="text-xs text-neutral-400">
+        {{ data().length }} registro{{ data().length !== 1 ? 's' : '' }} en total
+      </p>
+    </div>
+    }
+
+  </div>
+</div>

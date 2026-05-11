@@ -2,10 +2,10 @@ import { Component, signal, computed, inject, effect } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { CategoriesService } from '../../../../core/services/categories-service';
-import { BooksService } from '../../../../core/services/books-service';
-import { AuthorsService } from '../../../../core/services/authors-service';
-import { PublishersService } from '../../../../core/services/publishers-service';
+import { CategoriesService } from '../../../../core/services/categories.service';
+import { BooksService } from '../../../../core/services/books.service';
+import { AuthorsService } from '../../../../core/services/authors.service';
+import { PublishersService } from '../../../../core/services/publishers.service';
 import { CardBookComponent } from '../../components/card-book-component/card-book-component';
 import { PaginationComponent } from '../../components/pagination-component/pagination-component';
 

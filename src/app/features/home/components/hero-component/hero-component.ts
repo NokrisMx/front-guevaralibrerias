@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { BooksService } from '../../../../core/services/books-service';
-import { AuthService } from '../../../auth/services/auth-service';
+import { BooksService } from '../../../../core/services/books.service';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'hero-component',

@@ -109,6 +109,10 @@ export class AuthService {
     return this.http.get<ApiResponse<User>>(`${baseUrl}/User/${id}`);
   }
 
+  getUsers(): Observable<ApiResponse<User[]>> {
+    return this.http.get<ApiResponse<User[]>>(`${baseUrl}/User`);
+  }
+
   updateUser(data: UpdateUser): Observable<ApiResponse<User>> {
     return this.http.put<ApiResponse<User>>(`${baseUrl}/User/profile`, data);
   }

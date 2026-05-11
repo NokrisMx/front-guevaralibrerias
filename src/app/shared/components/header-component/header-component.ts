@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../../features/auth/services/auth-service';
-import { CartService } from '../../../features/books/services/cart-service';
+import { AuthService } from '../../../features/auth/services/auth.service';
+import { CartService } from '../../../features/books/services/cart.service';
 
 @Component({
   selector: 'app-header-component',

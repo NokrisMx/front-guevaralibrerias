@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CategoriesService } from '../../../../core/services/categories-service';
+import { CategoriesService } from '../../../../core/services/categories.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 

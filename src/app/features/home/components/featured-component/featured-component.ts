@@ -1,6 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BooksService } from '../../../../core/services/books-service';
+import { BooksService } from '../../../../core/services/books.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({

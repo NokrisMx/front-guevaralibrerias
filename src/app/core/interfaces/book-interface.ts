@@ -14,4 +14,6 @@ export interface Book {
   authorName: string;
   publisherId: number;
   publisherName: string;
+  createdAt: string;
+  updatedAt: string | null;
 }

@@ -1,13 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { OrderService } from '../../../../shared/services/order-service';
+import { OrderService } from '../../../../shared/services/order.service';
 import { Order } from '../../interfaces/order-interface';
 import { DatePipe } from '@angular/common';
 import { OrderStatusPipe } from '../../pipes/order-status-pipe';
 import { OrderStatusColorPipe } from '../../pipes/order-status-color-pipe';
 import { HeroProfileComponent } from '../../components/hero-profile-component/hero-profile-component';
 import { User } from '../../interfaces/user-interface';
-import { AuthService } from '../../services/auth-service';
+import { AuthService } from '../../services/auth.service';
 import { MenuProfileComponent } from '../../components/menu-profile-component/menu-profile-component';
 
 @Component({

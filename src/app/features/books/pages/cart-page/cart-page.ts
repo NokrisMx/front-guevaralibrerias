@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CartService } from '../../services/cart-service';
-import { OrderService } from '../../../../shared/services/order-service';
+import { CartService } from '../../services/cart.service';
+import { OrderService } from '../../../../shared/services/order.service';
 
 @Component({
   selector: 'cart-page',

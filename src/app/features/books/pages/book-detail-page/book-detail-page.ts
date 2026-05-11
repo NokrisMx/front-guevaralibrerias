@@ -1,9 +1,9 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { BooksService } from '../../../../core/services/books-service';
+import { BooksService } from '../../../../core/services/books.service';
 import { DatePipe } from '@angular/common';
-import { CartService } from '../../services/cart-service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'book-detail-page',
