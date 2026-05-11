@@ -1,28 +1,41 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CartService } from '../../services/cart-service';
+import { OrderService } from '../../../../shared/services/order-service';
+
 @Component({
   selector: 'cart-page',
   imports: [RouterLink],
   templateUrl: './cart-page.html',
 })
 export class CartPage {
-  items = signal([
-    { id: 1, title: 'Cien Años de Soledad', author: 'García Márquez', price: 320, qty: 1 },
-    { id: 2, title: 'Pedro Páramo', author: 'Juan Rulfo', price: 240, qty: 2 },
-    { id: 3, title: 'Ficciones', author: 'Jorge Luis Borges', price: 300, qty: 1 },
-  ]);
-  subtotal = computed(() => this.items().reduce((s, i) => s + i.price * i.qty, 0));
-  shipping = 89;
-  total = computed(() => this.subtotal() + this.shipping);
+  private cartService = inject(CartService);
+  private orderService = inject(OrderService);
+
+  items = this.cartService.items;
+
+  subtotal = this.cartService.subtotal;
+
+  shipping = this.cartService.shipping;
+
+  total = this.cartService.total;
+
   inc(id: number) {
-    this.items.update((items) => items.map((i) => (i.id === id ? { ...i, qty: i.qty + 1 } : i)));
+    this.cartService.increment(id);
   }
+
   dec(id: number) {
-    this.items.update((items) =>
-      items.map((i) => (i.id === id && i.qty > 1 ? { ...i, qty: i.qty - 1 } : i)),
-    );
+    this.cartService.decrement(id);
   }
+
   remove(id: number) {
-    this.items.update((items) => items.filter((i) => i.id !== id));
+    this.cartService.remove(id);
+  }
+  checkout() {
+    this.orderService.buyCart(this.items()).subscribe({
+      next: () => {
+        this.cartService.clearCart();
+      },
+    });
   }
 }

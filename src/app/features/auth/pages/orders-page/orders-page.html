@@ -1,65 +1,108 @@
 <div class="bg-neutral-50 min-h-screen">
-  <div style="background-color:#02332D" class="py-10">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="text-xs tracking-widest uppercase mb-1" style="color:#b8975a">Cuenta</p>
-      <h1 class="text-4xl font-light text-white" style="font-family:'Cormorant Garamond',serif;font-style:italic">Mis
-        Pedidos</h1>
-    </div>
-  </div>
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    @if (orders().length > 0) {
-    <div class="space-y-4">
-      @for (order of orders(); track order.id; let i = $index) {
-      <div class="bg-white border border-neutral-100 rounded-sm overflow-hidden">
-        <div
-          class="flex flex-wrap items-center justify-between p-4 gap-3 cursor-pointer hover:bg-neutral-50 transition-colors"
-          (click)="toggle(i)">
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-medium"
-              style="background-color:#02332D">
-              {{order.items.length}}
-            </div>
-            <div>
-              <p class="font-medium text-sm text-neutral-800">Pedido #{{order.id}}</p>
-              <p class="text-xs text-neutral-400">{{order.createdAt | date:'dd MMM yyyy'}}</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-4">
-            <span class="text-xs px-3 py-1 rounded-full font-medium" [class]="order.status | orderStatusColor">
-              {{ order.status | orderStatus }}
-            </span>
-            <p class="font-medium text-sm" style="color:#02332D">${{order.total}} MXN</p>
-            <span class="text-neutral-300 text-xs">{{selectedOrder() === i ? '▲' : '▼'}}</span>
-          </div>
+
+  <!-- Hero -->
+  <hero-profile-component [user]="user()!" />
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid lg:grid-cols-3 gap-6">
+
+      <!-- Columna izquierda -->
+      <menu-profile-component />
+
+      @if (orders().length > 0) {
+      <!-- Lista de pedidos -->
+      <div class="lg:col-span-2">
+        <div class="mb-3">
+          <h2 class="text-xl font-light text-primary" style="font-family:'Cormorant Garamond',serif;">
+            Mis pedidos
+          </h2>
+          <p class="text-xs text-neutral-400 mt-0.5">Consultar historial</p>
         </div>
-        @if (selectedOrder() === i) {
-        <div class="border-t border-neutral-100 p-4">
-          <p class="text-xs uppercase tracking-widest text-neutral-400 mb-3">Artículos</p>
-          <div class="space-y-2">
-            @for (item of order.items; track item.title) {
-            <div class="flex justify-between text-sm">
-              <span class="text-neutral-600">{{item.title}} <span class="text-neutral-400">×
-                  {{item.quantity}}</span></span>
-              <span style="color:#02332D" class="font-medium">${{item.price * item.quantity}}</span>
+        @for (order of orders(); track order.id; let i = $index) {
+        <div
+          class="bg-white border border-neutral-100 rounded-sm overflow-hidden hover:border-primary/20 transition-colors">
+
+          <!-- Cabecera del pedido -->
+          <div class="flex flex-wrap items-center justify-between p-5 gap-3 cursor-pointer" (click)="toggle(i)">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-sm flex items-center justify-center text-white text-xs"
+                style="background-color:#02332D">
+                <i class="pi pi-shopping-bag text-sm"></i>
+              </div>
+              <div>
+                <p class="font-medium text-sm text-neutral-800">Pedido <span style="color:#02332D">#{{ order.id
+                    }}</span>
+                </p>
+                <p class="text-xs text-neutral-400 mt-0.5">{{ order.createdAt | date:'dd MMM yyyy · HH:mm' }}</p>
+              </div>
             </div>
-            }
+
+            <div class="flex items-center gap-3 flex-wrap">
+              <span class="text-xs px-3 py-1 rounded-full font-medium" [class]="order.status | orderStatusColor">
+                {{ order.status | orderStatus }}
+              </span>
+              <p class="font-medium text-sm" style="color:#02332D">${{ order.total }} MXN</p>
+              <div class="w-6 h-6 flex items-center justify-center border border-neutral-200 rounded-sm">
+                <i class="pi text-xs text-neutral-400" [class.pi-chevron-down]="selectedOrder() !== i"
+                  [class.pi-chevron-up]="selectedOrder() === i"></i>
+              </div>
+            </div>
           </div>
-          <div class="border-t border-neutral-100 mt-3 pt-3 flex justify-between font-medium text-sm"
-            style="color:#02332D">
-            <span>Total</span><span>${{order.total}} MXN</span>
+
+          <!-- Detalle del pedido -->
+          @if (selectedOrder() === i) {
+          <div class="border-t border-neutral-100 p-5">
+            <p class="text-xs uppercase tracking-widest text-neutral-400 mb-4">Artículos del pedido</p>
+
+            <div class="space-y-3">
+              @for (item of order.items; track item.title) {
+              <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <img [src]="item.imgUrl || 'assets/images/no-image.jpg'" [alt]="item.title"
+                    class="w-8 h-10 rounded-sm shrink-0 object-cover border border-neutral-200" />
+                  <div>
+                    <p class="text-sm text-neutral-700 font-medium">{{ item.title }}</p>
+                    <p class="text-xs text-neutral-400">Cantidad: {{ item.quantity }}</p>
+                  </div>
+                </div>
+                <p class="text-sm font-medium shrink-0 text-primary">
+                  ${{ item.price * item.quantity }} MXN
+                </p>
+              </div>
+              }
+            </div>
+
+            <div class="border-t border-neutral-100 mt-4 pt-4 flex justify-between items-center">
+              <p class="text-xs text-neutral-400">{{ order.items.length }} artículo(s)</p>
+              <div class="flex items-center gap-2">
+                <span class="text-sm text-neutral-500">Total:</span>
+                <span class="text-base font-medium text-primary">${{ order.total }} MXN</span>
+              </div>
+            </div>
           </div>
+          }
+
         </div>
         }
       </div>
+
+      } @else {
+      <div class="text-center py-24">
+        <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
+          style="background-color:#f0f4f3">
+          <i class="pi pi-inbox text-3xl text-primary" style="opacity:0.4"></i>
+        </div>
+        <h3 class="text-2xl font-light mb-2" style="font-family:'Cormorant Garamond',serif; color:#02332D">
+          Sin pedidos aún
+        </h3>
+        <p class="text-neutral-400 text-sm mb-8">Cuando realices una compra aparecerá aquí</p>
+        <a routerLink="/books"
+          class="inline-block px-10 py-3 text-white text-sm font-medium tracking-wide hover:opacity-90 transition-opacity bg-primary">
+          Explorar Catálogo
+        </a>
+      </div>
       }
+
     </div>
-    } @else {
-    <div class="text-center py-20">
-      <p class="text-5xl mb-4">📭</p>
-      <p class="text-neutral-400 text-sm mb-6">Aún no tienes pedidos</p>
-      <a routerLink="/books" class="inline-block px-8 py-3 text-white text-sm" style="background-color:#02332D">Explorar
-        Catálogo</a>
-    </div>
-    }
   </div>
 </div>

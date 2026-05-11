@@ -1,0 +1,52 @@
+<div class="space-y-3">
+  <a routerLink="/auth/profile"
+    class="flex items-center gap-4 bg-white border border-neutral-100 rounded-sm p-4 hover:border-[#02332D]/30 hover:shadow-sm transition-all group">
+    <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
+      style="background-color:#02332D/10; background-color:#f0f4f3">
+      <i class="pi pi-user text-sm text-primary"></i>
+    </div>
+    <div>
+      <p class="text-sm font-medium text-neutral-700 group-hover:text-[#02332D] transition-colors">Información Personal
+      </p>
+      <p class="text-xs text-neutral-400">Ver datos</p>
+    </div>
+    <i class="pi pi-chevron-right ml-auto text-xs text-neutral-300 group-hover:text-[#02332D] transition-colors"></i>
+  </a>
+
+  <a routerLink="/auth/orders"
+    class="flex items-center gap-4 bg-white border border-neutral-100 rounded-sm p-4 hover:border-[#02332D]/30 hover:shadow-sm transition-all group">
+    <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
+      style="background-color:#02332D/10; background-color:#f0f4f3">
+      <i class="pi pi-box text-sm text-primary"></i>
+    </div>
+    <div>
+      <p class="text-sm font-medium text-neutral-700 group-hover:text-[#02332D] transition-colors">Mis Pedidos</p>
+      <p class="text-xs text-neutral-400">Ver historial</p>
+    </div>
+    <i class="pi pi-chevron-right ml-auto text-xs text-neutral-300 group-hover:text-[#02332D] transition-colors"></i>
+  </a>
+
+  <a
+    class="flex items-center gap-4 bg-white border border-neutral-100 rounded-sm p-4 cursor-pointer hover:border-[#02332D]/30 hover:shadow-sm transition-all group">
+    <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style="background-color:#f0f4f3">
+      <i class="pi pi-heart text-sm" style="color:#02332D"></i>
+    </div>
+    <div>
+      <p class="text-sm font-medium text-neutral-700 group-hover:text-[#02332D] transition-colors">Favoritos</p>
+      <p class="text-xs text-neutral-400">Proximamente...</p>
+    </div>
+    <i class="pi pi-chevron-right ml-auto text-xs text-neutral-300 group-hover:text-[#02332D] transition-colors"></i>
+  </a>
+
+  <a (click)="logout()" routerLink="/auth/login"
+    class="w-full flex items-center gap-4 bg-white border border-neutral-100 rounded-sm p-4 cursor-pointer hover:border-red-200 hover:shadow-sm transition-all group">
+    <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-red-50">
+      <i class="pi pi-sign-out text-sm text-red-400"></i>
+    </div>
+    <div class="text-left">
+      <p class="text-sm font-medium text-red-400">Cerrar Sesión</p>
+      <p class="text-xs text-neutral-400">Salir de tu cuenta</p>
+    </div>
+    <i class="pi pi-chevron-right ml-auto text-xs text-neutral-300 group-hover:text-red-300 transition-colors"></i>
+  </a>
+</div>

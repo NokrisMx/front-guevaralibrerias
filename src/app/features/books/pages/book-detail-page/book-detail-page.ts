@@ -3,6 +3,7 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { BooksService } from '../../../../core/services/books-service';
 import { DatePipe } from '@angular/common';
+import { CartService } from '../../services/cart-service';
 
 @Component({
   selector: 'book-detail-page',
@@ -12,6 +13,7 @@ import { DatePipe } from '@angular/common';
 export class BookDetailPage {
   private route = inject(ActivatedRoute);
   private bookService = inject(BooksService);
+  private cartService = inject(CartService);
 
   qty = signal(1);
   added = signal(false);
@@ -37,7 +39,24 @@ export class BookDetailPage {
     if (this.qty() > 1) this.qty.update((v) => v - 1);
   }
   addToCart() {
+    const book = this.book();
+
+    if (!book) return;
+
+    this.cartService.addToCart({
+      id: book.id,
+      title: book.title,
+      author: book.authorName,
+      price: book.price,
+      quantity: this.qty(),
+      imgUrl: book.imgUrl,
+      stock: book.stock,
+    });
+
     this.added.set(true);
-    setTimeout(() => this.added.set(false), 2000);
+
+    setTimeout(() => {
+      this.added.set(false);
+    }, 2000);
   }
 }

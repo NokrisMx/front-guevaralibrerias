@@ -20,9 +20,10 @@
       <!-- Right icons -->
       <div class="flex items-center gap-3">
         @if (authService.authStatus() === 'authenticated') {
-        <a routerLink="/auth/profile"
+        <a [routerLink]="authService.user()?.role === 'Admin' ? '/admin/dashboard' : '/auth/profile'"
           class="hidden md:flex items-center gap-1.5 text-white/70 hover:text-white text-sm transition-colors">
-          <i class="pi pi-user w-4 h-4"></i> Mi Cuenta
+          <i class="pi pi-user w-4 h-4"></i>
+          {{ authService.user()?.role === 'Admin' ? 'Administrador' : authService.user()?.username }}
         </a>
         } @else {
         <a routerLink="/auth/login"
@@ -36,7 +37,9 @@
           @if (cartCount() > 0) {
           <span
             class="absolute -top-2 -right-2 w-4 h-4 rounded-full text-[10px] font-medium flex items-center justify-center text-white"
-            style="background-color:#b8975a">{{cartCount()}}</span>
+            style="background-color:#b8975a">
+            {{ cartCount() }}
+          </span>
           }
         </a>
         <!-- Mobile hamburger -->

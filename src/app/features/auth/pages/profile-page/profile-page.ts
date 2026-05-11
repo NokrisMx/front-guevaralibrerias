@@ -1,12 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { User } from '../../interfaces/user-interface';
+import { MenuProfileComponent } from '../../components/menu-profile-component/menu-profile-component';
+import { HeroProfileComponent } from '../../components/hero-profile-component/hero-profile-component';
 
 @Component({
   selector: 'profile-page',
-  imports: [RouterLink, FormsModule],
+  imports: [FormsModule, MenuProfileComponent, HeroProfileComponent],
   templateUrl: './profile-page.html',
 })
 export class ProfilePage {
@@ -67,9 +68,5 @@ export class ProfilePage {
         }, 2000);
       },
     });
-  }
-
-  logout() {
-    this.authService.logout();
   }
 }

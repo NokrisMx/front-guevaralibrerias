@@ -1,20 +1,33 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { OrderService } from '../../services/order-service';
+import { OrderService } from '../../../../shared/services/order-service';
 import { Order } from '../../interfaces/order-interface';
 import { DatePipe } from '@angular/common';
 import { OrderStatusPipe } from '../../pipes/order-status-pipe';
 import { OrderStatusColorPipe } from '../../pipes/order-status-color-pipe';
+import { HeroProfileComponent } from '../../components/hero-profile-component/hero-profile-component';
+import { User } from '../../interfaces/user-interface';
+import { AuthService } from '../../services/auth-service';
+import { MenuProfileComponent } from '../../components/menu-profile-component/menu-profile-component';
 
 @Component({
   selector: 'orders-page',
-  imports: [RouterLink, DatePipe, OrderStatusPipe, OrderStatusColorPipe],
+  imports: [
+    RouterLink,
+    DatePipe,
+    OrderStatusPipe,
+    OrderStatusColorPipe,
+    HeroProfileComponent,
+    MenuProfileComponent,
+  ],
   templateUrl: './orders-page.html',
 })
 export class OrdersPage {
+  private authService = inject(AuthService);
   private orderService = inject(OrderService);
   selectedOrder = signal<number | null>(null);
   orders = signal<Order[]>([]);
+  user = signal<User | null>(null);
   isLoading = signal<boolean>(true);
 
   ngOnInit(): void {
@@ -27,6 +40,17 @@ export class OrdersPage {
       error: () => {
         this.isLoading.set(false);
       },
+    });
+
+    const id = this.authService.user()?.id;
+    if (!id) return;
+
+    this.authService.getUserById(id).subscribe({
+      next: (data) => {
+        this.user.set(data.data);
+        this.isLoading.set(false);
+      },
+      error: () => this.isLoading.set(false),
     });
   }
 

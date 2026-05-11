@@ -10,6 +10,7 @@ export interface Order {
 
 export interface OrderItem {
   bookId: number;
+  imgUrl: string;
   title: string;
   quantity: number;
   price: number;
