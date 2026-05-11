@@ -33,7 +33,10 @@ export class LoginPage {
       },
       error: (err) => {
         this.isLoading.set(false);
-        this.errorMsg.set(err.err?.message ?? 'Correo o contraseña incorrectos.');
+        this.errorMsg.set(err.error?.message ?? 'Correo o contraseña incorrectos.');
+        setTimeout(() => {
+          this.errorMsg.set('');
+        }, 2000);
       },
     });
   }

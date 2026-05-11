@@ -56,7 +56,7 @@ export class ProfilePage {
 
         setTimeout(() => {
           this.successMsg.set('');
-        }, 3000);
+        }, 2000);
       },
 
       error: (err) => {
@@ -64,7 +64,7 @@ export class ProfilePage {
 
         setTimeout(() => {
           this.errorMsg.set('');
-        }, 4000);
+        }, 2000);
       },
     });
   }

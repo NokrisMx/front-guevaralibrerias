@@ -7,9 +7,9 @@
     </div>
   </div>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    @if (orders.length > 0) {
+    @if (orders().length > 0) {
     <div class="space-y-4">
-      @for (order of orders; track order.id; let i = $index) {
+      @for (order of orders(); track order.id; let i = $index) {
       <div class="bg-white border border-neutral-100 rounded-sm overflow-hidden">
         <div
           class="flex flex-wrap items-center justify-between p-4 gap-3 cursor-pointer hover:bg-neutral-50 transition-colors"
@@ -20,13 +20,14 @@
               {{order.items.length}}
             </div>
             <div>
-              <p class="font-medium text-sm text-neutral-800">{{order.id}}</p>
-              <p class="text-xs text-neutral-400">{{order.date}}</p>
+              <p class="font-medium text-sm text-neutral-800">Pedido #{{order.id}}</p>
+              <p class="text-xs text-neutral-400">{{order.createdAt | date:'dd MMM yyyy'}}</p>
             </div>
           </div>
           <div class="flex items-center gap-4">
-            <span class="text-xs px-3 py-1 rounded-full font-medium"
-              [class]="statusColor(order.status)">{{order.status}}</span>
+            <span class="text-xs px-3 py-1 rounded-full font-medium" [class]="order.status | orderStatusColor">
+              {{ order.status | orderStatus }}
+            </span>
             <p class="font-medium text-sm" style="color:#02332D">${{order.total}} MXN</p>
             <span class="text-neutral-300 text-xs">{{selectedOrder() === i ? '▲' : '▼'}}</span>
           </div>
@@ -37,8 +38,9 @@
           <div class="space-y-2">
             @for (item of order.items; track item.title) {
             <div class="flex justify-between text-sm">
-              <span class="text-neutral-600">{{item.title}} <span class="text-neutral-400">× {{item.qty}}</span></span>
-              <span style="color:#02332D" class="font-medium">${{item.price * item.qty}}</span>
+              <span class="text-neutral-600">{{item.title}} <span class="text-neutral-400">×
+                  {{item.quantity}}</span></span>
+              <span style="color:#02332D" class="font-medium">${{item.price * item.quantity}}</span>
             </div>
             }
           </div>

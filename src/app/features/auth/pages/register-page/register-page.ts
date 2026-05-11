@@ -62,6 +62,10 @@ export class RegisterPage {
 
             this.validationErrors.set(errors);
           }
+          setTimeout(() => {
+            this.errorMsg.set('');
+            this.validationErrors.set([]);
+          }, 2000);
         },
       });
   }
