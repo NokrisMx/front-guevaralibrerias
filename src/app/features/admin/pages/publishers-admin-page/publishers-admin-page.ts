@@ -1,7 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TableColumn, TableComponent } from '../../components/table-component/table-component';
 import { PublishersService } from '../../../../core/services/publishers.service';
-import { Publisher } from '../../../../core/interfaces/publisher-interface';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'publishers-admin-page',
@@ -11,8 +11,9 @@ import { Publisher } from '../../../../core/interfaces/publisher-interface';
 export class PublishersAdminPage {
   private publishersService = inject(PublishersService);
 
-  isLoading = signal(true);
-  publisher = signal<Publisher[]>([]);
+  publishersResource = rxResource({
+    stream: () => this.publishersService.getPublishers(),
+  });
 
   columns: TableColumn[] = [
     { key: 'id', label: 'ID' },
@@ -20,16 +21,6 @@ export class PublishersAdminPage {
     { key: 'createdAt', label: 'Creado', type: 'date' },
     { key: 'updatedAt', label: 'Editado', type: 'date' },
   ];
-
-  ngOnInit() {
-    this.publishersService.getPublishers().subscribe({
-      next: (res) => {
-        this.publisher.set(res.data);
-        this.isLoading.set(false);
-      },
-      error: () => this.isLoading.set(false),
-    });
-  }
 
   onNew() {
     /* abrir modal */

@@ -1,7 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TableColumn, TableComponent } from '../../components/table-component/table-component';
 import { AuthService } from '../../../auth/services/auth.service';
-import { User } from '../../../auth/interfaces/user-interface';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'users-admin-page',
@@ -11,8 +11,9 @@ import { User } from '../../../auth/interfaces/user-interface';
 export class UsersAdminPage {
   private usersService = inject(AuthService);
 
-  isLoading = signal(true);
-  users = signal<User[]>([]);
+  usersResource = rxResource({
+    stream: () => this.usersService.getUsers(),
+  });
 
   columns: TableColumn[] = [
     { key: 'id', label: 'ID' },
@@ -24,16 +25,6 @@ export class UsersAdminPage {
     { key: 'createdAt', label: 'Creado', type: 'date' },
     { key: 'updatedAt', label: 'Editado', type: 'date' },
   ];
-
-  ngOnInit() {
-    this.usersService.getUsers().subscribe({
-      next: (res) => {
-        this.users.set(res.data);
-        this.isLoading.set(false);
-      },
-      error: () => this.isLoading.set(false),
-    });
-  }
 
   onNew() {
     /* abrir modal */

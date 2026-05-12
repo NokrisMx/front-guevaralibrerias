@@ -1,7 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TableColumn, TableComponent } from '../../components/table-component/table-component';
 import { OrderService } from '../../../../shared/services/order.service';
-import { Order } from '../../../auth/interfaces/order-interface';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'orders-admin-page',
@@ -11,8 +11,9 @@ import { Order } from '../../../auth/interfaces/order-interface';
 export class OrdersAdminPage {
   private ordersService = inject(OrderService);
 
-  isLoading = signal(true);
-  orders = signal<Order[]>([]);
+  ordersResource = rxResource({
+    stream: () => this.ordersService.getOrders(),
+  });
 
   columns: TableColumn[] = [
     { key: 'id', label: '# Orden' },
@@ -21,16 +22,6 @@ export class OrdersAdminPage {
     { key: 'total', label: 'Total', type: 'currency' },
     { key: 'createdAt', label: 'Fecha', type: 'date' },
   ];
-
-  ngOnInit() {
-    this.ordersService.getOrders().subscribe({
-      next: (res) => {
-        this.orders.set(res.data);
-        this.isLoading.set(false);
-      },
-      error: () => this.isLoading.set(false),
-    });
-  }
 
   onNew() {
     /* abrir modal */

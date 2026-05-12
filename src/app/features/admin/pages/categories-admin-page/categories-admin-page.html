@@ -1,2 +1,3 @@
-<table-component title="Categorías" subtitle="Administración" [columns]="columns" [data]="categories()"
-  [isLoading]="isLoading()" (onNew)="onNew()" (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />
+<table-component title="Categorías" subtitle="Administración" [columns]="columns"
+  [data]="categoriesResource.value()?.data ?? []" [isLoading]="categoriesResource.isLoading()" (onNew)="onNew()"
+  (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />

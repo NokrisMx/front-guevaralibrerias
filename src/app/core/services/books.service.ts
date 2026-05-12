@@ -15,7 +15,7 @@ export class BooksService {
   private http = inject(HttpClient);
 
   getBooks(): Observable<ApiResponse<Book[]>> {
-    return this.http.get<ApiResponse<Book[]>>(`${baseUrl}/Book`);
+    return this.http.get<ApiResponse<Book[]>>(`${baseUrl}/Book/books`);
   }
 
   getBooksPagination(paramsData: {

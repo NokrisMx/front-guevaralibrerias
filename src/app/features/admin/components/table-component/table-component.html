@@ -4,12 +4,12 @@
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
     <div>
       <p class="text-xs uppercase tracking-widest mb-1" style="color:#b8975a">{{ subtitle() }}</p>
-      <h1 class="text-3xl font-light text-primary" style="font-family:'Cormorant Garamond',serif;">
+      <h1 class="text-3xl font-light text-primary" style="font-family:'Cormorant Garamond',serif">
         {{ title() }}
       </h1>
     </div>
     <button (click)="onNew.emit()"
-      class="flex items-center gap-2 px-5 py-2.5 text-white text-sm font-medium hover:opacity-90 transition-opacity self-start sm:self-auto bg-primary">
+      class="flex items-center gap-2 px-5 py-2.5 text-white text-sm font-medium hover:opacity-90 transition-opacity self-start sm:self-auto bg-primary rounded-full">
       <i class="pi pi-plus text-xs"></i>
       Nuevo
     </button>
@@ -19,17 +19,13 @@
   <div class="bg-white border border-neutral-100 rounded-sm overflow-hidden">
 
     @if (isLoading()) {
-    <!-- Skeleton -->
     <div class="p-6 space-y-3">
       @for (i of [1,2,3,4,5]; track i) {
-      <div class="flex gap-4">
-        <div class="skeleton h-10 flex-1 rounded-sm"></div>
-      </div>
+      <div class="skeleton h-10 w-full rounded-sm"></div>
       }
     </div>
 
     } @else if (data().length === 0) {
-    <!-- Empty state -->
     <div class="flex flex-col items-center justify-center py-20 text-center">
       <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4" style="background-color:#f0f4f3">
         <i class="pi pi-inbox text-2xl text-primary" style="opacity:0.4"></i>
@@ -43,6 +39,23 @@
     </div>
 
     } @else {
+
+    <!-- Selector de registros por página -->
+    <div class="px-5 py-3 border-b border-neutral-100 flex items-center gap-3">
+      <span class="text-xs text-neutral-400">Mostrar</span>
+      <div class="flex gap-1">
+        @for (size of pageSizes; track size) {
+        <button (click)="setPageSize(size)" class="w-10 h-7 text-xs border transition-all rounded-sm"
+          [class.bg-primary]="pageSize() === size" [class.text-white]="pageSize() === size"
+          [class.border-primary]="pageSize() === size" [class.border-neutral-200]="pageSize() !== size"
+          [class.text-neutral-500]="pageSize() !== size">
+          {{ size }}
+        </button>
+        }
+      </div>
+      <span class="text-xs text-neutral-400">registros</span>
+    </div>
+
     <!-- Table -->
     <div class="overflow-x-auto">
       <table class="w-full text-sm">
@@ -60,12 +73,11 @@
           </tr>
         </thead>
         <tbody>
-          @for (row of data(); track row.id) {
+          @for (row of paginatedData(); track row.id) {
           <tr class="border-b border-neutral-50 hover:bg-neutral-50 transition-colors">
 
             @for (col of columns(); track col.key) {
             <td class="px-5 py-3.5 text-neutral-600">
-
               @switch (col.type) {
 
               @case ('badge') {
@@ -75,7 +87,7 @@
               </span>
               }
 
-              @case('status-order'){
+              @case ('status-order') {
               <span class="text-xs px-2.5 py-1 rounded-full font-medium"
                 [class]="col.badgeClass ? col.badgeClass(getValue(row, col.key)) : 'bg-neutral-100 text-neutral-600'">
                 {{ getValue(row, col.key) | orderStatus }}
@@ -108,7 +120,6 @@
               }
 
               }
-
             </td>
             }
 
@@ -132,11 +143,48 @@
       </table>
     </div>
 
-    <!-- Footer con conteo -->
-    <div class="px-5 py-3 border-t border-neutral-100 flex items-center justify-between">
+    <!-- Footer — conteo + paginación -->
+    <div class="px-5 py-3 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+
+      <!-- Conteo -->
       <p class="text-xs text-neutral-400">
-        {{ data().length }} registro{{ data().length !== 1 ? 's' : '' }} en total
+        Mostrando {{ rangeStart }}–{{ rangeEnd }} de {{ data().length }} registro{{ data().length !== 1 ? 's' : '' }}
       </p>
+
+      <!-- Paginación -->
+      @if (totalPages() > 1) {
+      <div class="flex items-center gap-1">
+
+        <!-- Anterior -->
+        <button (click)="prevPage()" [disabled]="currentPage() === 1"
+          class="w-8 h-8 flex items-center justify-center border border-neutral-200 text-neutral-400 hover:border-primary hover:text-primary transition-colors rounded-sm disabled:opacity-30 disabled:cursor-not-allowed">
+          <i class="pi pi-chevron-left text-xs"></i>
+        </button>
+
+        <!-- Páginas -->
+        @for (page of pages(); track $index) {
+        @if (page === '...') {
+        <span class="w-8 h-8 flex items-center justify-center text-xs text-neutral-400">…</span>
+        } @else {
+        <button (click)="goToPage(page)"
+          class="w-8 h-8 flex items-center justify-center text-xs border transition-all rounded-sm"
+          [class.bg-primary]="currentPage() === page" [class.text-white]="currentPage() === page"
+          [class.border-primary]="currentPage() === page" [class.border-neutral-200]="currentPage() !== page"
+          [class.text-neutral-500]="currentPage() !== page">
+          {{ page }}
+        </button>
+        }
+        }
+
+        <!-- Siguiente -->
+        <button (click)="nextPage()" [disabled]="currentPage() === totalPages()"
+          class="w-8 h-8 flex items-center justify-center border border-neutral-200 text-neutral-400 hover:border-primary hover:text-primary transition-colors rounded-sm disabled:opacity-30 disabled:cursor-not-allowed">
+          <i class="pi pi-chevron-right text-xs"></i>
+        </button>
+
+      </div>
+      }
+
     </div>
     }
 

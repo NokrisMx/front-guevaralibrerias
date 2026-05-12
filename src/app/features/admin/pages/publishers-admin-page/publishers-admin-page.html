@@ -1,2 +1,3 @@
-<table-component title="Editoriales" subtitle="Administración" [columns]="columns" [data]="publisher()"
-  [isLoading]="isLoading()" (onNew)="onNew()" (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />
+<table-component title="Editoriales" subtitle="Administración" [columns]="columns"
+  [data]="publishersResource.value()?.data ?? []" [isLoading]="publishersResource.isLoading()" (onNew)="onNew()"
+  (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />

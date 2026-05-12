@@ -1,1 +1,2 @@
-<p>books-page works!</p>,
+<table-component title="Libros" subtitle="Administración" [columns]="columns" [data]="booksResource.value()?.data??[]"
+  [isLoading]="booksResource.isLoading()" (onNew)="onNew()" (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />

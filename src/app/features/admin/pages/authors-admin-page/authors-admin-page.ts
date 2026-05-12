@@ -1,7 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TableComponent, TableColumn } from '../../components/table-component/table-component';
 import { AuthorsService } from '../../../../core/services/authors.service';
-import { Author } from '../../../../core/interfaces/author-interface';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'authors-admin-page',
@@ -11,8 +11,9 @@ import { Author } from '../../../../core/interfaces/author-interface';
 export class AuthorsAdminPage {
   private authorsService = inject(AuthorsService);
 
-  isLoading = signal(true);
-  authors = signal<Author[]>([]);
+  authorsResource = rxResource({
+    stream: () => this.authorsService.getAuthors(),
+  });
 
   columns: TableColumn[] = [
     { key: 'id', label: 'ID' },
@@ -20,16 +21,6 @@ export class AuthorsAdminPage {
     { key: 'createdAt', label: 'Creado', type: 'date' },
     { key: 'updatedAt', label: 'Editado', type: 'date' },
   ];
-
-  ngOnInit() {
-    this.authorsService.getAuthors().subscribe({
-      next: (res) => {
-        this.authors.set(res.data);
-        this.isLoading.set(false);
-      },
-      error: () => this.isLoading.set(false),
-    });
-  }
 
   onNew() {
     /* abrir modal */

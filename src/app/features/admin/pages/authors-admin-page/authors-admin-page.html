@@ -1,2 +1,3 @@
-<table-component title="Autores" subtitle="Administración" [columns]="columns" [data]="authors()"
-  [isLoading]="isLoading()" (onNew)="onNew()" (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />
+<table-component title="Autores" subtitle="Administración" [columns]="columns"
+  [data]="authorsResource.value()?.data ?? []" [isLoading]="authorsResource.isLoading()" (onNew)="onNew()"
+  (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />
