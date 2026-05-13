@@ -17,5 +17,17 @@ export class CategoriesService {
     return this.http.get<ApiResponse<Category[]>>(`${baseUrl}/Category`);
   }
 
+  createCategory(body: { name: string }): Observable<ApiResponse<Category>> {
+    return this.http.post<ApiResponse<Category>>(`${baseUrl}/Category`, body);
+  }
+
+  updateCategory(id: number, body: { name: string }): Observable<ApiResponse<Category>> {
+    return this.http.put<ApiResponse<Category>>(`${baseUrl}/Category/${id}`, body);
+  }
+
+  deleteCategory(id: number): Observable<ApiResponse<null>> {
+    return this.http.delete<ApiResponse<null>>(`${baseUrl}/Category/${id}`);
+  }
+
   constructor() {}
 }

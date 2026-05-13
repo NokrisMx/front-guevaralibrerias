@@ -18,7 +18,7 @@ export class AdminSidebarLayout {
     { label: 'Autores', icon: 'pi-user-edit', path: '/admin/authors', exact: true },
     { label: 'Categorías', icon: 'pi-tag', path: '/admin/categories', exact: true },
     { label: 'Editoriales', icon: 'pi-building', path: '/admin/publishers', exact: true },
-    { label: 'Pedidos', icon: 'pi-shopping-bag', path: '/admin/orders', exact: true },
+    { label: 'Ordenes', icon: 'pi-shopping-bag', path: '/admin/orders', exact: true },
     { label: 'Usuarios', icon: 'pi-users', path: '/admin/users', exact: true },
     { label: 'Configuración', icon: 'pi-cog', path: '/admin/settings', exact: true },
   ];

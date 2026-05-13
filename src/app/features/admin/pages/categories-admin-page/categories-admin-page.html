@@ -1,3 +1,6 @@
 <table-component title="Categorías" subtitle="Administración" [columns]="columns"
-  [data]="categoriesResource.value()?.data ?? []" [isLoading]="categoriesResource.isLoading()" (onNew)="onNew()"
-  (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />
+  [data]="categoriesResource.value()?.data ?? []" [isLoading]="categoriesResource.isLoading()" [showEdit]="true"
+  [showDelete]="true" (onNew)="onNew()" (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />
+
+<category-modal [isOpen]="modalOpen()" [mode]="modalMode()" [category]="selectedCategory()" (onClose)="onModalClose()"
+  (onSuccess)="onModalSuccess()" />

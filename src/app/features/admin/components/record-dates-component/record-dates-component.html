@@ -1,0 +1,14 @@
+@if (createdAt()) {
+<div class="flex flex-wrap gap-4 mt-4 pt-4 border-t border-neutral-100">
+  <p class="text-xs text-neutral-400">
+    <span class="uppercase tracking-widest">Creado:</span>
+    {{ createdAt() | date: 'dd MMM yyyy · HH:mm' }}
+  </p>
+  @if (updatedAt()) {
+  <p class="text-xs text-neutral-400">
+    <span class="uppercase tracking-widest">Editado:</span>
+    {{ updatedAt() | date: 'dd MMM yyyy · HH:mm' }}
+  </p>
+  }
+</div>
+}

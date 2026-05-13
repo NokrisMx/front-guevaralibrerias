@@ -1,3 +1,6 @@
 <table-component title="Autores" subtitle="Administración" [columns]="columns"
-  [data]="authorsResource.value()?.data ?? []" [isLoading]="authorsResource.isLoading()" (onNew)="onNew()"
-  (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />
+  [data]="authorsResource.value()?.data ?? []" [isLoading]="authorsResource.isLoading()" [showEdit]="true"
+  [showDelete]="true" (onNew)="onNew()" (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />
+
+<author-modal [isOpen]="modalOpen()" [mode]="modalMode()" [author]="selectedAuthor()" (onClose)="onModalClose()"
+  (onSuccess)="onModalSuccess()" />

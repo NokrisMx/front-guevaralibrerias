@@ -1,1 +1,94 @@
-<p>author-modal works!</p>,
+@if (isOpen()) {
+<!-- Backdrop -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4" style="background-color:rgba(0,0,0,0.5)"
+  (click)="close()">
+
+  <!-- Modal -->
+  <div class="bg-white rounded-sm w-full max-w-lg shadow-2xl" (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between px-6 py-5 border-b border-neutral-100">
+      <div>
+        <p class="text-xs uppercase tracking-widest mb-0.5" style="color:#b8975a">Autores</p>
+        <h3 class="text-xl font-light text-primary" style="font-family:'Cormorant Garamond',serif;">
+          {{ title }}
+        </h3>
+      </div>
+      <button (click)="close()" [disabled]="isLoading()"
+        class="w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-neutral-600 transition-colors disabled:opacity-40">
+        <i class="pi pi-times text-sm"></i>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="px-6 py-5">
+
+      @if (mode() === 'delete') {
+      <!-- Confirmación eliminar -->
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-red-50">
+          <i class="pi pi-trash text-red-400"></i>
+        </div>
+        <div>
+          <p class="text-sm text-neutral-700 font-medium mb-1">
+            ¿Eliminar a <span class="font-semibold">{{ author()?.name }}</span>?
+          </p>
+          <p class="text-sm text-neutral-400">
+            Esta acción no se puede deshacer. Se eliminará el autor y puede afectar los libros asociados.
+          </p>
+        </div>
+      </div>
+
+      } @else {
+      <!-- Formulario crear / editar -->
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">
+            Nombre <span class="text-red-400">*</span>
+          </label>
+          <input type="text" [value]="name()" (input)="name.set($any($event.target).value)" [disabled]="isLoading()"
+            placeholder="Ej. Gabriel García Márquez"
+            class="w-full border px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors disabled:bg-neutral-50 border-neutral-200">
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Biografía</label>
+          <textarea [value]="bio()" (input)="bio.set($any($event.target).value)" [disabled]="isLoading()"
+            placeholder="Breve descripción del autor..." rows="4"
+            class="w-full border px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors resize-none disabled:bg-neutral-50 border-neutral-200">
+              </textarea>
+        </div>
+      </div>
+      }
+
+      @if (mode() === 'edit') {
+      <record-dates [createdAt]="author()?.createdAt ?? null" [updatedAt]="author()?.updatedAt ?? null" />
+      }
+
+      @if (errorMsg()) {
+      <div class="mt-4 p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-sm flex items-center gap-2">
+        <i class="pi pi-exclamation-circle text-xs"></i>
+        {{ errorMsg() }}
+      </div>
+      }
+
+    </div>
+
+    <!-- Footer -->
+    <div class="px-6 py-4 border-t border-neutral-100 flex justify-end gap-3">
+      <button (click)="close()" [disabled]="isLoading()"
+        class="px-5 py-2.5 text-sm border border-neutral-200 text-neutral-500 hover:bg-neutral-50 transition-colors disabled:opacity-40">
+        Cancelar
+      </button>
+      <button (click)="submit()" [disabled]="isLoading()"
+        class="px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-60 flex items-center gap-2"
+        [style.background-color]="mode() === 'delete' ? '#ef4444' : '#02332D'">
+        @if (isLoading()) {
+        <span class="loading loading-spinner loading-xs"></span>
+        }
+        {{ mode() === 'delete' ? 'Eliminar' : mode() === 'create' ? 'Crear' : 'Guardar' }}
+      </button>
+    </div>
+
+  </div>
+</div>
+}

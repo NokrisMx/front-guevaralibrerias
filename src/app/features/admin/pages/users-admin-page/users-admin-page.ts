@@ -17,13 +17,10 @@ export class UsersAdminPage {
 
   columns: TableColumn[] = [
     { key: 'id', label: 'ID' },
-    { key: 'name', label: 'Nombre' },
     { key: 'username', label: 'Usuario' },
     { key: 'email', label: 'Email' },
-    { key: 'phoneNumber', label: 'Teléfono' },
     { key: 'role', label: 'Rol' },
     { key: 'createdAt', label: 'Creado', type: 'date' },
-    { key: 'updatedAt', label: 'Editado', type: 'date' },
   ];
 
   onNew() {

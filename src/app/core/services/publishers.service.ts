@@ -17,5 +17,17 @@ export class PublishersService {
     return this.http.get<ApiResponse<Publisher[]>>(`${baseUrl}/Publisher`);
   }
 
+  createPublisher(body: { name: string }): Observable<ApiResponse<Publisher>> {
+    return this.http.post<ApiResponse<Publisher>>(`${baseUrl}/Publisher`, body);
+  }
+
+  updatePublisher(id: number, body: { name: string }): Observable<ApiResponse<Publisher>> {
+    return this.http.put<ApiResponse<Publisher>>(`${baseUrl}/Publisher/${id}`, body);
+  }
+
+  deletePublisher(id: number): Observable<ApiResponse<null>> {
+    return this.http.delete<ApiResponse<null>>(`${baseUrl}/Publisher/${id}`);
+  }
+
   constructor() {}
 }

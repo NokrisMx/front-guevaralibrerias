@@ -1,1 +1,214 @@
-<p>book-modal works!</p>,
+@if (isOpen()) {
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4" style="background-color:rgba(0,0,0,0.5)"
+  (click)="close()">
+
+  <div class="bg-white rounded-sm w-full max-w-2xl shadow-2xl max-h-[90vh] flex flex-col"
+    (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between px-6 py-5 border-b border-neutral-100 shrink-0">
+      <div>
+        <p class="text-xs uppercase tracking-widest mb-0.5" style="color:#b8975a">Libros</p>
+        <h3 class="text-xl font-light text-primary" style="font-family:'Cormorant Garamond',serif;">
+          {{ modalTitle }}
+        </h3>
+      </div>
+      <button (click)="close()" [disabled]="isLoading()"
+        class="w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-neutral-600 transition-colors disabled:opacity-40">
+        <i class="pi pi-times text-sm"></i>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="px-6 py-5 overflow-y-auto flex-1">
+
+      @if (mode() === 'delete') {
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-red-50">
+          <i class="pi pi-trash text-red-400"></i>
+        </div>
+        <div>
+          <p class="text-sm text-neutral-700 font-medium mb-1">
+            ¿Eliminar <span class="font-semibold">{{ book()?.title }}</span>?
+          </p>
+          <p class="text-sm text-neutral-400">
+            Esta acción no se puede deshacer. Se eliminará el libro permanentemente.
+          </p>
+        </div>
+      </div>
+
+      } @else {
+
+      @if (isLoadingData()) {
+      <div class="flex items-center justify-center py-10">
+        <span class="loading loading-spinner loading-md text-primary"></span>
+      </div>
+      } @else {
+      <div class="space-y-4">
+
+        <!-- Imagen -->
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Imagen de portada</label>
+          <div class="flex items-center gap-4">
+            <!-- Preview -->
+            <div class="w-16 h-20 rounded-sm shrink-0 overflow-hidden bg-primary">
+              <img [src]="imagePreview() || 'assets/images/no-image.jpg'" alt="preview"
+                class="w-full h-full object-cover">
+            </div>
+            <label class="flex-1 cursor-pointer">
+              <div
+                class="border border-dashed border-neutral-200 rounded-sm px-4 py-3 text-center hover:border-primary transition-colors">
+                <i class="pi pi-upload text-neutral-400 text-sm mb-1 block"></i>
+                <p class="text-xs text-neutral-400">
+                  {{ imageFile() ? imageFile()!.name : 'Haz clic para subir una imagen' }}
+                </p>
+              </div>
+              <input #fileInput type="file" accept="image/*" class="hidden" (change)="onImageChange($event)">
+            </label>
+          </div>
+        </div>
+
+        <!-- Título y ISBN -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">
+              Título <span class="text-red-400">*</span>
+            </label>
+            <input type="text" [value]="title()" (input)="title.set($any($event.target).value)" [disabled]="isLoading()"
+              placeholder="Ej. Cien años de soledad"
+              class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors disabled:bg-neutral-50">
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">
+              ISBN <span class="text-red-400">*</span>
+            </label>
+            <input type="text" [value]="isbn()" (input)="isbn.set($any($event.target).value)" [disabled]="isLoading()"
+              placeholder="9780060883287"
+              class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors disabled:bg-neutral-50">
+          </div>
+        </div>
+
+        <!-- Descripción -->
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Descripción</label>
+          <textarea [value]="description()" (input)="description.set($any($event.target).value)"
+            [disabled]="isLoading()" placeholder="Sinopsis del libro..." rows="3"
+            class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors resize-none disabled:bg-neutral-50">
+                </textarea>
+        </div>
+
+        <!-- Precio, Páginas, Stock -->
+        <div class="grid grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">
+              Precio <span class="text-red-400">*</span>
+            </label>
+            <input type="number" [value]="price()" (input)="price.set(+$any($event.target).value)"
+              [disabled]="isLoading()" placeholder="0.00"
+              class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors disabled:bg-neutral-50">
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Páginas</label>
+            <input type="number" [value]="pages()" (input)="pages.set(+$any($event.target).value)"
+              [disabled]="isLoading()" placeholder="0"
+              class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors disabled:bg-neutral-50">
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Stock</label>
+            <input type="number" [value]="stock()" (input)="stock.set(+$any($event.target).value)"
+              [disabled]="isLoading()" placeholder="0"
+              class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors disabled:bg-neutral-50">
+          </div>
+        </div>
+
+        <!-- Año publicación -->
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Año de publicación</label>
+          <input type="date" [value]="yearPublished()" (input)="yearPublished.set($any($event.target).value)"
+            [disabled]="isLoading()"
+            class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors disabled:bg-neutral-50">
+        </div>
+
+        <!-- Selects -->
+        <div class="grid sm:grid-cols-3 gap-4">
+
+          <!-- Categoría -->
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">
+              Categoría <span class="text-red-400">*</span>
+            </label>
+            <select [(ngModel)]="categoryIdModel" [disabled]="isLoading()"
+              class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-[#02332D] transition-colors disabled:bg-neutral-50 bg-white">
+              <option [ngValue]="null">Seleccionar</option>
+              @for (cat of categories(); track cat.id) {
+              <option [ngValue]="cat.id">{{ cat.name }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Autor -->
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">
+              Autor <span class="text-red-400">*</span>
+            </label>
+            <select [(ngModel)]="authorIdModel" [disabled]="isLoading()"
+              class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors disabled:bg-neutral-50 bg-white">
+              <option [ngValue]="null">Seleccionar</option>
+              @for (author of authors(); track author.id) {
+              <option [ngValue]="author.id">{{ author.name }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Editorial -->
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">
+              Editorial <span class="text-red-400">*</span>
+            </label>
+            <select [(ngModel)]="publisherIdModel" [disabled]="isLoading()"
+              class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors disabled:bg-neutral-50 bg-white">
+              <option [ngValue]="null">Seleccionar</option>
+              @for (pub of publishers(); track pub.id) {
+              <option [ngValue]="pub.id">{{ pub.name }}</option>
+              }
+            </select>
+          </div>
+
+        </div>
+
+      </div>
+      }
+      }
+
+      @if (mode() === 'edit') {
+      <record-dates [createdAt]="book()?.createdAt ?? null" [updatedAt]="book()?.updatedAt ?? null" />
+      }
+
+      @if (errorMsg()) {
+      <div class="mt-4 p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-sm flex items-center gap-2">
+        <i class="pi pi-exclamation-circle text-xs"></i>
+        {{ errorMsg() }}
+      </div>
+      }
+
+    </div>
+
+    <!-- Footer -->
+    <div class="px-6 py-4 border-t border-neutral-100 flex justify-end gap-3 shrink-0">
+      <button (click)="close()" [disabled]="isLoading()"
+        class="px-5 py-2.5 text-sm border border-neutral-200 text-neutral-500 hover:bg-neutral-50 transition-colors disabled:opacity-40">
+        Cancelar
+      </button>
+      <button (click)="submit()" [disabled]="isLoading() || isLoadingData()"
+        class="px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-60 flex items-center gap-2"
+        [style.background-color]="mode() === 'delete' ? '#ef4444' : '#02332D'">
+        @if (isLoading()) {
+        <span class="loading loading-spinner loading-xs"></span>
+        }
+        {{ mode() === 'delete' ? 'Eliminar' : mode() === 'create' ? 'Crear' : 'Guardar' }}
+      </button>
+    </div>
+
+  </div>
+</div>
+}

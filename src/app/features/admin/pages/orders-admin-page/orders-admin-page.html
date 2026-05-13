@@ -1,3 +1,79 @@
-<table-component title="Ordenes de compra" subtitle="Administración" [columns]="columns"
-  [data]="ordersResource.value()?.data??[]" [isLoading]="ordersResource.isLoading()" (onNew)="onNew()"
-  (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />
+<table-component title="Pedidos" subtitle="Administración" [columns]="columns"
+  [data]="ordersResource.value()?.data ?? []" [isLoading]="ordersResource.isLoading()" [showView]="true"
+  [showEdit]="false" [showDelete]="false" (onView)="onView($event)" />
+
+<!-- Modal detalle -->
+@if (showDetail() && selectedOrder()) {
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4" style="background-color:rgba(0,0,0,0.5)"
+  (click)="closeDetail()">
+  <div class="bg-white rounded-sm w-full max-w-lg shadow-2xl" (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between px-6 py-5 border-b border-neutral-100">
+      <div>
+        <p class="text-xs uppercase tracking-widest mb-0.5" style="color:#b8975a">Pedidos</p>
+        <h3 class="text-xl font-light text-primary" style="font-family:'Cormorant Garamond',serif">
+          Pedido #{{ selectedOrder()!.id }}
+        </h3>
+      </div>
+      <button (click)="closeDetail()"
+        class="w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-neutral-600 transition-colors">
+        <i class="pi pi-times text-sm"></i>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="px-6 py-5 space-y-4">
+
+      <!-- Info general -->
+      <div class="grid grid-cols-2 gap-3">
+        <div class="bg-neutral-50 rounded-sm p-3">
+          <p class="text-xs uppercase tracking-widest text-neutral-400 mb-1">Usuario</p>
+          <p class="text-sm font-medium text-neutral-700">{{ selectedOrder()!.username }}</p>
+        </div>
+        <div class="bg-neutral-50 rounded-sm p-3">
+          <p class="text-xs uppercase tracking-widest text-neutral-400 mb-1">Estado</p>
+          <span class="text-xs px-2.5 py-1 rounded-full font-medium">
+            {{ selectedOrder()!.status | orderStatus }}
+          </span>
+        </div>
+        <div class="bg-neutral-50 rounded-sm p-3">
+          <p class="text-xs uppercase tracking-widest text-neutral-400 mb-1">Fecha</p>
+          <p class="text-sm text-neutral-700">{{ selectedOrder()!.createdAt | date:'dd MMM yyyy · HH:mm' }}</p>
+        </div>
+        <div class="bg-neutral-50 rounded-sm p-3">
+          <p class="text-xs uppercase tracking-widest text-neutral-400 mb-1">Total</p>
+          <p class="text-sm font-medium text-primary">{{ selectedOrder()!.total | currency:'MXN':'symbol':'1.2-2' }}</p>
+        </div>
+      </div>
+
+      <!-- Artículos -->
+      <div>
+        <p class="text-xs uppercase tracking-widest text-neutral-400 mb-3">Artículos</p>
+        <div class="space-y-2">
+          @for (item of selectedOrder()!.items; track item.bookId) {
+          <div class="flex items-center justify-between gap-3 py-2 border-b border-neutral-50">
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-8 rounded-sm shrink-0 bg-primary" style="border-left:2px solid #b8975a"></div>
+              <div>
+                <p class="text-sm text-neutral-700">{{ item.title }}</p>
+                <p class="text-xs text-neutral-400">Cantidad: {{ item.quantity }}</p>
+              </div>
+            </div>
+            <p class="text-sm font-medium text-primary shrink-0">
+              {{ item.price * item.quantity | currency:'MXN':'symbol':'1.2-2' }}
+            </p>
+          </div>
+          }
+        </div>
+        <div class="flex justify-between items-center pt-3 font-medium text-sm">
+          <span class="text-neutral-500">Total</span>
+          <span class="text-primary">{{ selectedOrder()!.total | currency:'MXN':'symbol':'1.2-2' }}</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+}

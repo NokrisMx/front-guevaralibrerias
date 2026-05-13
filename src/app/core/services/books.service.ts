@@ -71,5 +71,17 @@ export class BooksService {
     return this.http.get<ApiResponse<Book>>(`${baseUrl}/Book/${id}`);
   }
 
+  createBook(formData: FormData): Observable<ApiResponse<Book>> {
+    return this.http.post<ApiResponse<Book>>(`${baseUrl}/Book`, formData);
+  }
+
+  updateBook(id: number, formData: FormData): Observable<ApiResponse<Book>> {
+    return this.http.put<ApiResponse<Book>>(`${baseUrl}/Book/${id}`, formData);
+  }
+
+  deleteBook(id: number): Observable<ApiResponse<null>> {
+    return this.http.delete<ApiResponse<null>>(`${baseUrl}/Book/${id}`);
+  }
+
   constructor() {}
 }

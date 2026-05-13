@@ -1,11 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { TableColumn, TableComponent } from '../../components/table-component/table-component';
 import { BooksService } from '../../../../core/services/books.service';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { BookModal, BookModalMode } from '../../modals/book-modal/book-modal';
+import { Book } from '../../../../core/interfaces/book-interface';
 
 @Component({
   selector: 'books-admin-page',
-  imports: [TableComponent],
+  imports: [TableComponent, BookModal],
   templateUrl: './books-admin-page.html',
 })
 export class BooksAdminPage {
@@ -15,22 +17,46 @@ export class BooksAdminPage {
     stream: () => this.booksService.getBooks(),
   });
 
+  modalOpen = signal(false);
+  modalMode = signal<BookModalMode>('create');
+  selectedBook = signal<Book | null>(null);
+
   columns: TableColumn[] = [
-    { key: 'isbn', label: 'isbn' },
-    { key: 'title', label: 'Titulo' },
+    { key: 'title', label: 'Título' },
+    { key: 'authorName', label: 'Autor' },
+    { key: 'categoryName', label: 'Categoría' },
+    { key: 'publisherName', label: 'Editorial' },
     { key: 'price', label: 'Precio', type: 'currency' },
-    { key: 'stock', label: 'stock' },
+    { key: 'stock', label: 'Stock' },
     { key: 'createdAt', label: 'Creado', type: 'date' },
-    { key: 'updatedAt', label: 'Editado', type: 'date' },
   ];
 
   onNew() {
-    /* abrir modal */
+    this.selectedBook.set(null);
+    this.modalMode.set('create');
+    this.modalOpen.set(true);
   }
-  onEdit(item: any) {
-    /* abrir modal editar */
+
+  onEdit(book: Book) {
+    this.selectedBook.set(book);
+    this.modalMode.set('edit');
+    this.modalOpen.set(true);
   }
-  onDelete(item: any) {
-    /* abrir modal confirmar */
+
+  onDelete(book: Book) {
+    this.selectedBook.set(book);
+    this.modalMode.set('delete');
+    this.modalOpen.set(true);
+  }
+
+  onModalClose() {
+    this.modalOpen.set(false);
+    this.selectedBook.set(null);
+  }
+
+  onModalSuccess() {
+    this.modalOpen.set(false);
+    this.selectedBook.set(null);
+    this.booksResource.reload();
   }
 }

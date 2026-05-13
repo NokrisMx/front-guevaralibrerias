@@ -9,7 +9,7 @@
       </h1>
     </div>
     <button (click)="onNew.emit()"
-      class="flex items-center gap-2 px-5 py-2.5 text-white text-sm font-medium hover:opacity-90 transition-opacity self-start sm:self-auto bg-primary rounded-full">
+      class="flex items-center gap-2 px-5 py-2.5 text-white text-sm font-medium hover:opacity-90 transition-opacity self-start sm:self-auto bg-primary rounded-sm">
       <i class="pi pi-plus text-xs"></i>
       Nuevo
     </button>
@@ -126,14 +126,24 @@
             <!-- Acciones -->
             <td class="px-5 py-3.5 text-right">
               <div class="flex items-center justify-end gap-2">
+                @if (showView()) {
+                <button (click)="onView.emit(row)"
+                  class="w-8 h-8 flex items-center justify-center border border-neutral-200 text-neutral-400 hover:border-blue-400 hover:text-blue-400 transition-colors rounded-sm">
+                  <i class="pi pi-eye text-xs"></i>
+                </button>
+                }
+                @if (showEdit()) {
                 <button (click)="onEdit.emit(row)"
-                  class="w-8 h-8 flex items-center justify-center border border-neutral-200 text-neutral-400 hover:border-primary hover:text-primary transition-colors rounded-sm">
+                  class="w-8 h-8 flex items-center justify-center border border-neutral-200 text-neutral-400 hover:border-yellow-400 hover:text-yellow-400 transition-colors rounded-sm">
                   <i class="pi pi-pencil text-xs"></i>
                 </button>
+                }
+                @if (showDelete()) {
                 <button (click)="onDelete.emit(row)"
                   class="w-8 h-8 flex items-center justify-center border border-neutral-200 text-neutral-400 hover:border-red-400 hover:text-red-400 transition-colors rounded-sm">
                   <i class="pi pi-trash text-xs"></i>
                 </button>
+                }
               </div>
             </td>
 
