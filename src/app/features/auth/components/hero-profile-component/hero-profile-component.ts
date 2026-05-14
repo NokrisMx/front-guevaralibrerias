@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { User } from '../../interfaces/user-interface';
+import type { User } from '../../interfaces/user-interface';
 
 @Component({
   selector: 'hero-profile-component',

@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { User } from '../../interfaces/user-interface';
+import type { User } from '../../interfaces/user-interface';
 import { MenuProfileComponent } from '../../components/menu-profile-component/menu-profile-component';
 import { HeroProfileComponent } from '../../components/hero-profile-component/hero-profile-component';
 

@@ -3,7 +3,7 @@ import { CategoriesService } from '../../../../core/services/categories.service'
 import { TableColumn, TableComponent } from '../../components/table-component/table-component';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { CategoryModal, CategoryModalMode } from '../../modals/category-modal/category-modal';
-import { Category } from '../../../../core/interfaces/category-interface';
+import type { Category } from '../../../../core/interfaces/category-interface';
 
 @Component({
   selector: 'categories-admin-page',

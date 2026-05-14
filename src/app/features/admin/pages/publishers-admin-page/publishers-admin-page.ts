@@ -3,7 +3,7 @@ import { TableColumn, TableComponent } from '../../components/table-component/ta
 import { PublishersService } from '../../../../core/services/publishers.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { PublisherModal, PublisherModalMode } from '../../modals/publisher-modal/publisher-modal';
-import { Publisher } from '../../../../core/interfaces/publisher-interface';
+import type { Publisher } from '../../../../core/interfaces/publisher-interface';
 
 @Component({
   selector: 'publishers-admin-page',

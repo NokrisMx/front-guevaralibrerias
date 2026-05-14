@@ -10,10 +10,10 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { forkJoin } from 'rxjs';
-import { Book } from '../../../../core/interfaces/book-interface';
-import { Author } from '../../../../core/interfaces/author-interface';
-import { Category } from '../../../../core/interfaces/category-interface';
-import { Publisher } from '../../../../core/interfaces/publisher-interface';
+import type { Book } from '../../../../core/interfaces/book-interface';
+import type { Author } from '../../../../core/interfaces/author-interface';
+import type { Category } from '../../../../core/interfaces/category-interface';
+import type { Publisher } from '../../../../core/interfaces/publisher-interface';
 import { BooksService } from '../../../../core/services/books.service';
 import { AuthorsService } from '../../../../core/services/authors.service';
 import { CategoriesService } from '../../../../core/services/categories.service';

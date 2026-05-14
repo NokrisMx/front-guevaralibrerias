@@ -1,6 +1,7 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, computed, input, output, signal } from '@angular/core';
 import { OrderStatusPipe } from '../../../auth/pipes/order-status-pipe';
+import { OrderStatusColorPipe } from '../../../auth/pipes/order-status-color-pipe';
 
 export interface TableColumn {
   key: string;
@@ -11,7 +12,7 @@ export interface TableColumn {
 
 @Component({
   selector: 'table-component',
-  imports: [DatePipe, CurrencyPipe, OrderStatusPipe],
+  imports: [DatePipe, CurrencyPipe, OrderStatusPipe, OrderStatusColorPipe],
   templateUrl: './table-component.html',
 })
 export class TableComponent {

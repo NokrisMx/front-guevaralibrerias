@@ -3,7 +3,7 @@ import { TableColumn, TableComponent } from '../../components/table-component/ta
 import { BooksService } from '../../../../core/services/books.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { BookModal, BookModalMode } from '../../modals/book-modal/book-modal';
-import { Book } from '../../../../core/interfaces/book-interface';
+import type { Book } from '../../../../core/interfaces/book-interface';
 
 @Component({
   selector: 'books-admin-page',

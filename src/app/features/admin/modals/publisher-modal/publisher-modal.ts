@@ -1,7 +1,7 @@
 import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PublishersService } from '../../../../core/services/publishers.service';
-import { Publisher } from '../../../../core/interfaces/publisher-interface';
+import type { Publisher } from '../../../../core/interfaces/publisher-interface';
 import { RecordDates } from '../../components/record-dates-component/record-dates-component';
 
 export type PublisherModalMode = 'create' | 'edit' | 'delete';

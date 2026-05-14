@@ -2,9 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Book } from '../interfaces/book-interface';
-import { BookPagination } from '../interfaces/book-pagination-interface';
-import { ApiResponse } from '../../shared/interfaces/ApiResponse';
+import type { Book } from '../interfaces/book-interface';
+import type { BookPagination } from '../interfaces/book-pagination-interface';
+import type { ApiResponse } from '../../shared/interfaces/ApiResponse';
 
 const baseUrl = environment.baseUrl;
 

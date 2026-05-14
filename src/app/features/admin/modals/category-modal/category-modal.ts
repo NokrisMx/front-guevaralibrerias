@@ -1,7 +1,7 @@
 import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CategoriesService } from '../../../../core/services/categories.service';
-import { Category } from '../../../../core/interfaces/category-interface';
+import type { Category } from '../../../../core/interfaces/category-interface';
 import { RecordDates } from '../../components/record-dates-component/record-dates-component';
 
 export type CategoryModalMode = 'create' | 'edit' | 'delete';

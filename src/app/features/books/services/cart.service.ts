@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { CartItem } from '../interfaces/cart-item-interface';
+import type { CartItem } from '../interfaces/cart-item-interface';
 
 const STORAGE_KEY = 'guevara_cart';
 

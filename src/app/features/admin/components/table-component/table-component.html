@@ -89,7 +89,7 @@
 
               @case ('status-order') {
               <span class="text-xs px-2.5 py-1 rounded-full font-medium"
-                [class]="col.badgeClass ? col.badgeClass(getValue(row, col.key)) : 'bg-neutral-100 text-neutral-600'">
+                [class]="col.badgeClass ? col.badgeClass(getValue(row, col.key)) : getValue(row, col.key) | orderStatusColor">
                 {{ getValue(row, col.key) | orderStatus }}
               </span>
               }

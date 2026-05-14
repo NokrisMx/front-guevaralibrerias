@@ -1,3 +1,3 @@
 <table-component title="Usuarios" subtitle="Administración" [columns]="columns" [data]="usersResource.value()?.data??[]"
-  [isLoading]="usersResource.isLoading()" [showEdit]="true" [showDelete]="true" (onNew)="onNew()"
+  [isLoading]="usersResource.isLoading()" [showView]="false" [showEdit]="true" [showDelete]="false" (onNew)="onNew()"
   (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />

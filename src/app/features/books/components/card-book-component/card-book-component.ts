@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Book } from '../../../../core/interfaces/book-interface';
+import type { Book } from '../../../../core/interfaces/book-interface';
 
 @Component({
   selector: 'card-book-component',

@@ -2,9 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../interfaces/ApiResponse';
-import { Order } from '../../features/auth/interfaces/order-interface';
-import { CartItem } from '../../features/books/interfaces/cart-item-interface';
+import type { ApiResponse } from '../interfaces/ApiResponse';
+import type { Order } from '../../core/interfaces/order-interface';
+import type { CartItem } from '../../features/books/interfaces/cart-item-interface';
 
 const baseUrl = environment.baseUrl;
 

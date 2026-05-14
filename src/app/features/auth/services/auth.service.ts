@@ -7,7 +7,7 @@ import type { User } from './../interfaces/user-interface';
 import type { UpdateUser } from '../interfaces/update-user-interface';
 import { jwtDecode } from 'jwt-decode';
 import { ApiResponse } from '../../../shared/interfaces/ApiResponse';
-import { RegisterUser } from '../interfaces/register-user-interface';
+import type { RegisterUser } from '../interfaces/register-user-interface';
 
 interface JwtPayload {
   exp: number;

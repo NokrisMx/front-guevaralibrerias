@@ -1,6 +1,6 @@
 import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Author } from '../../../../core/interfaces/author-interface';
+import type { Author } from '../../../../core/interfaces/author-interface';
 import { AuthorsService } from '../../../../core/services/authors.service';
 import { RecordDates } from '../../components/record-dates-component/record-dates-component';
 

@@ -2,13 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { TableComponent, TableColumn } from '../../components/table-component/table-component';
 import { OrderService } from '../../../../shared/services/order.service';
-import { Order } from '../../../../core/interfaces/order-interface';
-import { CurrencyPipe, DatePipe } from '@angular/common';
-import { OrderStatusPipe } from '../../../auth/pipes/order-status-pipe';
+import type { Order } from '../../../../core/interfaces/order-interface';
+import { OrderModal } from '../../modals/order-modal/order-modal';
 
 @Component({
   selector: 'orders-admin-page',
-  imports: [TableComponent, CurrencyPipe, OrderStatusPipe, DatePipe],
+  imports: [TableComponent, OrderModal],
   templateUrl: './orders-admin-page.html',
 })
 export class OrdersAdminPage {
@@ -34,7 +33,7 @@ export class OrdersAdminPage {
     this.showDetail.set(true);
   }
 
-  closeDetail() {
+  onClose() {
     this.showDetail.set(false);
     this.selectedOrder.set(null);
   }
