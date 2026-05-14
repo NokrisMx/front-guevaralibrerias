@@ -22,13 +22,13 @@ export class BooksAdminPage {
   selectedBook = signal<Book | null>(null);
 
   columns: TableColumn[] = [
-    { key: 'title', label: 'Título' },
-    { key: 'authorName', label: 'Autor' },
-    { key: 'categoryName', label: 'Categoría' },
-    { key: 'publisherName', label: 'Editorial' },
-    { key: 'price', label: 'Precio', type: 'currency' },
-    { key: 'stock', label: 'Stock' },
-    { key: 'createdAt', label: 'Creado', type: 'date' },
+    { key: 'title', label: 'Título', sortable: true, filterable: true },
+    { key: 'authorName', label: 'Autor', sortable: true, filterable: true },
+    { key: 'categoryName', label: 'Categoría', sortable: true, filterable: true },
+    { key: 'publisherName', label: 'Editorial', sortable: true, filterable: true },
+    { key: 'price', label: 'Precio', type: 'currency', sortable: true, filterable: true },
+    { key: 'stock', label: 'Stock', sortable: true, filterable: true },
+    { key: 'createdAt', label: 'Creado', type: 'date', sortable: true, filterable: true },
   ];
 
   onNew() {

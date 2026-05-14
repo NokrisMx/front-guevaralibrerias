@@ -21,11 +21,11 @@ export class OrdersAdminPage {
   showDetail = signal(false);
 
   columns: TableColumn[] = [
-    { key: 'id', label: 'Pedido' },
-    { key: 'username', label: 'Usuario' },
-    { key: 'total', label: 'Total', type: 'currency' },
-    { key: 'status', label: 'Estado', type: 'status-order' },
-    { key: 'createdAt', label: 'Fecha', type: 'date' },
+    { key: 'id', label: 'Pedido', sortable: true, filterable: true },
+    { key: 'username', label: 'Usuario', sortable: true, filterable: true },
+    { key: 'total', label: 'Total', type: 'currency', sortable: true, filterable: true },
+    { key: 'status', label: 'Estado', type: 'status-order', sortable: true, filterable: true },
+    { key: 'createdAt', label: 'Fecha', type: 'date', sortable: true, filterable: true },
   ];
 
   onView(order: Order) {

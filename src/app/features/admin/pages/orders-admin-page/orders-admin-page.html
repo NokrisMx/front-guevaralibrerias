@@ -1,5 +1,5 @@
 <table-component title="Ordenes" subtitle="Administración" [columns]="columns"
-  [data]="ordersResource.value()?.data ?? []" [isLoading]="ordersResource.isLoading()" [showView]="true"
-  [showEdit]="false" [showDelete]="false" (onView)="onView($event)" />
+  [data]="ordersResource.value()?.data ?? []" [isLoading]="ordersResource.isLoading()" [showNew]="false"
+  [showView]="true" [showEdit]="false" [showDelete]="false" (onView)="onView($event)" />
 
 <order-modal [isOpen]="showDetail()" [order]="selectedOrder()" (onClose)="onClose()" />

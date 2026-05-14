@@ -22,10 +22,10 @@ export class PublishersAdminPage {
   selectedPublisher = signal<Publisher | null>(null);
 
   columns: TableColumn[] = [
-    { key: 'id', label: 'ID' },
-    { key: 'name', label: 'Nombre' },
-    { key: 'createdAt', label: 'Creado', type: 'date' },
-    { key: 'updatedAt', label: 'Editado', type: 'date' },
+    { key: 'id', label: 'ID', sortable: true, filterable: true },
+    { key: 'name', label: 'Nombre', sortable: true, filterable: true },
+    { key: 'createdAt', label: 'Creado', type: 'date', sortable: true, filterable: true },
+    { key: 'updatedAt', label: 'Editado', type: 'date', sortable: true, filterable: true },
   ];
 
   onNew() {

@@ -1,6 +1,6 @@
 <table-component title="Editoriales" subtitle="Administración" [columns]="columns"
-  [data]="publishersResource.value()?.data ?? []" [isLoading]="publishersResource.isLoading()" [showEdit]="true"
-  [showDelete]="true" (onNew)="onNew()" (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />
+  [data]="publishersResource.value()?.data ?? []" [isLoading]="publishersResource.isLoading()" [showNew]="true"
+  [showEdit]="true" [showDelete]="true" (onNew)="onNew()" (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />
 
 <publisher-modal [isOpen]="modalOpen()" [mode]="modalMode()" [publisher]="selectedPublisher()"
   (onClose)="onModalClose()" (onSuccess)="onModalSuccess()" />

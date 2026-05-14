@@ -1,5 +1,5 @@
 <table-component title="Libros" subtitle="Administración" [columns]="columns" [data]="booksResource.value()?.data??[]"
-  [isLoading]="booksResource.isLoading()" [showEdit]="true" [showDelete]="true" (onNew)="onNew()"
+  [isLoading]="booksResource.isLoading()" [showNew]="true" [showEdit]="true" [showDelete]="true" (onNew)="onNew()"
   (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" />
 
 <book-modal [isOpen]="modalOpen()" [mode]="modalMode()" [book]="selectedBook()" (onClose)="onModalClose()"

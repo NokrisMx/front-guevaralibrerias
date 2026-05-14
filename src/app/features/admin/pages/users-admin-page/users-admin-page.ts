@@ -16,11 +16,11 @@ export class UsersAdminPage {
   });
 
   columns: TableColumn[] = [
-    { key: 'id', label: 'ID' },
-    { key: 'username', label: 'Usuario' },
-    { key: 'email', label: 'Email' },
-    { key: 'role', label: 'Rol' },
-    { key: 'createdAt', label: 'Creado', type: 'date' },
+    { key: 'id', label: 'ID', sortable: true, filterable: true },
+    { key: 'username', label: 'Usuario', sortable: true, filterable: true },
+    { key: 'email', label: 'Email', sortable: true, filterable: true },
+    { key: 'role', label: 'Rol', sortable: true, filterable: true },
+    { key: 'createdAt', label: 'Creado', type: 'date', sortable: true, filterable: true },
   ];
 
   onNew() {
