@@ -13,7 +13,7 @@ export class AdminSidebarLayout {
   collapsed = signal(false);
 
   navItems = [
-    { label: 'Dashboard', icon: 'pi-chart-bar', path: '/admin/dashboard', exact: true },
+    { label: 'Dashboard', icon: 'pi-gauge', path: '/admin/dashboard', exact: true },
     { label: 'Libros', icon: 'pi-book', path: '/admin/books', exact: true },
     { label: 'Autores', icon: 'pi-user-edit', path: '/admin/authors', exact: true },
     { label: 'Categorías', icon: 'pi-tag', path: '/admin/categories', exact: true },

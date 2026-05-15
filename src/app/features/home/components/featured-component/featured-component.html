@@ -18,7 +18,7 @@
       <div class="animate-pulse">
 
         <!-- Imagen -->
-        <div class="skeleton rounded-sm mb-3 aspect-[3/4] w-full"></div>
+        <div class="skeleton rounded-sm mb-3 aspect-3/4 w-full"></div>
 
         <!-- Categoría -->
         <div class="skeleton h-3 w-16 mb-2"></div>
@@ -45,10 +45,10 @@
 
       <a [routerLink]="['/books', book.id]" class="group cursor-pointer">
 
-        <div class="relative overflow-hidden rounded-sm mb-3 aspect-3/4" style="background:#f5f0e8">
+        <div class="relative overflow-hidden rounded-sm mb-3 aspect-auto" style="background:#f5f0e8">
 
           <img [src]="book.imgUrl || 'assets/images/no-image.jpg'" [alt]="book.title"
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            class="w-full h-full object-scale-down group-hover:scale-105 transition-transform duration-500">
 
           <div class="absolute inset-0 bg-[#02332D]/0 group-hover:bg-[#02332D]/10 transition-all duration-300">
           </div>

@@ -16,7 +16,6 @@ export class UsersAdminPage {
   });
 
   columns: TableColumn[] = [
-    { key: 'id', label: 'ID', sortable: true, filterable: true },
     { key: 'username', label: 'Usuario', sortable: true, filterable: true },
     { key: 'email', label: 'Email', sortable: true, filterable: true },
     { key: 'role', label: 'Rol', sortable: true, filterable: true },

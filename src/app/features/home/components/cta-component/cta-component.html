@@ -47,8 +47,19 @@
         style="border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.7)">
         Crear Cuenta
       </a>
-      } @else {
-      <a routerLink="/auth/profile"
+      } @else if (authService.user()?.role === 'Admin') {
+      <a routerLink="/admin/dashboard"
+        class="px-10 py-3.5 text-sm font-medium tracking-widest uppercase transition-opacity hover:opacity-80"
+        style="background-color:#b8975a; color:#02332D">
+        Dashboard
+      </a>
+      <a routerLink="/books"
+        class="px-10 py-3.5 text-sm font-medium tracking-widest uppercase border transition-colors hover:bg-white/5"
+        style="border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.7)">
+        Ver Catálogo
+      </a>
+      }
+      @else {<a routerLink="/auth/profile"
         class="px-10 py-3.5 text-sm font-medium tracking-widest uppercase transition-opacity hover:opacity-80"
         style="background-color:#b8975a; color:#02332D">
         Mi Perfil
@@ -57,8 +68,7 @@
         class="px-10 py-3.5 text-sm font-medium tracking-widest uppercase border transition-colors hover:bg-white/5"
         style="border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.7)">
         Ver Catálogo
-      </a>
-      }
+      </a>}
     </div>
 
     <!-- Separador inferior -->
