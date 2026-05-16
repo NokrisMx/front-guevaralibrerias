@@ -1,5 +1,5 @@
 <div class="bg-neutral-50 min-h-screen">
-  <div style="background-color:#02332D" class="py-10">
+  <div class="py-10 bg-primary">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 class="text-4xl font-light text-white" style="font-family:'Cormorant Garamond',serif;font-style:italic">
         Carrito</h1>
@@ -16,7 +16,7 @@
           <div class="flex-1 min-w-0">
             <p class="font-medium text-sm text-neutral-800 truncate">{{item.title}}</p>
             <p class="text-xs text-neutral-400">{{item.author}}</p>
-            <p class="font-medium text-sm mt-1 text-primary">${{item.price}} MXN</p>
+            <p class="font-medium text-sm mt-1 text-primary">{{item.price | currency: 'MXN':'symbol':'1.2-2'}}</p>
           </div>
           <div class="flex items-center gap-2">
             <button (click)="dec(item.id)"
@@ -25,23 +25,26 @@
             <button (click)="inc(item.id)"
               class="w-7 h-7 border border-neutral-200 text-neutral-500 hover:border-primary text-sm flex items-center justify-center">+</button>
           </div>
-          <p class="font-medium w-20 text-right text-sm text-primary">${{item.price * item.quantity}}</p>
+          <p class="font-medium w-20 text-right text-sm text-primary">{{item.price * item.quantity | currency:
+            'MXN':'symbol':'1.2-2'}}</p>
           <button (click)="remove(item.id)"
             class="text-neutral-300 hover:text-red-400 ml-2 transition-colors">✕</button>
         </div>
         }
       </div>
       <div class="bg-white border border-neutral-100 rounded-sm p-6 h-fit">
-        <h2 class="text-xl font-light mb-5" style="font-family:'Cormorant Garamond',serif;color:#02332D">Resumen</h2>
+        <h2 class="text-xl font-light mb-5 text-primary" style="font-family:'Cormorant Garamond',serif;">Resumen</h2>
         <div class="space-y-3 text-sm">
-          <div class="flex justify-between text-neutral-600"><span>Subtotal</span><span>${{subtotal()}} MXN</span></div>
-          <div class="flex justify-between text-neutral-600"><span>Envío</span><span>${{shipping()}} MXN</span></div>
-          <div class="border-t border-neutral-100 pt-3 flex justify-between font-medium" style="color:#02332D">
-            <span>Total</span><span>${{total()}} MXN</span>
+          <div class="flex justify-between text-neutral-600"><span>Subtotal</span><span>{{subtotal() | currency:
+              'MXN':'symbol':'1.2-2'}}</span></div>
+          <div class="flex justify-between text-neutral-600"><span>Envío</span><span>{{shipping() | currency:
+              'MXN':'symbol':'1.2-2'}}</span></div>
+          <div class="border-t border-neutral-100 pt-3 flex justify-between font-medium text-primary">
+            <span>Total</span><span>{{total() | currency: 'MXN':'symbol':'1.2-2'}}</span>
           </div>
         </div>
-        <button (click)="checkout()" class="w-full mt-6 py-3 text-white text-sm font-medium tracking-wide"
-          style="background-color:#02332D">Proceder al Pago</button>
+        <button (click)="checkout()"
+          class="w-full mt-6 py-3 text-white text-sm font-medium tracking-wide bg-primary">Proceder al Pago</button>
         <a routerLink="/books" class="block text-center mt-3 text-xs text-neutral-400 hover:text-primary">← Continuar
           comprando</a>
       </div>

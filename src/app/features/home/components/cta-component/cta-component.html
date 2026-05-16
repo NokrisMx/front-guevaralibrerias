@@ -1,5 +1,5 @@
 <!-- CTA Banner -->
-<section class="relative overflow-hidden py-24" style="background-color:#02332D">
+<section class="relative overflow-hidden py-24 bg-primary">
 
   <!-- Círculos decorativos de fondo -->
   <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full opacity-10"
@@ -38,8 +38,8 @@
     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
       @if (authService.authStatus() !== 'authenticated') {
       <a routerLink="/auth/login"
-        class="px-10 py-3.5 text-sm font-medium tracking-widest uppercase transition-opacity hover:opacity-80"
-        style="background-color:#b8975a; color:#02332D">
+        class="px-10 py-3.5 text-sm font-medium tracking-widest uppercase transition-opacity hover:opacity-80 text-primary"
+        style="background-color:#b8975a;">
         Iniciar Sesión
       </a>
       <a routerLink="/auth/register"
@@ -49,8 +49,8 @@
       </a>
       } @else if (authService.user()?.role === 'Admin') {
       <a routerLink="/admin/dashboard"
-        class="px-10 py-3.5 text-sm font-medium tracking-widest uppercase transition-opacity hover:opacity-80"
-        style="background-color:#b8975a; color:#02332D">
+        class="px-10 py-3.5 text-sm font-medium tracking-widest uppercase transition-opacity hover:opacity-80 text-primary"
+        style="background-color:#b8975a;">
         Dashboard
       </a>
       <a routerLink="/books"
@@ -60,8 +60,8 @@
       </a>
       }
       @else {<a routerLink="/auth/profile"
-        class="px-10 py-3.5 text-sm font-medium tracking-widest uppercase transition-opacity hover:opacity-80"
-        style="background-color:#b8975a; color:#02332D">
+        class="px-10 py-3.5 text-sm font-medium tracking-widest uppercase transition-opacity hover:opacity-80 text-primary"
+        style="background-color:#b8975a;">
         Mi Perfil
       </a>
       <a routerLink="/books"

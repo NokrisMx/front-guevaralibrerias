@@ -1,41 +1,41 @@
 <div class="space-y-3">
   <a routerLink="/auth/profile"
-    class="flex items-center gap-4 bg-white border border-neutral-100 rounded-sm p-4 hover:border-[#02332D]/30 hover:shadow-sm transition-all group">
+    class="flex items-center gap-4 bg-white border border-neutral-100 rounded-sm p-4 hover:border-primary/30 hover:shadow-sm transition-all group">
     <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
       style="background-color:#02332D/10; background-color:#f0f4f3">
       <i class="pi pi-user text-sm text-primary"></i>
     </div>
     <div>
-      <p class="text-sm font-medium text-neutral-700 group-hover:text-[#02332D] transition-colors">Información Personal
+      <p class="text-sm font-medium text-neutral-700 group-hover:text-primary transition-colors">Información Personal
       </p>
       <p class="text-xs text-neutral-400">Ver datos</p>
     </div>
-    <i class="pi pi-chevron-right ml-auto text-xs text-neutral-300 group-hover:text-[#02332D] transition-colors"></i>
+    <i class="pi pi-chevron-right ml-auto text-xs text-neutral-300 group-hover:text-primary transition-colors"></i>
   </a>
 
   <a routerLink="/auth/orders"
-    class="flex items-center gap-4 bg-white border border-neutral-100 rounded-sm p-4 hover:border-[#02332D]/30 hover:shadow-sm transition-all group">
+    class="flex items-center gap-4 bg-white border border-neutral-100 rounded-sm p-4 hover:border-primary/30 hover:shadow-sm transition-all group">
     <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
       style="background-color:#02332D/10; background-color:#f0f4f3">
       <i class="pi pi-box text-sm text-primary"></i>
     </div>
     <div>
-      <p class="text-sm font-medium text-neutral-700 group-hover:text-[#02332D] transition-colors">Mis Pedidos</p>
+      <p class="text-sm font-medium text-neutral-700 group-hover:text-primary transition-colors">Mis Pedidos</p>
       <p class="text-xs text-neutral-400">Ver historial</p>
     </div>
-    <i class="pi pi-chevron-right ml-auto text-xs text-neutral-300 group-hover:text-[#02332D] transition-colors"></i>
+    <i class="pi pi-chevron-right ml-auto text-xs text-neutral-300 group-hover:text-primary transition-colors"></i>
   </a>
 
   <a
-    class="flex items-center gap-4 bg-white border border-neutral-100 rounded-sm p-4 cursor-pointer hover:border-[#02332D]/30 hover:shadow-sm transition-all group">
+    class="flex items-center gap-4 bg-white border border-neutral-100 rounded-sm p-4 cursor-pointer hover:border-primary/30 hover:shadow-sm transition-all group">
     <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style="background-color:#f0f4f3">
-      <i class="pi pi-heart text-sm" style="color:#02332D"></i>
+      <i class="pi pi-heart text-sm text-primary"></i>
     </div>
     <div>
-      <p class="text-sm font-medium text-neutral-700 group-hover:text-[#02332D] transition-colors">Favoritos</p>
+      <p class="text-sm font-medium text-neutral-700 group-hover:text-primary transition-colors">Favoritos</p>
       <p class="text-xs text-neutral-400">Proximamente...</p>
     </div>
-    <i class="pi pi-chevron-right ml-auto text-xs text-neutral-300 group-hover:text-[#02332D] transition-colors"></i>
+    <i class="pi pi-chevron-right ml-auto text-xs text-neutral-300 group-hover:text-primary transition-colors"></i>
   </a>
 
   <a (click)="logout()" routerLink="/auth/login"

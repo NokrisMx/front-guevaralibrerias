@@ -1,26 +1,26 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [RouterLink],
+  imports: [RouterLink, CurrencyPipe],
   templateUrl: './dashboard-page.html',
 })
-export class DashboardPage implements OnInit {
+export class DashboardPage {
   private adminService = inject(AdminService);
 
-  stats = signal({
-    books: 0,
-    authors: 0,
-    categories: 0,
-    publishers: 0,
-    orders: 0,
-    users: 0,
-    revenue: 0,
-  });
-  recentOrders = signal<any[]>([]);
+  stats = computed(() => this.dashboardStats.value()?.data);
+  recentOrders = computed(() => this.recentOrdersResource.value()?.data);
   isLoading = signal(true);
 
-  ngOnInit() {}
+  dashboardStats = rxResource({
+    stream: () => this.adminService.getStats(),
+  });
+
+  recentOrdersResource = rxResource({
+    stream: () => this.adminService.getRecentOrders(),
+  });
 }

@@ -4,9 +4,9 @@
 
     <!-- Breadcrumb -->
     <div class="text-xs text-neutral-400 mb-8 flex gap-2">
-      <a routerLink="/" class="hover:text-[#02332D]">Inicio</a>
+      <a routerLink="/" class="hover:text-primary">Inicio</a>
       <span>/</span>
-      <a routerLink="/books" class="hover:text-[#02332D]">Libros</a>
+      <a routerLink="/books" class="hover:text-primary">Libros</a>
       <span>/</span>
       <span class="text-neutral-600">
         {{ bookData.title }}
@@ -38,8 +38,8 @@
       <!-- Book info -->
       <div>
         <p class="text-xs uppercase tracking-widest mb-2" style="color:#b8975a">{{book()!.categoryName}}</p>
-        <h1 class="text-4xl font-light leading-tight mb-2"
-          style="font-family:'Cormorant Garamond',serif; color:#02332D">{{book()!.title}}</h1>
+        <h1 class="text-4xl font-light leading-tight mb-2 text-primary" style="font-family:'Cormorant Garamond',serif;">
+          {{book()!.title}}</h1>
         <p class="text-neutral-500 mb-6">por <span class="text-neutral-700 font-medium">{{book()!.authorName}}</span>
         </p>
 
@@ -69,8 +69,8 @@
         <div class="border-t border-neutral-100 pt-6">
           <div class="flex items-baseline gap-2 mb-2">
             <span class="text-3xl font-light text-primary"
-              style="font-family:'Cormorant Garamond',serif;">${{book()!.price}}</span>
-            <span class="text-sm text-neutral-400">MXN</span>
+              style="font-family:'Cormorant Garamond',serif;">{{book()!.price | currency:
+              'MXN':'symbol':'1.2-2'}}</span>
           </div>
           <p class="text-xs text-green-600 mb-4">● {{book()!.stock}} en existencia</p>
 
@@ -78,10 +78,10 @@
             <!-- Quantity -->
             <div class="flex items-center border border-neutral-200 rounded-sm">
               <button (click)="decrement()"
-                class="w-9 h-9 flex items-center justify-center text-neutral-500 hover:text-[#02332D] transition-colors">−</button>
+                class="w-9 h-9 flex items-center justify-center text-neutral-500 hover:text-primary transition-colors">−</button>
               <span class="w-10 text-center text-sm font-medium">{{qty()}}</span>
               <button (click)="increment()"
-                class="w-9 h-9 flex items-center justify-center text-neutral-500 hover:text-[#02332D] transition-colors">+</button>
+                class="w-9 h-9 flex items-center justify-center text-neutral-500 hover:text-primary transition-colors">+</button>
             </div>
 
             <!-- Add to cart -->

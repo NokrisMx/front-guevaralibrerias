@@ -8,10 +8,11 @@ import { AuthorsService } from '../../../../core/services/authors.service';
 import { PublishersService } from '../../../../core/services/publishers.service';
 import { CardBookComponent } from '../../components/card-book-component/card-book-component';
 import { PaginationComponent } from '../../components/pagination-component/pagination-component';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'books-page',
-  imports: [FormsModule, CardBookComponent, PaginationComponent],
+  imports: [FormsModule, CardBookComponent, PaginationComponent, CurrencyPipe],
   templateUrl: './books-page.html',
 })
 export class BooksPage {

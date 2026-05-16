@@ -3,116 +3,116 @@
   <!-- Header -->
   <div class="mb-8">
     <p class="text-xs uppercase tracking-widest mb-1" style="color:#b8975a">Panel</p>
-    <h1 class="text-3xl font-light" style="font-family:'Cormorant Garamond',serif; color:#02332D">Dashboard</h1>
+    <h1 class="text-3xl font-light text-primary" style="font-family:'Cormorant Garamond',serif;">Dashboard</h1>
   </div>
 
   <!-- Stat cards -->
   <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
 
     <a routerLink="/admin/books"
-      class="bg-white border border-neutral-100 rounded-sm p-5 hover:shadow-md hover:border-[#02332D]/20 transition-all group">
+      class="bg-white border border-neutral-100 rounded-sm p-5 hover:shadow-md hover:border-primary/20 transition-all group">
       <div class="flex items-start justify-between mb-4">
         <div class="w-10 h-10 rounded-sm flex items-center justify-center" style="background-color:#f0f4f3">
-          <i class="pi pi-book text-sm" style="color:#02332D"></i>
+          <i class="pi pi-book text-sm text-primary"></i>
         </div>
-        <i class="pi pi-arrow-up-right text-xs text-neutral-300 group-hover:text-[#02332D] transition-colors"></i>
+        <i class="pi pi-arrow-up-right text-xs text-neutral-300 group-hover:text-primary transition-colors"></i>
       </div>
-      <p class="text-2xl font-light mb-1" style="font-family:'Cormorant Garamond',serif; color:#02332D">
-        {{ stats().books }}
+      <p class="text-2xl font-light mb-1 text-primary" style="font-family:'Cormorant Garamond',serif;">
+        {{ stats()?.books }}
       </p>
       <p class="text-xs uppercase tracking-widest text-neutral-400">Libros</p>
     </a>
 
     <a routerLink="/admin/authors"
-      class="bg-white border border-neutral-100 rounded-sm p-5 hover:shadow-md hover:border-[#02332D]/20 transition-all group">
+      class="bg-white border border-neutral-100 rounded-sm p-5 hover:shadow-md hover:border-primary/20 transition-all group">
       <div class="flex items-start justify-between mb-4">
         <div class="w-10 h-10 rounded-sm flex items-center justify-center" style="background-color:#f0f4f3">
-          <i class="pi pi-user-edit text-sm" style="color:#02332D"></i>
+          <i class="pi pi-user-edit text-sm text-primary"></i>
         </div>
-        <i class="pi pi-arrow-up-right text-xs text-neutral-300 group-hover:text-[#02332D] transition-colors"></i>
+        <i class="pi pi-arrow-up-right text-xs text-neutral-300 group-hover:text-primary transition-colors"></i>
       </div>
-      <p class="text-2xl font-light mb-1" style="font-family:'Cormorant Garamond',serif; color:#02332D">
-        {{ stats().authors }}
+      <p class="text-2xl font-light mb-1 text-primary" style="font-family:'Cormorant Garamond',serif;">
+        {{ stats()?.authors }}
       </p>
       <p class="text-xs uppercase tracking-widest text-neutral-400">Autores</p>
     </a>
 
     <a routerLink="/admin/categories"
-      class="bg-white border border-neutral-100 rounded-sm p-5 hover:shadow-md hover:border-[#02332D]/20 transition-all group">
+      class="bg-white border border-neutral-100 rounded-sm p-5 hover:shadow-md hover:border-primary/20 transition-all group">
       <div class="flex items-start justify-between mb-4">
         <div class="w-10 h-10 rounded-sm flex items-center justify-center" style="background-color:#f0f4f3">
-          <i class="pi pi-tag text-sm" style="color:#02332D"></i>
+          <i class="pi pi-tag text-sm text-primary"></i>
         </div>
-        <i class="pi pi-arrow-up-right text-xs text-neutral-300 group-hover:text-[#02332D] transition-colors"></i>
+        <i class="pi pi-arrow-up-right text-xs text-neutral-300 group-hover:text-primary transition-colors"></i>
       </div>
-      <p class="text-2xl font-light mb-1" style="font-family:'Cormorant Garamond',serif; color:#02332D">
-        {{ stats().categories }}
+      <p class="text-2xl font-light mb-1 text-primary" style="font-family:'Cormorant Garamond',serif;">
+        {{ stats()?.categories }}
       </p>
       <p class="text-xs uppercase tracking-widest text-neutral-400">Categorías</p>
     </a>
 
     <a routerLink="/admin/publishers"
-      class="bg-white border border-neutral-100 rounded-sm p-5 hover:shadow-md hover:border-[#02332D]/20 transition-all group">
+      class="bg-white border border-neutral-100 rounded-sm p-5 hover:shadow-md hover:border-primary/20 transition-all group">
       <div class="flex items-start justify-between mb-4">
         <div class="w-10 h-10 rounded-sm flex items-center justify-center" style="background-color:#f0f4f3">
-          <i class="pi pi-building text-sm" style="color:#02332D"></i>
+          <i class="pi pi-building text-sm text-primary"></i>
         </div>
-        <i class="pi pi-arrow-up-right text-xs text-neutral-300 group-hover:text-[#02332D] transition-colors"></i>
+        <i class="pi pi-arrow-up-right text-xs text-neutral-300 group-hover:text-primary transition-colors"></i>
       </div>
-      <p class="text-2xl font-light mb-1" style="font-family:'Cormorant Garamond',serif; color:#02332D">
-        {{ stats().publishers }}
+      <p class="text-2xl font-light mb-1 text-primary" style="font-family:'Cormorant Garamond',serif;">
+        {{ stats()?.publishers }}
       </p>
       <p class="text-xs uppercase tracking-widest text-neutral-400">Editoriales</p>
     </a>
 
     <a routerLink="/admin/orders"
-      class="bg-white border border-neutral-100 rounded-sm p-5 hover:shadow-md hover:border-[#02332D]/20 transition-all group">
+      class="bg-white border border-neutral-100 rounded-sm p-5 hover:shadow-md hover:border-primary/20 transition-all group">
       <div class="flex items-start justify-between mb-4">
         <div class="w-10 h-10 rounded-sm flex items-center justify-center" style="background-color:#f0f4f3">
-          <i class="pi pi-shopping-bag text-sm" style="color:#02332D"></i>
+          <i class="pi pi-shopping-bag text-sm text-primary"></i>
         </div>
-        <i class="pi pi-arrow-up-right text-xs text-neutral-300 group-hover:text-[#02332D] transition-colors"></i>
+        <i class="pi pi-arrow-up-right text-xs text-neutral-300 group-hover:text-primary transition-colors"></i>
       </div>
-      <p class="text-2xl font-light mb-1" style="font-family:'Cormorant Garamond',serif; color:#02332D">
-        {{ stats().orders }}
+      <p class="text-2xl font-light mb-1 text-primary" style="font-family:'Cormorant Garamond',serif;">
+        {{ stats()?.orders }}
       </p>
       <p class="text-xs uppercase tracking-widest text-neutral-400">Pedidos</p>
     </a>
 
     <a routerLink="/admin/users"
-      class="bg-white border border-neutral-100 rounded-sm p-5 hover:shadow-md hover:border-[#02332D]/20 transition-all group">
+      class="bg-white border border-neutral-100 rounded-sm p-5 hover:shadow-md hover:border-primary/20 transition-all group">
       <div class="flex items-start justify-between mb-4">
         <div class="w-10 h-10 rounded-sm flex items-center justify-center" style="background-color:#f0f4f3">
-          <i class="pi pi-users text-sm" style="color:#02332D"></i>
+          <i class="pi pi-users text-sm text-primary"></i>
         </div>
-        <i class="pi pi-arrow-up-right text-xs text-neutral-300 group-hover:text-[#02332D] transition-colors"></i>
+        <i class="pi pi-arrow-up-right text-xs text-neutral-300 group-hover:text-primary transition-colors"></i>
       </div>
-      <p class="text-2xl font-light mb-1" style="font-family:'Cormorant Garamond',serif; color:#02332D">
-        {{ stats().users }}
+      <p class="text-2xl font-light mb-1 text-primary" style="font-family:'Cormorant Garamond',serif;">
+        {{ stats()?.users }}
       </p>
       <p class="text-xs uppercase tracking-widest text-neutral-400">Usuarios</p>
     </a>
 
     <div class="bg-white border border-neutral-100 rounded-sm p-5 md:col-span-2">
       <div class="flex items-start justify-between mb-4">
-        <div class="w-10 h-10 rounded-sm flex items-center justify-center" style="background-color:#02332D">
+        <div class="w-10 h-10 rounded-sm flex items-center justify-center bg-primary">
           <i class="pi pi-dollar text-sm text-white"></i>
         </div>
       </div>
-      <p class="text-3xl font-light mb-1" style="font-family:'Cormorant Garamond',serif; color:#02332D">
-        ${{ stats().revenue }} MXN
+      <p class="text-3xl font-light mb-1 text-primary" style="font-family:'Cormorant Garamond',serif;">
+        {{ stats()?.revenue |currency: 'MXN':'symbol':'1.2-2' }}
       </p>
       <p class="text-xs uppercase tracking-widest text-neutral-400">Ingresos totales</p>
     </div>
 
   </div>
 
-  <!-- Pedidos recientes -->
+  <!-- Ordenes recientes -->
   <div class="bg-white border border-neutral-100 rounded-sm">
     <div class="flex items-center justify-between p-5 border-b border-neutral-100">
-      <h2 class="text-lg font-light" style="font-family:'Cormorant Garamond',serif; color:#02332D">Pedidos Recientes
+      <h2 class="text-lg font-light text-primary" style="font-family:'Cormorant Garamond',serif; ">Ordenes Recientes
       </h2>
-      <a routerLink="/admin/orders" class="text-xs text-neutral-400 hover:text-[#02332D] transition-colors">Ver todos
+      <a routerLink="/admin/orders" class="text-xs text-neutral-400 hover:text-primary transition-colors">Ver todos
         →</a>
     </div>
     <div class="overflow-x-auto">
@@ -131,7 +131,7 @@
         <tbody>
           @for (order of recentOrders(); track order.id) {
           <tr class="border-b border-neutral-50 hover:bg-neutral-50 transition-colors">
-            <td class="px-5 py-3 font-medium" style="color:#02332D">#{{ order.id }}</td>
+            <td class="px-5 py-3 font-medium text-primary">#{{ order.id }}</td>
             <td class="px-5 py-3 text-neutral-600">{{ order.userName }}</td>
             <td class="px-5 py-3 text-neutral-400 hidden sm:table-cell">{{ order.createdAt }}</td>
             <td class="px-5 py-3">
@@ -139,7 +139,7 @@
                 {{ order.status }}
               </span>
             </td>
-            <td class="px-5 py-3 text-right font-medium" style="color:#02332D">${{ order.total }}</td>
+            <td class="px-5 py-3 text-right font-medium text-primary">${{ order.total }}</td>
           </tr>
           }
         </tbody>

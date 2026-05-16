@@ -13,13 +13,13 @@
   <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
     <div class="w-full max-w-md">
       <p class="text-xs tracking-widest uppercase mb-2" style="color:#b8975a">Bienvenido</p>
-      <h2 class="text-3xl font-light mb-8" style="font-family:'Cormorant Garamond',serif;color:#02332D">Iniciar Sesión
+      <h2 class="text-3xl font-light mb-8 text-primary" style="font-family:'Cormorant Garamond',serif;">Iniciar Sesión
       </h2>
       <form (ngSubmit)="onSubmit()" class="space-y-5">
         <div>
           <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Correo Electrónico</label>
           <input type="email" [ngModel]="email()" (ngModelChange)="email.set($event)" name="email"
-            class="w-full border border-neutral-200 px-4 py-3 text-sm rounded-sm focus:outline-none focus:border-[#02332D] transition-colors"
+            class="w-full border border-neutral-200 px-4 py-3 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors"
             placeholder="tu@correo.com">
         </div>
         <div>
@@ -29,7 +29,7 @@
               (ngModelChange)="password.set($event)" name="pass" minlength="8" required
               pattern="(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               title="Debe tener mínimo 8 caracteres, una mayúscula, una minúscula y un número" class="w-full border border-neutral-200 px-4 py-3 text-sm rounded-sm
-           focus:outline-none focus:border-[#02332D]
+           focus:outline-none focus:border-primary
            transition-colors pr-12" placeholder="••••••••">
 
             <button type="button" (click)="showPass.update(v => !v)"
@@ -56,13 +56,12 @@
         </div>
         }
         <button type="submit" [disabled]="isLoading()"
-          class="w-full py-3 text-white text-sm font-medium tracking-wide transition-opacity hover:opacity-90"
-          style="background-color:#02332D">
+          class="w-full py-3 text-white text-sm font-medium tracking-wide transition-opacity hover:opacity-90 bg-primary">
           {{ isLoading() ? 'Iniciando sesión...' : 'Iniciar Sesión' }}
         </button>
       </form>
       <p class="text-center text-sm text-neutral-400 mt-6">¿No tienes cuenta? <a routerLink="/auth/register"
-          class="font-medium hover:opacity-70 transition-opacity" style="color:#02332D">Regístrate</a></p>
+          class="font-medium hover:opacity-70 transition-opacity text-primary">Regístrate</a></p>
     </div>
   </div>
 </div>

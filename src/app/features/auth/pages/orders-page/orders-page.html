@@ -25,12 +25,11 @@
           <!-- Cabecera del pedido -->
           <div class="flex flex-wrap items-center justify-between p-5 gap-3 cursor-pointer" (click)="toggle(i)">
             <div class="flex items-center gap-4">
-              <div class="w-10 h-10 rounded-sm flex items-center justify-center text-white text-xs"
-                style="background-color:#02332D">
+              <div class="w-10 h-10 rounded-sm flex items-center justify-center text-white text-xs bg-primary">
                 <i class="pi pi-shopping-bag text-sm"></i>
               </div>
               <div>
-                <p class="font-medium text-sm text-neutral-800">Pedido <span style="color:#02332D">#{{ order.id
+                <p class="font-medium text-sm text-neutral-800">Pedido <span class="text-primary">#{{ order.id
                     }}</span>
                 </p>
                 <p class="text-xs text-neutral-400 mt-0.5">{{ order.createdAt | date:'dd MMM yyyy · HH:mm' }}</p>
@@ -41,7 +40,7 @@
               <span class="text-xs px-3 py-1 rounded-full font-medium" [class]="order.status | orderStatusColor">
                 {{ order.status | orderStatus }}
               </span>
-              <p class="font-medium text-sm" style="color:#02332D">${{ order.total }} MXN</p>
+              <p class="font-medium text-sm text-primary">{{ order.total | currency: 'MXN':'symbol':'1.2-2'}}</p>
               <div class="w-6 h-6 flex items-center justify-center border border-neutral-200 rounded-sm">
                 <i class="pi text-xs text-neutral-400" [class.pi-chevron-down]="selectedOrder() !== i"
                   [class.pi-chevron-up]="selectedOrder() === i"></i>
@@ -92,7 +91,7 @@
           style="background-color:#f0f4f3">
           <i class="pi pi-inbox text-3xl text-primary" style="opacity:0.4"></i>
         </div>
-        <h3 class="text-2xl font-light mb-2" style="font-family:'Cormorant Garamond',serif; color:#02332D">
+        <h3 class="text-2xl font-light mb-2 text-primary" style="font-family:'Cormorant Garamond',serif;">
           Sin pedidos aún
         </h3>
         <p class="text-neutral-400 text-sm mb-8">Cuando realices una compra aparecerá aquí</p>

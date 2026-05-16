@@ -1,4 +1,4 @@
-<section class="relative overflow-hidden min-h-[85vh] flex items-center" style="background-color:#02332D">
+<section class="relative overflow-hidden min-h-[85vh] flex items-center bg-primary">
   <div class="absolute inset-0 opacity-5">
     <div class="absolute inset-0"
       style="background-image:repeating-linear-gradient(45deg,#b8975a 0,#b8975a 1px,transparent 0,transparent 50%);background-size:20px 20px">
@@ -16,8 +16,9 @@
           Más de 1,000 títulos cuidadosamente seleccionados. Descubre tu próxima historia.
         </p>
         <div class="flex flex-wrap gap-4">
-          <a routerLink="/books" class="px-8 py-3 text-sm font-medium cursosr-pointer tracking-wide transition-all"
-            style="background-color:#b8975a; color:#02332D">
+          <a routerLink="/books"
+            class="px-8 py-3 text-sm font-medium cursosr-pointer tracking-wide transition-all text-primary"
+            style="background-color:#b8975a;">
             Explorar Catálogo
           </a>
           @if (authService.authStatus() !== 'authenticated') {

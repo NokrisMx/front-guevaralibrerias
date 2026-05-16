@@ -1,4 +1,4 @@
-<div class="min-h-screen flex" style="background-color:#02332D">
+<div class="min-h-screen flex bg-primary">
   <div class="hidden lg:flex lg:w-1/2 items-center justify-center relative overflow-hidden">
     <div class="absolute inset-0 opacity-5"
       style="background-image:repeating-linear-gradient(45deg,#b8975a 0,#b8975a 1px,transparent 0,transparent 30px);background-size:30px 30px">
@@ -13,31 +13,31 @@
   <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
     <div class="w-full max-w-md">
       <p class="text-xs tracking-widest uppercase mb-2" style="color:#b8975a">Nuevo usuario</p>
-      <h2 class="text-3xl font-light mb-8" style="font-family:'Cormorant Garamond',serif;color:#02332D">Crear Cuenta
+      <h2 class="text-3xl font-light mb-8 text-primary" style="font-family:'Cormorant Garamond',serif;">Crear Cuenta
       </h2>
       <form (ngSubmit)="onSubmit()" class="space-y-5">
         <div>
           <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Nombre Completo</label>
           <input type="text" [ngModel]="name()" (ngModelChange)="name.set($event)" name="name"
-            class="w-full border border-neutral-200 px-4 py-3 text-sm rounded-sm focus:outline-none focus:border-[#02332D] transition-colors"
+            class="w-full border border-neutral-200 px-4 py-3 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors"
             placeholder="Tu nombre">
         </div>
         <div>
           <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Correo Electrónico</label>
           <input type="email" [ngModel]="email()" (ngModelChange)="email.set($event)" name="email"
-            class="w-full border border-neutral-200 px-4 py-3 text-sm rounded-sm focus:outline-none focus:border-[#02332D] transition-colors"
+            class="w-full border border-neutral-200 px-4 py-3 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors"
             placeholder="tu@correo.com">
         </div>
         <div>
           <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Contraseña</label>
           <input type="password" [ngModel]="password()" (ngModelChange)="password.set($event)" name="pass"
-            class="w-full border border-neutral-200 px-4 py-3 text-sm rounded-sm focus:outline-none focus:border-[#02332D] transition-colors"
+            class="w-full border border-neutral-200 px-4 py-3 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors"
             placeholder="Mínimo 8 caracteres">
         </div>
         <div>
           <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Confirmar Contraseña</label>
           <input type="password" [ngModel]="confirmPass()" (ngModelChange)="confirmPass.set($event)" name="confirm"
-            class="w-full border border-neutral-200 px-4 py-3 text-sm rounded-sm focus:outline-none focus:border-[#02332D] transition-colors"
+            class="w-full border border-neutral-200 px-4 py-3 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors"
             placeholder="Repite tu contraseña">
         </div>
 
@@ -71,13 +71,12 @@
 
         }
         <button type="submit"
-          class="w-full py-3 text-white text-sm font-medium tracking-wide hover:opacity-90 transition-opacity"
-          style="background-color:#02332D">
+          class="w-full py-3 text-white text-sm font-medium tracking-wide hover:opacity-90 transition-opacity bg-primary">
           Crear Cuenta
         </button>
       </form>
       <p class="text-center text-sm text-neutral-400 mt-6">¿Ya tienes cuenta? <a routerLink="/auth/login"
-          class="font-medium hover:opacity-70" style="color:#02332D">Iniciar sesión</a></p>
+          class="font-medium hover:opacity-70 text-primary">Iniciar sesión</a></p>
     </div>
   </div>
 </div>

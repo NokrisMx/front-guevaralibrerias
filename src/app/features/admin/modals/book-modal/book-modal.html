@@ -138,7 +138,7 @@
               Categoría <span class="text-red-400">*</span>
             </label>
             <select [(ngModel)]="categoryIdModel" [disabled]="isLoading()"
-              class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-[#02332D] transition-colors disabled:bg-neutral-50 bg-white">
+              class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors disabled:bg-neutral-50 bg-white">
               <option [ngValue]="null">Seleccionar</option>
               @for (cat of categories(); track cat.id) {
               <option [ngValue]="cat.id">{{ cat.name }}</option>

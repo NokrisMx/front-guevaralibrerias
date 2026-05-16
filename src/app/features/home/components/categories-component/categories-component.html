@@ -26,13 +26,13 @@
 
       @for(cat of productResource.value()?.data; track cat.id){
       <a [routerLink]="['/books']" [queryParams]="{categoryId: cat.id}"
-        class="bg-white p-5 text-center border border-neutral-100 hover:border-[#02332D]/30 hover:shadow-md transition-all cursor-pointer group rounded-sm">
+        class="bg-white p-5 text-center border border-neutral-100 hover:border-primary/30 hover:shadow-md transition-all cursor-pointer group rounded-sm">
 
         <div class="text-3xl mb-2">
           <i class="pi pi-book"></i>
         </div>
 
-        <p class="font-medium text-sm text-neutral-700 group-hover:text-[#02332D] transition-colors">
+        <p class="font-medium text-sm text-neutral-700 group-hover:text-primary transition-colors">
           {{cat.name}}
         </p>
 

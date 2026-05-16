@@ -75,25 +75,25 @@
               <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Nombre Completo</label>
               <input type="text" [(ngModel)]="editableUser()!.name" [disabled]="!editing()"
                 class="w-full border px-4 py-2.5 text-sm rounded-sm focus:outline-none transition-colors disabled:bg-neutral-50 disabled:text-neutral-500"
-                [class.border-neutral-200]="!editing()" [class.border-[#02332D]]="editing()">
+                [class.border-neutral-200]="!editing()" [class.border-primary]="editing()">
             </div>
             <div>
               <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Nombre de Usuario</label>
               <input type="text" [(ngModel)]="editableUser()!.username" [disabled]="!editing()"
                 class="w-full border px-4 py-2.5 text-sm rounded-sm focus:outline-none transition-colors disabled:bg-neutral-50 disabled:text-neutral-500"
-                [class.border-neutral-200]="!editing()" [class.border-[#02332D]]="editing()">
+                [class.border-neutral-200]="!editing()" [class.border-primary]="editing()">
             </div>
             <div>
               <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Correo Electrónico</label>
               <input type="email" [(ngModel)]="editableUser()!.email" [disabled]="!editing()"
                 class="w-full border px-4 py-2.5 text-sm rounded-sm focus:outline-none transition-colors disabled:bg-neutral-50 disabled:text-neutral-500"
-                [class.border-neutral-200]="!editing()" [class.border-[#02332D]]="editing()">
+                [class.border-neutral-200]="!editing()" [class.border-primary]="editing()">
             </div>
             <div>
               <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Teléfono</label>
               <input type="tel" [(ngModel)]="editableUser()!.phoneNumber" [disabled]="!editing()"
                 class="w-full border px-4 py-2.5 text-sm rounded-sm focus:outline-none transition-colors disabled:bg-neutral-50 disabled:text-neutral-500"
-                [class.border-neutral-200]="!editing()" [class.border-[#02332D]]="editing()">
+                [class.border-neutral-200]="!editing()" [class.border-primary]="editing()">
             </div>
           </div>
 
@@ -104,8 +104,7 @@
               Cancelar
             </button>
             <button (click)="save()"
-              class="px-8 py-2.5 text-white text-sm font-medium hover:opacity-90 transition-opacity"
-              style="background-color:#02332D">
+              class="px-8 py-2.5 text-white text-sm font-medium hover:opacity-90 transition-opacity bg-primary">
               Guardar Cambios
             </button>
           </div>
