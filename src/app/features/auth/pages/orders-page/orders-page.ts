@@ -9,6 +9,7 @@ import { HeroProfileComponent } from '../../components/hero-profile-component/he
 import type { User } from '../../interfaces/user-interface';
 import { AuthService } from '../../services/auth.service';
 import { MenuProfileComponent } from '../../components/menu-profile-component/menu-profile-component';
+import { BookImgPipe } from '../../../../shared/pipes/book-img-pipe';
 
 @Component({
   selector: 'orders-page',
@@ -20,6 +21,7 @@ import { MenuProfileComponent } from '../../components/menu-profile-component/me
     HeroProfileComponent,
     MenuProfileComponent,
     CurrencyPipe,
+    BookImgPipe,
   ],
   templateUrl: './orders-page.html',
 })

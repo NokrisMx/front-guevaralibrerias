@@ -19,7 +19,7 @@
         <div class="relative">
           <div class="hover-3d">
             <figure class="max-w-100 rounded-2xl">
-              <img [src]="book()!.imgUrl || 'assets/images/no-image.jpg'" [alt]="book()!.title"
+              <img [src]="book()!.imgUrl | bookImg" [alt]="book()!.title"
                 class="w-60 h-80 object-scale-down rounded-sm shadow-2xl" />
             </figure>
             <!-- 8 empty divs needed for the 3D effect -->

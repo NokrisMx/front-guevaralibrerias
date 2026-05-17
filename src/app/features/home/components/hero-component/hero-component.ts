@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { BooksService } from '../../../../core/services/books.service';
 import { AuthService } from '../../../auth/services/auth.service';
+import { BookImgPipe } from '../../../../shared/pipes/book-img-pipe';
 
 @Component({
   selector: 'hero-component',
-  imports: [RouterLink],
+  imports: [RouterLink, BookImgPipe],
   templateUrl: './hero-component.html',
 })
 export class HeroComponent {

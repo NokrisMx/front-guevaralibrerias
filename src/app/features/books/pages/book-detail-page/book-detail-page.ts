@@ -4,10 +4,11 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { BooksService } from '../../../../core/services/books.service';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { CartService } from '../../services/cart.service';
+import { BookImgPipe } from '../../../../shared/pipes/book-img-pipe';
 
 @Component({
   selector: 'book-detail-page',
-  imports: [RouterLink, DatePipe, CurrencyPipe],
+  imports: [RouterLink, DatePipe, CurrencyPipe, BookImgPipe],
   templateUrl: './book-detail-page.html',
 })
 export class BookDetailPage {

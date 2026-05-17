@@ -3,6 +3,7 @@ import { Component, computed, input, output, signal } from '@angular/core';
 import { OrderStatusPipe } from '../../../auth/pipes/order-status-pipe';
 import { OrderStatusColorPipe } from '../../../auth/pipes/order-status-color-pipe';
 import { FormsModule } from '@angular/forms';
+import { BookImgPipe } from '../../../../shared/pipes/book-img-pipe';
 
 export interface TableColumn {
   key: string;
@@ -17,7 +18,14 @@ type SortDirection = 'asc' | 'desc' | null;
 
 @Component({
   selector: 'table-component',
-  imports: [DatePipe, CurrencyPipe, OrderStatusPipe, OrderStatusColorPipe, FormsModule],
+  imports: [
+    DatePipe,
+    CurrencyPipe,
+    OrderStatusPipe,
+    OrderStatusColorPipe,
+    FormsModule,
+    BookImgPipe,
+  ],
   templateUrl: './table-component.html',
 })
 export class TableComponent {

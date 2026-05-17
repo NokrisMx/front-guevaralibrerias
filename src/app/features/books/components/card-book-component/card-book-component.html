@@ -1,7 +1,7 @@
 <a [routerLink]="['/books', book().id]"
   class="group bg-white border border-neutral-100 rounded-sm overflow-hidden hover:shadow-md transition-all">
   <div class="overflow-hidden">
-    <img [src]="book().imgUrl || 'assets/images/no-image.jpg'" [alt]="book().title"
+    <img [src]="book().imgUrl | bookImg" [alt]="book().title"
       class="h-44 w-full object-scale-down group-hover:scale-105 transition-transform duration-300" />
   </div>
   <div class="p-3">

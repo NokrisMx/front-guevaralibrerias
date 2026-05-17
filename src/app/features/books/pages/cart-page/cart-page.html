@@ -11,7 +11,7 @@
       <div class="lg:col-span-2 space-y-3">
         @for (item of items(); track item.id) {
         <div class="bg-white border border-neutral-100 rounded-sm p-4 flex items-center gap-4">
-          <img [src]="item.imgUrl || 'assets/images/no-image.jpg'" [alt]="item.title"
+          <img [src]="item.imgUrl | bookImg" [alt]="item.title"
             class="w-12 h-16 shrink-0 rounded-sm object-cover border border-neutral-200" />
           <div class="flex-1 min-w-0">
             <p class="font-medium text-sm text-neutral-800 truncate">{{item.title}}</p>

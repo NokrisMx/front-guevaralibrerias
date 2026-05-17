@@ -60,7 +60,7 @@
           @if(bookResource.value()?.data?.data?.[0]; as book1){
           <a [routerLink]="['/books', book1.id]" class="w-36 h-48 shadow-2xl rounded-sm overflow-hidden group">
 
-            <img [src]="book1.imgUrl || 'assets/images/no-image.jpg'" [alt]="book1.title"
+            <img [src]="book1.imgUrl | bookImg" [alt]="book1.title"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
 
           </a>
@@ -69,7 +69,7 @@
           @if(bookResource.value()?.data?.data?.[1]; as book2){
           <a [routerLink]="['/books', book2.id]" class="w-32 h-44 shadow-2xl rounded-sm overflow-hidden ml-6 group">
 
-            <img [src]="book2.imgUrl || 'assets/images/no-image.jpg'" [alt]="book2.title"
+            <img [src]="book2.imgUrl | bookImg" [alt]="book2.title"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
 
           </a>
@@ -83,7 +83,7 @@
           @if(bookResource.value()?.data?.data?.[2]; as book3){
           <a [routerLink]="['/books', book3.id]" class="w-40 h-52 shadow-2xl rounded-sm overflow-hidden group">
 
-            <img [src]="book3.imgUrl || 'assets/images/no-image.jpg'" [alt]="book3.title"
+            <img [src]="book3.imgUrl | bookImg" [alt]="book3.title"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
 
           </a>
@@ -92,7 +92,7 @@
           @if(bookResource.value()?.data?.data?.[3]; as book4){
           <a [routerLink]="['/books', book4.id]" class="w-36 h-40 shadow-2xl rounded-sm overflow-hidden group">
 
-            <img [src]="book4.imgUrl || 'assets/images/no-image.jpg'" [alt]="book4.title"
+            <img [src]="book4.imgUrl | bookImg" [alt]="book4.title"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
 
           </a>

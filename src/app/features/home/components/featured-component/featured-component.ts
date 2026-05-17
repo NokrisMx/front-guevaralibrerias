@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { BooksService } from '../../../../core/services/books.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { CurrencyPipe } from '@angular/common';
+import { BookImgPipe } from '../../../../shared/pipes/book-img-pipe';
 
 @Component({
   selector: 'featured-component',
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe, BookImgPipe],
   templateUrl: './featured-component.html',
 })
 export class FeaturedComponent {

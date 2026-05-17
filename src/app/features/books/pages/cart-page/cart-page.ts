@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { OrderService } from '../../../../shared/services/order.service';
 import { CurrencyPipe } from '@angular/common';
+import { BookImgPipe } from '../../../../shared/pipes/book-img-pipe';
 
 @Component({
   selector: 'cart-page',
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe, BookImgPipe],
   templateUrl: './cart-page.html',
 })
 export class CartPage {

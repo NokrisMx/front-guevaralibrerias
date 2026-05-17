@@ -19,12 +19,13 @@ import { AuthorsService } from '../../../../core/services/authors.service';
 import { CategoriesService } from '../../../../core/services/categories.service';
 import { PublishersService } from '../../../../core/services/publishers.service';
 import { RecordDates } from '../../components/record-dates-component/record-dates-component';
+import { BookImgPipe } from '../../../../shared/pipes/book-img-pipe';
 
 export type BookModalMode = 'create' | 'edit' | 'delete';
 
 @Component({
   selector: 'book-modal',
-  imports: [FormsModule, RecordDates],
+  imports: [FormsModule, RecordDates, BookImgPipe],
   templateUrl: './book-modal.html',
 })
 export class BookModal {

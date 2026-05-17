@@ -57,7 +57,7 @@
               @for (item of order.items; track item.title) {
               <div class="flex items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
-                  <img [src]="item.imgUrl || 'assets/images/no-image.jpg'" [alt]="item.title"
+                  <img [src]="item.imgUrl | bookImg" [alt]="item.title"
                     class="w-8 h-10 rounded-sm shrink-0 object-cover border border-neutral-200" />
                   <div>
                     <p class="text-sm text-neutral-700 font-medium">{{ item.title }}</p>

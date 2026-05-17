@@ -52,8 +52,7 @@
           <div class="flex items-center gap-4">
             <!-- Preview -->
             <div class="w-16 h-20 rounded-sm shrink-0 overflow-hidden bg-primary">
-              <img [src]="imagePreview() || 'assets/images/no-image.jpg'" alt="preview"
-                class="w-full h-full object-cover">
+              <img [src]="imagePreview() | bookImg" alt="preview" class="w-full h-full object-cover">
             </div>
             <label class="flex-1 cursor-pointer">
               <div

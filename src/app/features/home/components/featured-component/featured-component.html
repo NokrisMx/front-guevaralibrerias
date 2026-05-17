@@ -47,7 +47,7 @@
 
         <div class="relative overflow-hidden rounded-sm mb-3 aspect-auto" style="background:#f5f0e8">
 
-          <img [src]="book.imgUrl || 'assets/images/no-image.jpg'" [alt]="book.title"
+          <img [src]="book.imgUrl | bookImg" [alt]="book.title"
             class="w-full h-full object-scale-down group-hover:scale-105 transition-transform duration-500">
 
           <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all duration-300">
