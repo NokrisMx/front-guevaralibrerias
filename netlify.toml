@@ -1,0 +1,14 @@
+[build]
+  command = "ng build --configuration=production"
+  publish = "dist/front-guevaralibrerias/browser"
+
+[[redirects]]
+  from = "/api/*"
+  to = "http://www.guevaralibrerias.somee.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

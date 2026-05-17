@@ -1,3 +1,6 @@
+// export const environment = {
+//   baseUrl: 'http://www.guevaralibrerias.somee.com/api/v1',
+// };
 export const environment = {
-  baseUrl: 'URL_PRODUCCIÓN',
+  baseUrl: '/api/v1',
 };

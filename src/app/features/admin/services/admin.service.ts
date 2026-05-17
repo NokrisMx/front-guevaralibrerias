@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { DashboardStats } from '../interfaces/dashboard-stats-interface';
 import { ApiResponse } from '../../../shared/interfaces/ApiResponse';
 import { RecentOrders } from '../interfaces/recent-orders';
