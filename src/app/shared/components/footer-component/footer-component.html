@@ -14,6 +14,7 @@
         <ul class="space-y-2 text-sm text-white/60">
           <li><a routerLink="/" class="hover:text-white transition-colors">Inicio</a></li>
           <li><a routerLink="/books" class="hover:text-white transition-colors">Libros</a></li>
+          <li><a routerLink="/faqs" class="hover:text-white transition-colors">Faqs</a></li>
           @if(authService.user()?.role === 'Admin') {
           <li><a routerLink="/admin/dashboard" class="hover:text-white transition-colors">Dashboard</a>
           </li>

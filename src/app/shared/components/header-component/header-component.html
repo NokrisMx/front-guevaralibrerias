@@ -78,9 +78,7 @@
     <div class="px-4 py-3 flex flex-col gap-3">
       <a routerLink="/" (click)="toggleMobile()" class="text-white/80 hover:text-white text-sm py-1">Inicio</a>
       <a routerLink="/books" (click)="toggleMobile()" class="text-white/80 hover:text-white text-sm py-1">Libros</a>
-
-
-
+      <a routerLink="/faqs" (click)="toggleMobile()" class="text-white/80 hover:text-white text-sm py-1">Faqs</a>
       @if (authService.authStatus() === 'authenticated') {
       @if(authService.user()?.role === 'Admin'){
       <a routerLink="/admin/dashboard" (click)="toggleMobile()"
