@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { PublishersService } from '../../../../core/services/publishers.service';
 import type { Publisher } from '../../../../core/interfaces/publisher-interface';
 import { RecordDates } from '../../components/record-dates-component/record-dates-component';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 export type PublisherModalMode = 'create' | 'edit' | 'delete';
 
@@ -13,6 +14,7 @@ export type PublisherModalMode = 'create' | 'edit' | 'delete';
 })
 export class PublisherModal {
   private publishersService = inject(PublishersService);
+  private alertService = inject(AlertService);
 
   mode = input.required<PublisherModalMode>();
   publisher = input<Publisher | null>(null);
@@ -35,6 +37,11 @@ export class PublisherModal {
     }
     this.errorMsg.set('');
   });
+
+  resetForm() {
+    this.name.set('');
+    this.errorMsg.set('');
+  }
 
   get title() {
     return { create: 'Nuevo Editorial', edit: 'Editar Editorial', delete: 'Eliminar Editorial' }[
@@ -68,13 +75,16 @@ export class PublisherModal {
         : this.publishersService.updatePublisher(this.publisher()!.id, body);
 
     request$.subscribe({
-      next: () => {
+      next: (res) => {
         this.isLoading.set(false);
+        this.alertService.success(res.message);
         this.onSuccess.emit();
+        this.close();
       },
       error: (err) => {
         this.isLoading.set(false);
-        this.errorMsg.set(err.error?.message ?? 'Ocurrió un error, intenta de nuevo.');
+        this.alertService.error(err.error?.message ?? 'Ocurrió un error, intenta de nuevo.');
+        this.close();
       },
     });
   }
@@ -82,13 +92,16 @@ export class PublisherModal {
   delete() {
     this.isLoading.set(true);
     this.publishersService.deletePublisher(this.publisher()!.id).subscribe({
-      next: () => {
+      next: (res) => {
         this.isLoading.set(false);
+        this.alertService.success(res.message);
         this.onSuccess.emit();
+        this.close();
       },
       error: (err) => {
         this.isLoading.set(false);
-        this.errorMsg.set(err.error?.message ?? 'No se pudo eliminar la editorial.');
+        this.alertService.error(err.error?.message ?? 'No se pudo eliminar la editorial.');
+        this.close();
       },
     });
   }

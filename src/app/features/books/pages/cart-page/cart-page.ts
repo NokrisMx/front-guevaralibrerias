@@ -4,6 +4,7 @@ import { CartService } from '../../services/cart.service';
 import { OrderService } from '../../../../shared/services/order.service';
 import { CurrencyPipe } from '@angular/common';
 import { BookImgPipe } from '../../../../shared/pipes/book-img-pipe';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'cart-page',
@@ -13,6 +14,7 @@ import { BookImgPipe } from '../../../../shared/pipes/book-img-pipe';
 export class CartPage {
   private cartService = inject(CartService);
   private orderService = inject(OrderService);
+  authService = inject(AuthService);
 
   items = this.cartService.items;
 

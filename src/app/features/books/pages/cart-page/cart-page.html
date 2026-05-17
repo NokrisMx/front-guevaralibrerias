@@ -10,7 +10,7 @@
     <div class="grid lg:grid-cols-3 gap-8">
       <div class="lg:col-span-2 space-y-3">
         @for (item of items(); track item.id) {
-        <div class="bg-white border border-neutral-100 rounded-sm p-4 flex items-center gap-4">
+        <div class="bg-white border border-neutral-100 rounded-sm p-4 flex flex-wrap sm:flex-nowrap items-center gap-3">
           <img [src]="item.imgUrl | bookImg" [alt]="item.title"
             class="w-12 h-16 shrink-0 rounded-sm object-cover border border-neutral-200" />
           <div class="flex-1 min-w-0">
@@ -18,17 +18,18 @@
             <p class="text-xs text-neutral-400">{{item.author}}</p>
             <p class="font-medium text-sm mt-1 text-primary">{{item.price | currency: 'MXN':'symbol':'1.2-2'}}</p>
           </div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 shrink-0">
             <button (click)="dec(item.id)"
               class="w-7 h-7 border border-neutral-200 text-neutral-500 hover:border-primary text-sm flex items-center justify-center">−</button>
             <span class="w-8 text-center text-sm">{{item.quantity}}</span>
             <button (click)="inc(item.id)"
               class="w-7 h-7 border border-neutral-200 text-neutral-500 hover:border-primary text-sm flex items-center justify-center">+</button>
           </div>
-          <p class="font-medium w-20 text-right text-sm text-primary">{{item.price * item.quantity | currency:
+          <p class="font-medium text-right text-sm text-primary shrink-0 w-24 hidden sm:block">{{item.price *
+            item.quantity | currency:
             'MXN':'symbol':'1.2-2'}}</p>
           <button (click)="remove(item.id)"
-            class="text-neutral-300 hover:text-red-400 ml-2 transition-colors">✕</button>
+            class="text-neutral-300 hover:text-red-300 ml-2 transition-colors shrink-0">✕</button>
         </div>
         }
       </div>
@@ -43,10 +44,14 @@
             <span>Total</span><span>{{total() | currency: 'MXN':'symbol':'1.2-2'}}</span>
           </div>
         </div>
+        @if(authService.authStatus() === 'authenticated') {
         <button (click)="checkout()"
           class="w-full mt-6 py-3 text-white text-sm font-medium tracking-wide bg-primary">Proceder al Pago</button>
-        <a routerLink="/books" class="block text-center mt-3 text-xs text-neutral-400 hover:text-primary">← Continuar
-          comprando</a>
+        <a routerLink="/books" class="block text-center mt-3 text-xs text-neutral-400 hover:text-primary">← Cátalogo</a>
+        }@else{
+        <a routerLink="/auth/login"
+          class="w-full mt-6 py-3 text-white text-sm font-medium tracking-wide bg-primary text-center block">Acceder</a>
+        }
       </div>
     </div>
     } @else {

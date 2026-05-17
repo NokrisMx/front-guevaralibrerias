@@ -17,20 +17,6 @@
         <p class="text-xs text-neutral-400 mt-0.5">Actualiza tu información personal</p>
       </div>
 
-      @if (profileSuccessMsg()) {
-      <div
-        class="mb-4 p-3 text-sm text-green-700 bg-green-50 border border-green-200 rounded-sm flex items-center gap-2">
-        <i class="pi pi-check-circle text-xs"></i>
-        {{ profileSuccessMsg() }}
-      </div>
-      }
-      @if (profileErrorMsg()) {
-      <div class="mb-4 p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-sm flex items-center gap-2">
-        <i class="pi pi-exclamation-circle text-xs"></i>
-        {{ profileErrorMsg() }}
-      </div>
-      }
-
       <div class="grid sm:grid-cols-2 gap-5">
         <div>
           <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Nombre Completo</label>
@@ -73,20 +59,6 @@
         </h2>
         <p class="text-xs text-neutral-400 mt-0.5">Elige una contraseña segura de al menos 8 caracteres</p>
       </div>
-
-      @if (passwordSuccessMsg()) {
-      <div
-        class="mb-4 p-3 text-sm text-green-700 bg-green-50 border border-green-200 rounded-sm flex items-center gap-2">
-        <i class="pi pi-check-circle text-xs"></i>
-        {{ passwordSuccessMsg() }}
-      </div>
-      }
-      @if (passwordErrorMsg()) {
-      <div class="mb-4 p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-sm flex items-center gap-2">
-        <i class="pi pi-exclamation-circle text-xs"></i>
-        {{ passwordErrorMsg() }}
-      </div>
-      }
 
       <div class="space-y-4">
         <div>

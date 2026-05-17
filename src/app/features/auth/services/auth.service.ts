@@ -8,6 +8,7 @@ import type { UpdateUser } from '../interfaces/update-user-interface';
 import { jwtDecode } from 'jwt-decode';
 import { ApiResponse } from '../../../shared/interfaces/ApiResponse';
 import type { RegisterUser } from '../interfaces/register-user-interface';
+import { ChangePasswordInterface } from '../interfaces/change-password-interface';
 
 interface JwtPayload {
   exp: number;
@@ -130,12 +131,11 @@ export class AuthService {
     localStorage.setItem('guevara_user', JSON.stringify(newStored));
   }
 
-  changePassword(
-    currentPassword: string,
-    newPassword: string,
-    confirmPassword: string,
-  ): Observable<void> {
-    const body = { currentPassword, newPassword, confirmPassword };
-    return this.http.put<void>(`${baseUrl}/User/change-password`, body);
+  changePassword(data: ChangePasswordInterface): Observable<ApiResponse<ChangePasswordInterface>> {
+    const body = { ...data };
+    return this.http.put<ApiResponse<ChangePasswordInterface>>(
+      `${baseUrl}/User/change-password`,
+      body,
+    );
   }
 }

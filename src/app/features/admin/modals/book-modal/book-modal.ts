@@ -20,6 +20,7 @@ import { CategoriesService } from '../../../../core/services/categories.service'
 import { PublishersService } from '../../../../core/services/publishers.service';
 import { RecordDates } from '../../components/record-dates-component/record-dates-component';
 import { BookImgPipe } from '../../../../shared/pipes/book-img-pipe';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 export type BookModalMode = 'create' | 'edit' | 'delete';
 
@@ -34,6 +35,7 @@ export class BookModal {
   private authorsService = inject(AuthorsService);
   private categoriesService = inject(CategoriesService);
   private publishersService = inject(PublishersService);
+  private alertService = inject(AlertService);
 
   mode = input.required<BookModalMode>();
   book = input<Book | null>(null);
@@ -74,7 +76,6 @@ export class BookModal {
     const b = this.book();
     const isEdit = b !== null && this.mode() === 'edit';
 
-    // Campos que no dependen de los selects los asignas ya
     if (isEdit) {
       this.title.set(b!.title);
       this.description.set(b!.description);
@@ -99,7 +100,6 @@ export class BookModal {
         this.publishers.set(res.publishers.data);
         this.isLoadingData.set(false);
 
-        // ← Aquí, cuando las opciones YA están en el DOM
         if (isEdit) {
           this.categoryIdModel = b!.categoryId;
           this.authorIdModel = b!.authorId;
@@ -205,14 +205,17 @@ export class BookModal {
         : this.booksService.updateBook(this.book()!.id, fd);
 
     request$.subscribe({
-      next: () => {
+      next: (res) => {
         this.isLoading.set(false);
         this.resetForm();
+        this.alertService.success(res.message);
         this.onSuccess.emit();
+        this.close();
       },
       error: (err) => {
         this.isLoading.set(false);
-        this.errorMsg.set(err.error?.message ?? 'Ocurrió un error, intenta de nuevo.');
+        this.alertService.error(err.error?.message ?? 'Ocurrió un error, intenta de nuevo.');
+        this.close();
       },
     });
   }
@@ -220,13 +223,16 @@ export class BookModal {
   delete() {
     this.isLoading.set(true);
     this.booksService.deleteBook(this.book()!.id).subscribe({
-      next: () => {
+      next: (res) => {
         this.isLoading.set(false);
+        this.alertService.success(res.message);
         this.onSuccess.emit();
+        this.close();
       },
       error: (err) => {
         this.isLoading.set(false);
-        this.errorMsg.set(err.error?.message ?? 'No se pudo eliminar el libro.');
+        this.alertService.error(err.error?.message ?? 'No se pudo eliminar el libro.');
+        this.close();
       },
     });
   }

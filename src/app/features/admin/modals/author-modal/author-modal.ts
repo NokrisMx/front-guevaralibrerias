@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import type { Author } from '../../../../core/interfaces/author-interface';
 import { AuthorsService } from '../../../../core/services/authors.service';
 import { RecordDates } from '../../components/record-dates-component/record-dates-component';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 export type AuthorModalMode = 'create' | 'edit' | 'delete';
 
@@ -13,6 +14,7 @@ export type AuthorModalMode = 'create' | 'edit' | 'delete';
 })
 export class AuthorModal {
   private authorsService = inject(AuthorsService);
+  private alertService = inject(AlertService);
 
   mode = input.required<AuthorModalMode>();
   author = input<Author | null>(null);
@@ -38,6 +40,12 @@ export class AuthorModal {
     }
     this.errorMsg.set('');
   });
+
+  resetForm() {
+    this.name.set('');
+    this.bio.set('');
+    this.errorMsg.set('');
+  }
 
   get title() {
     return { create: 'Nuevo Autor', edit: 'Editar Autor', delete: 'Eliminar Autor' }[this.mode()];
@@ -69,13 +77,17 @@ export class AuthorModal {
         : this.authorsService.updateAuthor(this.author()!.id, body);
 
     request$.subscribe({
-      next: () => {
+      next: (res) => {
         this.isLoading.set(false);
+        this.resetForm();
+        this.alertService.success(res.message);
         this.onSuccess.emit();
+        this.close();
       },
       error: (err) => {
         this.isLoading.set(false);
-        this.errorMsg.set(err.error?.message ?? 'Ocurrió un error, intenta de nuevo.');
+        this.alertService.error(err.error?.message ?? 'Ocurrió un error al guardar el autor.');
+        this.close();
       },
     });
   }
@@ -83,13 +95,16 @@ export class AuthorModal {
   delete() {
     this.isLoading.set(true);
     this.authorsService.deleteAuthor(this.author()!.id).subscribe({
-      next: () => {
+      next: (res) => {
         this.isLoading.set(false);
+        this.alertService.success(res.message);
         this.onSuccess.emit();
+        this.close();
       },
       error: (err) => {
         this.isLoading.set(false);
-        this.errorMsg.set(err.error?.message ?? 'No se pudo eliminar el autor.');
+        this.alertService.error(err.error?.message ?? 'No se pudo eliminar el autor.');
+        this.close();
       },
     });
   }

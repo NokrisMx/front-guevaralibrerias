@@ -12,7 +12,7 @@ export const bookRoutes: Routes = [
   {
     path: 'cart',
     component: CartPage,
-    canActivate: [authGuard],
+    //canActivate: [authGuard],
   },
   {
     path: ':id',

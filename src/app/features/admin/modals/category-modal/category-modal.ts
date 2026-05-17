@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CategoriesService } from '../../../../core/services/categories.service';
 import type { Category } from '../../../../core/interfaces/category-interface';
 import { RecordDates } from '../../components/record-dates-component/record-dates-component';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 export type CategoryModalMode = 'create' | 'edit' | 'delete';
 
@@ -13,6 +14,7 @@ export type CategoryModalMode = 'create' | 'edit' | 'delete';
 })
 export class CategoryModal {
   private categoriesService = inject(CategoriesService);
+  private alertService = inject(AlertService);
 
   mode = input.required<CategoryModalMode>();
   category = input<Category | null>(null);
@@ -35,6 +37,11 @@ export class CategoryModal {
     }
     this.errorMsg.set('');
   });
+
+  resetForm() {
+    this.name.set('');
+    this.errorMsg.set('');
+  }
 
   get title() {
     return { create: 'Nueva Categoría', edit: 'Editar Categoría', delete: 'Eliminar Categoría' }[
@@ -68,13 +75,16 @@ export class CategoryModal {
         : this.categoriesService.updateCategory(this.category()!.id, body);
 
     request$.subscribe({
-      next: () => {
+      next: (res) => {
         this.isLoading.set(false);
+        this.alertService.success(res.message);
         this.onSuccess.emit();
+        this.close();
       },
       error: (err) => {
         this.isLoading.set(false);
-        this.errorMsg.set(err.error?.message ?? 'Ocurrió un error, intenta de nuevo.');
+        this.alertService.error(err.error?.message ?? 'Ocurrió un error, intenta de nuevo.');
+        this.close();
       },
     });
   }
@@ -82,13 +92,16 @@ export class CategoryModal {
   delete() {
     this.isLoading.set(true);
     this.categoriesService.deleteCategory(this.category()!.id).subscribe({
-      next: () => {
+      next: (res) => {
         this.isLoading.set(false);
+        this.alertService.success(res.message);
         this.onSuccess.emit();
+        this.close();
       },
       error: (err) => {
         this.isLoading.set(false);
-        this.errorMsg.set(err.error?.message ?? 'No se pudo eliminar la categoría.');
+        this.alertService.error(err.error?.message ?? 'No se pudo eliminar la categoría.');
+        this.close();
       },
     });
   }

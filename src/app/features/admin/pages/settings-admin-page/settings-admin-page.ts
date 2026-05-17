@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../auth/services/auth.service';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
   selector: 'settings-admin-page',
@@ -9,6 +10,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 })
 export class SettingsAdminPage {
   private authService = inject(AuthService);
+  private alertService = inject(AlertService);
 
   user = signal(this.authService.user());
 
@@ -19,8 +21,6 @@ export class SettingsAdminPage {
   phoneNumberModel = signal(this.user()?.phoneNumber ?? '');
 
   profileLoading = signal(false);
-  profileSuccessMsg = signal('');
-  profileErrorMsg = signal('');
 
   // Contraseña
   currentPassword = signal('');
@@ -31,13 +31,10 @@ export class SettingsAdminPage {
   showConfirm = signal(false);
 
   passwordLoading = signal(false);
-  passwordSuccessMsg = signal('');
   passwordErrorMsg = signal('');
 
   saveProfile() {
     this.profileLoading.set(true);
-    this.profileSuccessMsg.set('');
-    this.profileErrorMsg.set('');
 
     const body = {
       name: this.nameModel(),
@@ -50,13 +47,13 @@ export class SettingsAdminPage {
       next: (res) => {
         this.authService.updateStoredUser(res.data);
         this.profileLoading.set(false);
-        this.profileSuccessMsg.set('Perfil actualizado correctamente.');
-        setTimeout(() => this.profileSuccessMsg.set(''), 3000);
+        this.alertService.success(res.message);
       },
       error: (err) => {
         this.profileLoading.set(false);
-        const errors: string[] = err.error?.errors ?? ['Error al actualizar el perfil.'];
-        this.profileErrorMsg.set(errors.join(', '));
+        this.alertService.error(
+          err.error.message ?? 'Error al actualizar el perfil, intenta de nuevo.',
+        );
       },
     });
   }
@@ -64,43 +61,46 @@ export class SettingsAdminPage {
   changePassword() {
     if (!this.currentPassword().trim()) {
       this.passwordErrorMsg.set('Ingresa tu contraseña actual.');
+      this.alertService.error(this.passwordErrorMsg());
       return;
     }
     if (!this.newPassword().trim()) {
       this.passwordErrorMsg.set('Ingresa la nueva contraseña.');
+      this.alertService.error(this.passwordErrorMsg());
       return;
     }
     if (this.newPassword().length < 8) {
       this.passwordErrorMsg.set('La contraseña debe tener al menos 8 caracteres.');
+      this.alertService.error(this.passwordErrorMsg());
       return;
     }
     if (this.newPassword() !== this.confirmPassword()) {
       this.passwordErrorMsg.set('Las contraseñas no coinciden.');
+      this.alertService.error(this.passwordErrorMsg());
       return;
     }
 
     this.passwordLoading.set(true);
     this.passwordErrorMsg.set('');
-    this.passwordSuccessMsg.set('');
 
-    // ← elimina el const body que estaba aquí, ya no se necesita
+    const body = {
+      currentPassword: this.currentPassword(),
+      newPassword: this.newPassword(),
+      confirmPassword: this.confirmPassword(),
+    };
 
-    this.authService
-      .changePassword(this.currentPassword(), this.newPassword(), this.confirmPassword())
-      .subscribe({
-        next: () => {
-          this.passwordLoading.set(false);
-          this.passwordSuccessMsg.set('Contraseña actualizada correctamente.');
-          this.currentPassword.set('');
-          this.newPassword.set('');
-          this.confirmPassword.set('');
-          setTimeout(() => this.passwordSuccessMsg.set(''), 3000);
-        },
-        error: (err) => {
-          this.passwordLoading.set(false);
-          const errors: string[] = err.error?.errors ?? ['Error al cambiar la contraseña.'];
-          this.passwordErrorMsg.set(errors.join(', '));
-        },
-      });
+    this.authService.changePassword(body).subscribe({
+      next: (res) => {
+        this.passwordLoading.set(false);
+        this.currentPassword.set('');
+        this.newPassword.set('');
+        this.confirmPassword.set('');
+        this.alertService.success(res.message);
+      },
+      error: (err) => {
+        this.passwordLoading.set(false);
+        this.alertService.error(err.error?.message ?? 'Error al cambiar la contraseña.');
+      },
+    });
   }
 }
