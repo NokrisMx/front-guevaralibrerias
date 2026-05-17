@@ -1,1 +1,145 @@
-<p>settings-page works!</p>,
+<div class="p-6 max-w-7xl mx-auto">
+
+  <!-- Header -->
+  <div class="mb-8">
+    <p class="text-xs uppercase tracking-widest mb-1" style="color:#b8975a">Admin</p>
+    <h1 class="text-3xl font-light text-primary" style="font-family:'Cormorant Garamond',serif">Configuración</h1>
+  </div>
+
+  <div class="space-y-6">
+
+    <!-- Datos de la cuenta -->
+    <div class="bg-white border border-neutral-100 rounded-sm p-6">
+      <div class="mb-6">
+        <h2 class="text-xl font-light text-primary" style="font-family:'Cormorant Garamond',serif">
+          Datos de la Cuenta
+        </h2>
+        <p class="text-xs text-neutral-400 mt-0.5">Actualiza tu información personal</p>
+      </div>
+
+      @if (profileSuccessMsg()) {
+      <div
+        class="mb-4 p-3 text-sm text-green-700 bg-green-50 border border-green-200 rounded-sm flex items-center gap-2">
+        <i class="pi pi-check-circle text-xs"></i>
+        {{ profileSuccessMsg() }}
+      </div>
+      }
+      @if (profileErrorMsg()) {
+      <div class="mb-4 p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-sm flex items-center gap-2">
+        <i class="pi pi-exclamation-circle text-xs"></i>
+        {{ profileErrorMsg() }}
+      </div>
+      }
+
+      <div class="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Nombre Completo</label>
+          <input type="text" [value]="nameModel()" (input)="nameModel.set($any($event.target).value)"
+            class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors">
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Nombre de Usuario</label>
+          <input type="text" [value]="usernameModel()" (input)="usernameModel.set($any($event.target).value)"
+            class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors">
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Correo Electrónico</label>
+          <input type="email" [value]="emailModel()" (input)="emailModel.set($any($event.target).value)"
+            class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors">
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Teléfono</label>
+          <input type="tel" [value]="phoneNumberModel()" (input)="phoneNumberModel.set($any($event.target).value)"
+            class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors">
+        </div>
+      </div>
+
+      <div class="mt-6 pt-6 border-t border-neutral-100 flex justify-end">
+        <button (click)="saveProfile()" [disabled]="profileLoading()"
+          class="px-8 py-2.5 text-white text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60 flex items-center gap-2 bg-primary">
+          @if (profileLoading()) {
+          <span class="loading loading-spinner loading-xs"></span>
+          }
+          Guardar Cambios
+        </button>
+      </div>
+    </div>
+
+    <!-- Cambio de contraseña -->
+    <div class="bg-white border border-neutral-100 rounded-sm p-6">
+      <div class="mb-6">
+        <h2 class="text-xl font-light text-primary" style="font-family:'Cormorant Garamond',serif">
+          Cambiar Contraseña
+        </h2>
+        <p class="text-xs text-neutral-400 mt-0.5">Elige una contraseña segura de al menos 8 caracteres</p>
+      </div>
+
+      @if (passwordSuccessMsg()) {
+      <div
+        class="mb-4 p-3 text-sm text-green-700 bg-green-50 border border-green-200 rounded-sm flex items-center gap-2">
+        <i class="pi pi-check-circle text-xs"></i>
+        {{ passwordSuccessMsg() }}
+      </div>
+      }
+      @if (passwordErrorMsg()) {
+      <div class="mb-4 p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-sm flex items-center gap-2">
+        <i class="pi pi-exclamation-circle text-xs"></i>
+        {{ passwordErrorMsg() }}
+      </div>
+      }
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Contraseña Actual</label>
+          <div class="relative">
+            <input [type]="showCurrent() ? 'text' : 'password'" [value]="currentPassword()"
+              (input)="currentPassword.set($any($event.target).value)" placeholder="••••••••"
+              class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors pr-12">
+            <button type="button" (click)="showCurrent.update(v => !v)"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400 hover:text-neutral-600">
+              {{ showCurrent() ? 'Ocultar' : 'Ver' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Nueva Contraseña</label>
+            <div class="relative">
+              <input [type]="showNew() ? 'text' : 'password'" [value]="newPassword()"
+                (input)="newPassword.set($any($event.target).value)" placeholder="••••••••"
+                class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors pr-12">
+              <button type="button" (click)="showNew.update(v => !v)"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400 hover:text-neutral-600">
+                {{ showNew() ? 'Ocultar' : 'Ver' }}
+              </button>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-neutral-400 mb-2">Confirmar Contraseña</label>
+            <div class="relative">
+              <input [type]="showConfirm() ? 'text' : 'password'" [value]="confirmPassword()"
+                (input)="confirmPassword.set($any($event.target).value)" placeholder="••••••••"
+                class="w-full border border-neutral-200 px-4 py-2.5 text-sm rounded-sm focus:outline-none focus:border-primary transition-colors pr-12">
+              <button type="button" (click)="showConfirm.update(v => !v)"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400 hover:text-neutral-600">
+                {{ showConfirm() ? 'Ocultar' : 'Ver' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-6 border-t border-neutral-100 flex justify-end">
+        <button (click)="changePassword()" [disabled]="passwordLoading()"
+          class="px-8 py-2.5 text-white text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60 flex items-center gap-2 bg-primary">
+          @if (passwordLoading()) {
+          <span class="loading loading-spinner loading-xs"></span>
+          }
+          Cambiar Contraseña
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { DashboardStats } from '../interfaces/dashboard-stats-interface';
 import { ApiResponse } from '../../../shared/interfaces/ApiResponse';
 import { RecentOrders } from '../interfaces/recent-orders';
+import { OrdersByStatus } from '../interfaces/orders-by-status';
+import { RevenueByMonth } from '../interfaces/revenue-by-month';
 
 const baseUrl = environment.baseUrl;
 
@@ -20,6 +22,14 @@ export class AdminService {
 
   getRecentOrders() {
     return this.http.get<ApiResponse<RecentOrders[]>>(`${baseUrl}/Dashboard/recent-orders`);
+  }
+
+  getOrdersByStatus() {
+    return this.http.get<ApiResponse<OrdersByStatus>>(`${baseUrl}/Dashboard/orders-by-status`);
+  }
+
+  getRevenueByMonth() {
+    return this.http.get<ApiResponse<RevenueByMonth[]>>(`${baseUrl}/Dashboard/revenue-by-month`);
   }
 
   constructor() {}

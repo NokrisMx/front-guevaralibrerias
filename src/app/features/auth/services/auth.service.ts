@@ -66,6 +66,7 @@ export class AuthService {
       username: res.username,
       email: res.email,
       name: res.name,
+      phoneNumber: res.phoneNumber,
       role: res.role,
     });
     this._authStatus.set('authenticated');
@@ -86,6 +87,7 @@ export class AuthService {
             username: res.data.username,
             email: res.data.email,
             name: res.data.name,
+            phoneNumber: res.data.phoneNumber,
             role: res.data.role,
           });
           this._authStatus.set('authenticated');
@@ -126,5 +128,14 @@ export class AuthService {
     const parsed: AuthResponse = JSON.parse(stored);
     const newStored = { ...parsed, ...updated };
     localStorage.setItem('guevara_user', JSON.stringify(newStored));
+  }
+
+  changePassword(
+    currentPassword: string,
+    newPassword: string,
+    confirmPassword: string,
+  ): Observable<void> {
+    const body = { currentPassword, newPassword, confirmPassword };
+    return this.http.put<void>(`${baseUrl}/User/change-password`, body);
   }
 }
