@@ -8,6 +8,12 @@
   status = 200
   force = true
 
+  [[redirects]]
+  from = "/BookImages/*"
+  to = "http://www.guevaralibrerias.somee.com/BookImages/:splat"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
