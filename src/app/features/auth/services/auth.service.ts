@@ -97,6 +97,21 @@ export class AuthService {
       );
   }
 
+  googleLogin(idToken: string): Observable<boolean> {
+    return this.http
+      .post<ApiResponse<AuthResponse>>(`${baseUrl}/User/google-login`, { idToken })
+      .pipe(
+        tap((res) => {
+          localStorage.setItem('guevara_user', JSON.stringify(res.data));
+
+          this._token.set(res.data.token);
+          this._user.set(res.data);
+          this._authStatus.set('authenticated');
+        }),
+        map(() => true),
+      );
+  }
+
   register(data: RegisterUser): Observable<ApiResponse<User>> {
     return this.http.post<ApiResponse<User>>(`${baseUrl}/User/register`, data);
   }
