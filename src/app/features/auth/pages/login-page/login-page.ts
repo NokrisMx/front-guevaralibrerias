@@ -28,7 +28,7 @@ export class LoginPage implements AfterViewInit {
 
   initGoogle() {
     google.accounts.id.initialize({
-      client_id: '890397911148-geq3bi7b03l1g0e4dtocns39572j2tv2.apps.googleusercontent.com',
+      client_id: 'CLIENT_ID',
       callback: (response: any) => {
         this.handleGoogle(response.credential);
       },
