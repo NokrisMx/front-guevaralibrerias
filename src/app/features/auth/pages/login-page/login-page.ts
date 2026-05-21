@@ -2,7 +2,9 @@ import { AfterViewInit, Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { environment } from '../../../../../environments/environment';
 
+const clientIdGoogle = environment.clientIdGoogle;
 declare const google: any;
 
 @Component({
@@ -28,7 +30,7 @@ export class LoginPage implements AfterViewInit {
 
   initGoogle() {
     google.accounts.id.initialize({
-      client_id: 'CLIENT_ID',
+      client_id: clientIdGoogle,
       callback: (response: any) => {
         this.handleGoogle(response.credential);
       },
